@@ -9,5 +9,8 @@ let userRouter = express_1.default.Router();
 userRouter.route('/login').post((req, res) => {
     return new user_controller_1.UserController().login(req, res);
 });
+userRouter.route('/register').post((req, res) => {
+    return new user_controller_1.UserController().register(req, res);
+});
 exports.default = userRouter;
 //# sourceMappingURL=user.routes.js.map

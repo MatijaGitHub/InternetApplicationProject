@@ -27,7 +27,10 @@ let user = new mongoose_1.default.Schema({
         type: String
     },
     adress_of_organization: {
-        type: String
+        country: String,
+        city: String,
+        street: String,
+        zipcode: String
     },
     organization_identification_number: {
         type: String

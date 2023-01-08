@@ -66,11 +66,40 @@
                     </td>
                 </tr>
                 <tr *ngIf="is_user == 0">
+                    <td colspan="2">
+                        <p>Address of organization (optional):</p>
+                    </td>
+                </tr>
+                <tr *ngIf="is_user == 0">
                     <td>
-                        Address of organization (optional):
+                        Country:
                     </td>
                     <td>
-                        <input type="text" name="add" [(ngModel)]="add">
+                        <input type="text" name="country" [(ngModel)]="country">
+                    </td>
+                </tr>
+                <tr *ngIf="is_user == 0">
+                    <td>
+                        City:
+                    </td>
+                    <td>
+                        <input type="text" name="city" [(ngModel)]="city">
+                    </td>
+                </tr>
+                <tr *ngIf="is_user == 0">
+                    <td>
+                        Zipcode:
+                    </td>
+                    <td>
+                        <input type="text" name="zipcode" [(ngModel)]="zipcode">
+                    </td>
+                </tr>
+                <tr *ngIf="is_user == 0">
+                    <td>
+                        Street and number:
+                    </td>
+                    <td>
+                        <input type="text" name="street" [(ngModel)]="street">
                     </td>
                 </tr>
                 <tr *ngIf="is_user == 0">
@@ -91,6 +120,7 @@
     </table>
     </form>
     Loginuj se <a href="">ovde</a> <br>
+    {{errorMsg}}
 
     
     

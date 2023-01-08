@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+
+
 let user = new mongoose.Schema({
     firstname: {
         type: String
@@ -22,7 +24,10 @@ let user = new mongoose.Schema({
         type: String
     },
     adress_of_organization: {
-        type: String
+        country : String,
+        city : String,
+        street : String,
+        zipcode : String
     },
     organization_identification_number: {
         type: String

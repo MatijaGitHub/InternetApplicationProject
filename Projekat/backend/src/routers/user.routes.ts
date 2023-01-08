@@ -12,4 +12,10 @@ userRouter.route('/login').post(
     }
 )
 
+userRouter.route('/register').post(
+    (req, res)=>{
+        return new UserController().register(req, res);
+    }
+)
+
 export default userRouter;
