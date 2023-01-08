@@ -1,0 +1,32 @@
+<form>
+<table>
+
+        <tr>
+            <td>
+                Username:
+            </td>
+            <td>
+                <input type="text" name="username" [(ngModel)]="username">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Password:
+            </td>
+            <td>
+                <input type="text" name="password" [(ngModel)]="password">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button (click)="login()" name="Login">Login</button>
+            </td>
+        
+        </tr>     
+
+</table>
+</form>
+Register as user <a role="button" (click)="switch_to_user_register()" href="javascript:void(0)">here</a> <br>
+Register as organization <a role="button" (click)="switch_to_organization_register()" href="javascript:void(0)">here</a> <br>
+{{message}}
+

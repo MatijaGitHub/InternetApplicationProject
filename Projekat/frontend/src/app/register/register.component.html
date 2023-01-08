@@ -1,0 +1,96 @@
+<form>
+    <table>
+        <tr>
+            <td>
+                Firstname:
+            </td>
+            <td>
+                <input type="text" name="firstname" [(ngModel)]="firstname">
+            </td>
+        </tr> 
+        <tr>
+            <td>
+                Lastname:
+            </td>
+            <td>
+                <input type="text" name="lastname" [(ngModel)]="lastname">
+            </td>
+        </tr>
+            <tr>
+                <td>
+                    Username:
+                </td>
+                <td>
+                    <input type="text" name="username" [(ngModel)]="username">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Password:
+                </td>
+                <td>
+                    <input type="text" name="password" [(ngModel)]="password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Confirm password:
+                </td>
+                <td>
+                    <input type="text" name="confirm_password" [(ngModel)]="confirm_password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Contact number:
+                </td>
+                <td>
+                    <input type="text" name="number" [(ngModel)]="number">
+                </td>
+            </tr>
+            <tr>
+                <tr>
+                    <td>
+                        Email:
+                    </td>
+                    <td>
+                        <input type="text" name="email" [(ngModel)]="email">
+                    </td>
+                </tr>
+                <tr *ngIf="is_user == 0">
+                    <td>
+                        Name of organization (optional):
+                    </td>
+                    <td>
+                        <input type="text" name="name_of_org" [(ngModel)]="name_of_org">
+                    </td>
+                </tr>
+                <tr *ngIf="is_user == 0">
+                    <td>
+                        Address of organization (optional):
+                    </td>
+                    <td>
+                        <input type="text" name="add" [(ngModel)]="add">
+                    </td>
+                </tr>
+                <tr *ngIf="is_user == 0">
+                    <td>
+                        Identification number of organization (optional):
+                    </td>
+                    <td>
+                        <input type="text" name="id_num" [(ngModel)]="id_num">
+                    </td>
+                </tr>
+            <tr>
+                <td colspan="2">
+                    <button (click)="register()" name="Register">Register</button>
+                </td>
+            
+            </tr>     
+    
+    </table>
+    </form>
+    Loginuj se <a href="">ovde</a> <br>
+
+    
+    
