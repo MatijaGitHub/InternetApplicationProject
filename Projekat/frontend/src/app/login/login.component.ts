@@ -28,13 +28,14 @@ export class LoginComponent implements OnInit {
           
           let userFromDB = user as User;
         if(userFromDB.type_of_user == 0){
-          this.message = "Korisnik!";
+          sessionStorage.setItem('username' , this.username);
+          this.router.navigate(['user'])
         }
         else if(userFromDB.type_of_user == 1){
-          this.message = "Organizator!";
+          this.router.navigate(['organizer'])
         }
         else{
-          this.message = "Admin!";
+          this.router.navigate(['admin'])
         }
       }
     });
@@ -44,6 +45,9 @@ export class LoginComponent implements OnInit {
   }
   switch_to_organization_register(){
     this.router.navigate(['register', {is_user: 0}])
+  }
+  switch_to_forgot_password(){
+    this.router.navigate(['forgot-password'])
   }
 
 }

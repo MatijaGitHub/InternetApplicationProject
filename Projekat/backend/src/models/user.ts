@@ -34,6 +34,9 @@ let user = new mongoose.Schema({
     },
     type_of_user: {
         type: Number
+    },
+    image_path: {
+        type: String
     }
 
 });

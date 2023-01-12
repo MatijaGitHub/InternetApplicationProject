@@ -8,7 +8,10 @@ import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { UserComponent } from './user/user.component';
 import { HttpClientModule } from '@angular/common/http';
-import { RegisterComponent } from './register/register.component'
+import { RegisterComponent } from './register/register.component';
+import { ForgotenPasswordComponent } from './forgoten-password/forgoten-password.component';
+import { OrganizerComponent } from './organizer/organizer.component';
+import { ChangePasswordComponent } from './change-password/change-password.component'
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { RegisterComponent } from './register/register.component'
     LoginComponent,
     AdminComponent,
     UserComponent,
-    RegisterComponent
+    RegisterComponent,
+    ForgotenPasswordComponent,
+    OrganizerComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -37,6 +37,9 @@ let user = new mongoose_1.default.Schema({
     },
     type_of_user: {
         type: Number
+    },
+    image_path: {
+        type: String
     }
 });
 exports.default = mongoose_1.default.model("UserModel", user, 'users');

@@ -1,4 +1,4 @@
-<form>
+<form enctype="multipart/form-data">
     <table>
         <tr>
             <td>
@@ -110,14 +110,21 @@
                         <input type="text" name="id_num" [(ngModel)]="id_num">
                     </td>
                 </tr>
+                <tr>
+                    <div class="form-group">
+                        
+                    <input type="file" (change)="uploadImage($any($event).target.files)">
+                    </div>
+                </tr>
             <tr>
                 <td colspan="2">
                     <button (click)="register()" name="Register">Register</button>
                 </td>
             
             </tr>     
-    
+         
     </table>
+
     </form>
     Loginuj se <a href="">ovde</a> <br>
     {{errorMsg}}

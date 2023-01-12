@@ -10,6 +10,7 @@ const user_routes_1 = __importDefault(require("./routers/user.routes"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
+app.use(express_1.default.urlencoded({ extended: true }));
 const uri = "mongodb://127.0.0.1:27017/UmetnickeRadioniceDB";
 mongoose_1.default.connect(uri);
 const connection = mongoose_1.default.connection;

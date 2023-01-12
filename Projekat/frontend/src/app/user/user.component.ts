@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-user',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
   }
-
+  changePass(){
+    this.router.navigate(['change-password']);
+  }
+  logout(){
+    sessionStorage.clear();
+    this.router.navigate(['']);
+  }
 }
