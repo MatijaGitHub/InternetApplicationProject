@@ -55,4 +55,36 @@ userRouter.route('/changePassword').post(
         return new UserController().changePassword(req, res);
     }
 )
+userRouter.route('/changeUsername').post(
+    (req, res)=>{
+        return new UserController().changeUsername(req, res);
+    }
+)
+userRouter.route('/changeFirstname').post(
+    (req, res)=>{
+        return new UserController().changeFirstname(req, res);
+    }
+)
+userRouter.route('/changeLastname').post(
+    (req, res)=>{
+        return new UserController().changeLastname(req, res);
+    }
+)
+userRouter.route('/changeEmail').post(
+    (req, res)=>{
+        return new UserController().changeEmail(req, res);
+    }
+)
+userRouter.route('/changePhonenumber').post(
+    (req, res)=>{
+        return new UserController().changePhonenumber(req, res);
+    }
+)
+userRouter.route('/changePicture').post(
+    upload.single('image'),
+    (req, res)=>{
+        return new UserController().changeProfilePic(req, res);
+    }
+)
+
 export default userRouter;

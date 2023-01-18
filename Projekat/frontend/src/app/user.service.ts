@@ -40,5 +40,43 @@ export class UserService {
     }
     return this.http.post('http://localhost:4000/users/changePassword', data);
   }
+  changeFirstname(usernameForm, newFirstnameForm){
+    const data = {
+      username : usernameForm,
+      firstname: newFirstnameForm
+    }
+    return this.http.post('http://localhost:4000/users/changeFirstname', data);
+  }
+  changeLastname(usernameForm, newLastnameForm){
+    const data = {
+      username : usernameForm,
+      lastname: newLastnameForm
+    }
+    return this.http.post('http://localhost:4000/users/changeLastname', data);
+  }
+  changeUsername(usernameForm, newUsernameForm){
+    const data = {
+      username : usernameForm,
+      usernameNew: newUsernameForm
+    }
+    return this.http.post('http://localhost:4000/users/changeUsername', data);
+  }
+  changeEmail(usernameForm, newEmailForm){
+    const data = {
+      username : usernameForm,
+      email: newEmailForm
+    }
+    return this.http.post('http://localhost:4000/users/changeEmail', data);
+  }
+  changePhonenumber(usernameForm, newPhonenumberForm){
+    const data = {
+      username : usernameForm,
+      phonenumber: newPhonenumberForm
+    }
+    return this.http.post('http://localhost:4000/users/changePhonenumber', data);
+  }
+  changeProfilePic(formData){
+    return this.http.post('http://localhost:4000/users/changePicture', formData);
+  }
 
 }

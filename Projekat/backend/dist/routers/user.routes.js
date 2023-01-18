@@ -43,5 +43,23 @@ userRouter.route('/sendRecoveryMail').post((req, res) => {
 userRouter.route('/changePassword').post((req, res) => {
     return new user_controller_1.UserController().changePassword(req, res);
 });
+userRouter.route('/changeUsername').post((req, res) => {
+    return new user_controller_1.UserController().changeUsername(req, res);
+});
+userRouter.route('/changeFirstname').post((req, res) => {
+    return new user_controller_1.UserController().changeFirstname(req, res);
+});
+userRouter.route('/changeLastname').post((req, res) => {
+    return new user_controller_1.UserController().changeLastname(req, res);
+});
+userRouter.route('/changeEmail').post((req, res) => {
+    return new user_controller_1.UserController().changeEmail(req, res);
+});
+userRouter.route('/changePhonenumber').post((req, res) => {
+    return new user_controller_1.UserController().changePhonenumber(req, res);
+});
+userRouter.route('/changePicture').post(exports.upload.single('image'), (req, res) => {
+    return new user_controller_1.UserController().changeProfilePic(req, res);
+});
 exports.default = userRouter;
 //# sourceMappingURL=user.routes.js.map

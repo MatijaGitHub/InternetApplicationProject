@@ -1,0 +1,99 @@
+<table>
+    <tr>
+        <td>
+            Firstname:
+        </td>
+        <td>
+            {{firstname}}
+        </td>
+        <td *ngIf="edit == 1">
+            <input type="text" name="firstnameUpdate" [(ngModel)]="firstnameUpd">
+        </td>
+        <td *ngIf="edit == 1">
+            <button (click)="changeFirstname()">Change</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Lastname:
+        </td>
+        <td>
+            {{lastname}}
+        </td>
+        <td *ngIf="edit == 1">
+            <input type="text" name="lastnameUpdate" [(ngModel)]="lastnameUpd">
+        </td>
+        <td *ngIf="edit == 1">
+            <button (click)="changeLastname()">Change</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Username:
+        </td>
+        <td>
+            {{username}}
+        </td>
+        <td *ngIf="edit == 1">
+            <input type="text" name="usernameUpdate" [(ngModel)]="usernameUpd">
+        </td>
+        <td *ngIf="edit == 1">
+            <button (click)="changeUsername()">Change</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Phone number:
+        </td>
+        <td>
+            {{phonenumber}}
+        </td>
+        <td *ngIf="edit == 1">
+            <input type="text" name="phonenumberUpdate" [(ngModel)]="phonenumberUpd">
+        </td>
+        <td *ngIf="edit == 1">
+            <button (click)="changePhonenumber()">Change</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Email:
+        </td>
+        <td>
+            {{email}}
+        </td>
+        <td *ngIf="edit == 1">
+            <input type="text" name="emailUpdate" [(ngModel)]="emailUpd">
+        </td>
+        <td *ngIf="edit == 1">
+            <button (click)="changeEmail()">Change</button>
+        </td>
+    </tr>
+    <tr>
+        <tr>
+            <td>
+                Profile picture:
+            </td>
+            <td>
+                <img src="http://localhost:4000/{{image_path}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+            </td>
+            <td *ngIf="edit == 1">
+                <div class="form-group">
+                        
+                    <input type="file" (change)="uploadImage($any($event).target.files)">
+                    </div>
+            </td>
+            <td *ngIf="edit == 1">
+                <button (click)="changePicture()">Change</button>
+            </td>
+        </tr>
+        <tr>
+        <td>
+            <button (click)="editEnable()">Edit mode</button>
+        </td>
+        <td>
+            <p *ngIf="edit == 1">On</p>
+            <p *ngIf="edit == 0">Off</p>
+        </td>
+    </tr>
+</table>

@@ -29,6 +29,11 @@ export class LoginComponent implements OnInit {
           let userFromDB = user as User;
         if(userFromDB.type_of_user == 0){
           sessionStorage.setItem('username' , this.username);
+          sessionStorage.setItem('firstname' , userFromDB.firstname);
+          sessionStorage.setItem('lastname' , userFromDB.lastname);
+          sessionStorage.setItem('email', userFromDB.email);
+          sessionStorage.setItem('phonenumber' , userFromDB.phonenumber);
+          sessionStorage.setItem('imagePath', userFromDB.image_path);
           this.router.navigate(['user'])
         }
         else if(userFromDB.type_of_user == 1){

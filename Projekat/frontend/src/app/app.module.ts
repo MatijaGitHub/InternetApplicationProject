@@ -12,7 +12,8 @@ import { RegisterComponent } from './register/register.component';
 import { ForgotenPasswordComponent } from './forgoten-password/forgoten-password.component';
 import { OrganizerComponent } from './organizer/organizer.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { UnregisteredUserComponent } from './unregistered-user/unregistered-user.component'
+import { UnregisteredUserComponent } from './unregistered-user/unregistered-user.component';
+import { ProfileComponent } from './profile/profile.component'
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UnregisteredUserComponent } from './unregistered-user/unregistered-user
     ForgotenPasswordComponent,
     OrganizerComponent,
     ChangePasswordComponent,
-    UnregisteredUserComponent
+    UnregisteredUserComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

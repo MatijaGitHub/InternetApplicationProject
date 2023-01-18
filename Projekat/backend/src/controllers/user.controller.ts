@@ -147,5 +147,98 @@ export class UserController{
 
 
     }
+
+    changeFirstname = (req: express.Request , res: express.Response) =>{
+        let firstname = req.body.firstname;
+        let username = req.body.username;
+        let userFromDB = UserModel.findOne({'username': username}, (err, resp)=>{
+            if(err || resp == null){
+                res.json({'message': 'User not found!'});
+            }
+            else{
+                resp.firstname = firstname;
+                resp.save();
+                res.json({'message': 'Username changed!'});
+            }
+        })
+    }
+    changeLastname = (req: express.Request , res: express.Response) =>{
+        let lastname = req.body.lastname;
+        let username = req.body.username;
+        let userFromDB = UserModel.findOne({'username': username}, (err, resp)=>{
+            if(err || resp == null){
+                res.json({'message': 'User not found!'});
+            }
+            else{
+                resp.lastname = lastname;
+                resp.save();
+                res.json({'message': 'Lastname changed!'});
+            }
+        })
+    }
+    changeUsername = (req: express.Request , res: express.Response) =>{
+        let usernameNew = req.body.usernameNew;
+        let username = req.body.username;
+        let userFromDB = UserModel.findOne({'username': usernameNew}, (err, resp)=>{
+            if(err || resp == null){
+                let userFromDB2 = UserModel.findOne({'username' : username}, (err, resp2)=>{
+                    if(err || resp2 == null){
+                        res.json({'message': 'User doesnt exist!'});
+                    }
+                    else{
+                        resp2.username = usernameNew;
+                        resp2.save();
+                        res.json({'message': 'Username changed!'});
+                    }
+                })
+            }
+            else{
+                res.json({'message': 'Username already exists!'});
+            }
+        })
+    }
+    changeEmail = (req: express.Request , res: express.Response) =>{
+        let email = req.body.email;
+        let username = req.body.username;
+        let userFromDB = UserModel.findOne({'username': username}, (err, resp)=>{
+            if(err || resp == null){
+                res.json({'message': 'User not found!'});
+            }
+            else{
+                resp.email = email;
+                resp.save();
+                res.json({'message': 'Email changed!'});
+            }
+        })
+    }
+    changePhonenumber = (req: express.Request , res: express.Response) =>{
+        let phonenumber = req.body.phonenumber;
+        let username = req.body.username;
+        let userFromDB = UserModel.findOne({'username': username}, (err, resp)=>{
+            if(err || resp == null){
+                res.json({'message': 'User not found!'});
+            }
+            else{
+                resp.phonenumber = phonenumber;
+                resp.save();
+                res.json({'message': 'Phonenumber changed!'});
+            }
+        })
+    }
+
+    changeProfilePic = (req: express.Request, res: express.Response) =>{
+        let username = req.body.username;
+        let userFromDB = UserModel.findOne({'username' : username}, (err, user)=>{
+            if(err || user == null){
+                res.json({'image_path' : 'Error'});
+            }
+            else{
+                user.image_path = 'images/' + req.file.originalname.slice(0, -4)+'_'+req.body.username + '.' + fileExtension(req.file.originalname)
+                user.save();
+                res.json({'image_path' : req.file.originalname.slice(0, -4)+'_'+req.body.username + '.' + fileExtension(req.file.originalname)});
+            }
+        })
+
+    }
     
 }
