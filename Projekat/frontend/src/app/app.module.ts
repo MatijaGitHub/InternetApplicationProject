@@ -11,7 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
 import { ForgotenPasswordComponent } from './forgoten-password/forgoten-password.component';
 import { OrganizerComponent } from './organizer/organizer.component';
-import { ChangePasswordComponent } from './change-password/change-password.component'
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { UnregisteredUserComponent } from './unregistered-user/unregistered-user.component'
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     RegisterComponent,
     ForgotenPasswordComponent,
     OrganizerComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    UnregisteredUserComponent
   ],
   imports: [
     BrowserModule,

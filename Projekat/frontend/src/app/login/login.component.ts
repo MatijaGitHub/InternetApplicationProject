@@ -49,5 +49,8 @@ export class LoginComponent implements OnInit {
   switch_to_forgot_password(){
     this.router.navigate(['forgot-password'])
   }
+  unregistered(){
+    this.router.navigate(['unregistered-user'])
+  }
 
 }

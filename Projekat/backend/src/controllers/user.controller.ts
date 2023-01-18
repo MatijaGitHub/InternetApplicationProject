@@ -2,6 +2,7 @@ import express from 'express'
 import UserModel from '../models/user'
 import { upload } from '../routers/user.routes';
 import fileExtension from 'file-extension'
+import e from 'express';
 var RandExp = require('randexp');
 var nodemailer = require('nodemailer');
 
@@ -125,14 +126,21 @@ export class UserController{
     changePassword =  (req: express.Request , res: express.Response)=>{
         let username = req.body.username;
         let newPassword = req.body.newPassword;
+        let oldPassword = req.body.oldPassword;
         let userFromDB = UserModel.findOne({'username': username}, (err, resp)=>{
             if(err || resp == null){
                 res.json({'message': 'User not found!'});
             }
             else{
-                resp.password = newPassword;
-                resp.save();
-                res.json({'message': 'Password changed!'});
+                if(resp.password == oldPassword){
+                    resp.password = newPassword;
+                    resp.save();
+                    res.json({'message': 'Password changed!'});
+                }
+                else{
+                    res.json({'message': 'Wrong password!'});
+                }
+                
             }
             
         })

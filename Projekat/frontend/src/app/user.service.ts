@@ -32,8 +32,9 @@ export class UserService {
   }
 
  
-  changePassword(usernameForm, newPasswordForm){
+  changePassword(oldpasswordForm, usernameForm, newPasswordForm){
     const data = {
+      oldPassword : oldpasswordForm,
       username: usernameForm,
       newPassword: newPasswordForm
     }

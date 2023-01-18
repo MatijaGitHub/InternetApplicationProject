@@ -6,6 +6,7 @@ import { ForgotenPasswordComponent } from './forgoten-password/forgoten-password
 import { LoginComponent } from './login/login.component';
 import { OrganizerComponent } from './organizer/organizer.component';
 import { RegisterComponent } from './register/register.component';
+import { UnregisteredUserComponent } from './unregistered-user/unregistered-user.component';
 import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path:"register", component: RegisterComponent},
   {path:"forgot-password", component: ForgotenPasswordComponent},
   {path:"organizer", component: OrganizerComponent},
-  {path:"change-password", component: ChangePasswordComponent}
+  {path:"change-password", component: ChangePasswordComponent},
+  {path:"unregistered-user", component: UnregisteredUserComponent}
 ];
 
 @NgModule({

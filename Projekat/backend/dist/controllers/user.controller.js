@@ -107,14 +107,20 @@ class UserController {
         this.changePassword = (req, res) => {
             let username = req.body.username;
             let newPassword = req.body.newPassword;
+            let oldPassword = req.body.oldPassword;
             let userFromDB = user_1.default.findOne({ 'username': username }, (err, resp) => {
                 if (err || resp == null) {
                     res.json({ 'message': 'User not found!' });
                 }
                 else {
-                    resp.password = newPassword;
-                    resp.save();
-                    res.json({ 'message': 'Password changed!' });
+                    if (resp.password == oldPassword) {
+                        resp.password = newPassword;
+                        resp.save();
+                        res.json({ 'message': 'Password changed!' });
+                    }
+                    else {
+                        res.json({ 'message': 'Wrong password!' });
+                    }
                 }
             });
         };
