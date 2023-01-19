@@ -79,4 +79,6 @@ export class UserService {
     return this.http.post('http://localhost:4000/users/changePicture', formData);
   }
 
+  
+
 }

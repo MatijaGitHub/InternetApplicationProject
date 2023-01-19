@@ -203,7 +203,6 @@ class UserController {
         };
         this.changeProfilePic = (req, res) => {
             let username = req.body.username;
-            console.log(username);
             let userFromDB = user_1.default.findOne({ 'username': username }, (err, user) => {
                 if (err || user == null) {
                     res.json({ 'image_path': 'Error' });

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Workshop } from '../models/workshop';
+import { WorkshopComments } from '../models/workshop_comments';
 import { UserService } from '../user.service';
+import { WorkshopService } from '../workshop.service';
 
 @Component({
   selector: 'app-profile',
@@ -9,13 +12,16 @@ import { UserService } from '../user.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private userService : UserService, private router : Router) {
+  constructor(private userService : UserService, private router : Router, private workshopService : WorkshopService) {
       this.firstname = sessionStorage.getItem('firstname');   
       this.lastname = sessionStorage.getItem('lastname'); 
       this.username = sessionStorage.getItem('username'); 
       this.phonenumber = sessionStorage.getItem('phonenumber');  
       this.email = sessionStorage.getItem('email'); 
       this.image_path = sessionStorage.getItem('imagePath').slice(7);
+      this.getWorkshops();
+      this.getLikedWorkshops();
+      this.getWorkshopComments();
    }
 
   ngOnInit(): void {
@@ -36,6 +42,10 @@ export class ProfileComponent implements OnInit {
   phonenumber : string;
   username : string;
   image_path : string;
+
+  workshopsPart : Workshop[];
+  likedWorkshops : Workshop[];
+  workshopComments : WorkshopComments[];
 
   changeEmail(){
     this.userService.changeEmail(this.username, this.emailUpd).subscribe((resp)=>{
@@ -76,6 +86,64 @@ export class ProfileComponent implements OnInit {
       this.image_path = resp['image_path'];
     })
   }
+  getWorkshops(){
+    this.workshopService.getWorkshopsByParticipation(this.username, 1).subscribe((resp)=>{
+        this.workshopsPart = resp as Workshop[];
+    })
+  }
+  getLikedWorkshops(){
+    this.workshopService.getWorkshopsByLikes(this.username).subscribe((resp)=>{
+      
+      this.likedWorkshops = resp as Workshop[];
+
+    })
+  }
+  getWorkshopComments(){
+    this.workshopService.getWorkshopCommentsByUser(this.username).subscribe((resp)=>{
+      this.workshopComments = resp as WorkshopComments[];
+    })
+  }
+  unlikeWorkshop(workshop){
+    let workshopId = workshop._id;
+    this.workshopService.unlikeWorkshop(this.username, workshopId).subscribe((resp)=>{
+      this.getWorkshops();
+      this.getLikedWorkshops();
+    })
+  }
+  deleteComment(workshopComment){
+    let workshopId = workshopComment.workshopId;
+    this.workshopService.deleteComment(this.username, workshopId).subscribe((resp)=>{
+      this.getWorkshopComments();
+    })
+
+  }
+  editComment(workshopComment){
+    let workshopId = workshopComment.workshopId;
+    sessionStorage.setItem('workshopToEdit', workshopId);
+    this.router.navigate(['edit-comment']);
+    // this.workshopService.editComment(this.username,workshopId).subscribe((resp)=>{
+    //   this.getWorkshopComments();
+    // })
+  }
+
+
+  ////////////////////////////////////////////////
+  sortByWorkShopName(){
+    this.workshopsPart.sort((w1, w2)=> w1.workshopName.toLowerCase() > w2.workshopName.toLowerCase()? 1: -1);
+  }
+  sortByWorkShopDate(){
+    this.workshopsPart.sort((w1, w2)=> w1.workshopDate > w2.workshopDate? -1: 1);
+  }
+  sortByWorkShopPlace(){
+    this.workshopsPart.sort((w1, w2)=> w1.workshopPlace.toLowerCase() > w2.workshopPlace.toLowerCase()? 1: -1);
+  }
+  sortByWorkShopDesc(){
+    this.workshopsPart.sort((w1, w2)=> w1.workshopDesc.toLowerCase() > w2.workshopDesc.toLowerCase()? 1: -1);
+  }
+  sortByWorkShopLikes(){
+    this.workshopsPart.sort((w1, w2)=> w1.numOfLikes > w2.numOfLikes? -1: 1);
+  }
+  
   uploadImage(files: FileList):void{
     this.imageToUpload = files.item(0);
     let image = new Image()
@@ -89,4 +157,5 @@ export class ProfileComponent implements OnInit {
       }                
     }
   }
+  
 }

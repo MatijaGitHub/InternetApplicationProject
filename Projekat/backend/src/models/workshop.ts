@@ -6,7 +6,8 @@ let workshop = new mongoose.Schema({
         type: String
     },
     workshopDate: {
-        type: Date
+        type: Date,
+        default : Date
     },
     workshopImage: {
         type: String
@@ -18,6 +19,12 @@ let workshop = new mongoose.Schema({
         type: String
     },
     numOfLikes:{
+        type: Number
+    },
+    freeSpaces:{
+        type: Number
+    },
+    status: {
         type: Number
     }
 

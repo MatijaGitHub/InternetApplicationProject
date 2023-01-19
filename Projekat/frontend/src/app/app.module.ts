@@ -13,7 +13,10 @@ import { ForgotenPasswordComponent } from './forgoten-password/forgoten-password
 import { OrganizerComponent } from './organizer/organizer.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { UnregisteredUserComponent } from './unregistered-user/unregistered-user.component';
-import { ProfileComponent } from './profile/profile.component'
+import { ProfileComponent } from './profile/profile.component';
+import { EditCommentComponent } from './edit-comment/edit-comment.component';
+import { UserWorkshopsComponent } from './user-workshops/user-workshops.component';
+import { WorkshopInfoComponent } from './workshop-info/workshop-info.component'
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { ProfileComponent } from './profile/profile.component'
     OrganizerComponent,
     ChangePasswordComponent,
     UnregisteredUserComponent,
-    ProfileComponent
+    ProfileComponent,
+    EditCommentComponent,
+    UserWorkshopsComponent,
+    WorkshopInfoComponent
   ],
   imports: [
     BrowserModule,

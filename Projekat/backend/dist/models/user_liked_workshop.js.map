@@ -1,0 +1,1 @@
+{"version":3,"file":"user_liked_workshop.js","sourceRoot":"","sources":["../../src/models/user_liked_workshop.ts"],"names":[],"mappings":";;;;;AAAA,wDAA2C;AAG3C,IAAI,mBAAmB,GAAG,IAAI,kBAAQ,CAAC,MAAM,CAAC;IAC1C,QAAQ,EAAE;QACN,IAAI,EAAE,MAAM;KACf;IACD,UAAU,EAAE;QACR,IAAI,EAAE,MAAM;KACf;CACJ,CAAC,CAAC;AAEH,kBAAe,kBAAQ,CAAC,KAAK,CAAC,wBAAwB,EAAE,mBAAmB,EAAE,oBAAoB,CAAC,CAAC"}

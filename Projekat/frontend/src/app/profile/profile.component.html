@@ -97,3 +97,117 @@
         </td>
     </tr>
 </table>
+<h1>Participated workshops:</h1>
+<table>
+    <tr>
+        
+        <td>
+            
+        </td>
+        <td>
+            <button (click)="sortByWorkShopName()">Sort</button>
+            
+        </td>
+        <td>
+            <button (click)="sortByWorkShopDate()">Sort</button>
+           
+        </td>
+        <td>
+            <button (click)="sortByWorkShopPlace()">Sort</button>
+          
+        </td>
+        <td>
+            <button (click)="sortByWorkShopDesc()">Sort</button>
+           
+        </td>
+        <td>
+            <button (click)="sortByWorkShopLikes()">Sort</button>
+           
+        </td>
+    </tr>
+    <tr>
+        
+        <td>
+            Workshop Image
+        </td>
+        <td>
+            Workshop Name 
+        </td>
+        <td>
+            Workshop Date
+        </td>
+        <td>
+            Workshop Place
+        </td>
+        <td>
+            Workshop Desc
+        </td>
+        <td>
+            Likes
+        </td>
+    </tr>
+    <tr *ngFor="let workshop of workshopsPart">
+        <td>
+            <img src="http://localhost:4000/{{workshop.workshopImage}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+        </td>
+        <td>
+            {{workshop.workshopName}}  
+        </td>
+        <td>
+           {{workshop.workshopDate}} 
+        </td>
+        <td>
+            {{workshop.workshopPlace}} 
+        </td>
+        <td>
+            {{workshop.workshopDesc}} 
+        </td>
+        <td>
+            {{workshop.numOfLikes}} 
+        </td>
+    </tr>
+</table>
+<table>
+    <tr *ngFor="let workshop of likedWorkshops">
+        <td>
+            {{workshop.workshopName}}
+        </td>
+        <td>
+            <button (click)="unlikeWorkshop(workshop)">Unlike</button>
+        </td>
+    </tr>
+</table>          
+<table>
+    <tr>
+        <td>
+            <h4>Workshop:</h4>
+        </td>
+        <td>
+            <h3>Comment:</h3>
+        </td>
+        <td>
+            <h3>Delete:</h3>
+        </td>
+        <td>
+            <h3>Edit:</h3>
+
+        </td>
+    </tr>
+    <tr *ngFor="let comment of workshopComments">
+        <td>
+            {{comment.workshopName}}
+        </td>
+        <td>
+            {{comment.comment}}
+        </td>
+        <td>
+            <button (click)="deleteComment(comment)">Delete</button>
+        </td>
+        <td>
+            <button (click)="editComment(comment)">Edit</button>
+        </td>
+    </tr>
+</table>
+
+   
+

@@ -1,0 +1,72 @@
+<h1>Applied workshops:</h1>
+<table>
+    <tr *ngFor="let workshop of appliedWorkshops">
+        <td>
+            {{workshop.workshopName}}
+        </td>
+        <td *ngIf="twelveHoursLeft(workshop) == 1">
+            <button (click)="cancel(workshop)">Cancel</button>
+        </td>
+    </tr>
+</table>
+<h1>All workshops:</h1>
+<table>
+    <tr>
+        <td>Name: </td>
+        <td>
+            <input type="text" name="name" [(ngModel)]="name">
+        </td>
+        <td>Place: </td>
+        <td>
+            <input type="text" name="place" [(ngModel)]="place">
+        </td>
+        <td>
+            <button (click)="search()">Search</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button (click)="sortByName()">Sort by name</button>
+        </td>
+        <td>
+            <button (click)="sortByDate()">Sort by date</button>
+        </td>
+    </tr>
+</table>
+<table>
+    
+    <tr>
+        <td>
+            Workshop Image
+        </td>
+        <td>
+            Workshop Name 
+        </td>
+        <td>
+            Workshop Date
+        </td>
+        <td>
+            Workshop Place
+        </td>
+        <td>
+            Workshop Desc
+        </td>
+    </tr>
+    <tr *ngFor="let workshop of workshops">
+        <td>
+            <img src="http://localhost:4000/{{workshop.workshopImage}}" onerror='this.src="http://localhost:4000/workshop.webp"'  width="50" height="50">
+        </td>
+        <td>
+            {{workshop.workshopName}}  
+        </td>
+        <td>
+           {{workshop.workshopDate}} 
+        </td>
+        <td>
+            {{workshop.workshopPlace}} 
+        </td>
+        <td>
+            {{workshop.workshopDesc}} 
+        </td>
+    </tr>
+</table>
