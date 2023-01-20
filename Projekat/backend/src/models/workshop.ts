@@ -26,6 +26,12 @@ let workshop = new mongoose.Schema({
     },
     status: {
         type: Number
+    },
+    lat:{
+        type: Number
+    },
+    long:{
+        type:Number
     }
 
 });

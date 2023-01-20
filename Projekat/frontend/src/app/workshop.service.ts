@@ -69,4 +69,11 @@ export class WorkshopService {
     }
     return this.http.post('http://localhost:4000/workshops/cancelParticipation', data);
   }
+  getWorkshopById(idForm){
+    const data = {
+      id: idForm
+    }
+    return this.http.post('http://localhost:4000/workshops/getWorkshopById', data);
+  }
+  
 }

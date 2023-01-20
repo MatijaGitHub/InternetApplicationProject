@@ -17,6 +17,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { EditCommentComponent } from './edit-comment/edit-comment.component';
 import { UserWorkshopsComponent } from './user-workshops/user-workshops.component';
 import { WorkshopInfoComponent } from './workshop-info/workshop-info.component'
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { WorkshopInfoComponent } from './workshop-info/workshop-info.component'
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    LeafletModule
   ],
   providers: [],
   bootstrap: [AppComponent]

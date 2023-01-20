@@ -50,6 +50,18 @@ export class WorkshopController{
         }).sort({'numOfLikes': -1}).limit(5)
 
     }
+    getWorkshopById = (req : express.Request, res: express.Response)=>{
+        let id = req.body.id;
+        let idSearch = new ObjectID(id);
+        let workshop = WorkshopModel.findOne({'_id': idSearch},(err, resp)=>{
+            if(!err){
+                res.json(resp);
+            }
+            else{
+                res.json({'message' : 'Error!'});
+            }
+        })
+    }
     getWorkshopsByParticipation = (req: express.Request, res: express.Response)=>{
         let username = req.body.username;
         let participation_flag = req.body.participated;

@@ -67,6 +67,9 @@ export class UserWorkshopsComponent implements OnInit {
     }
     
   }
+  moreInfo(workshop){
+    this.router.navigate(['workshop-info', {workshopId : workshop._id}])
+  }
   sortByDate(){
     this.workshops.sort((w1, w2)=> w1.workshopDate > w2.workshopDate? -1: 1);
   }

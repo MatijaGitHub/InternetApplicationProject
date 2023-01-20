@@ -9,6 +9,7 @@ import { OrganizerComponent } from './organizer/organizer.component';
 import { RegisterComponent } from './register/register.component';
 import { UnregisteredUserComponent } from './unregistered-user/unregistered-user.component';
 import { UserComponent } from './user/user.component';
+import { WorkshopInfoComponent } from './workshop-info/workshop-info.component';
 
 const routes: Routes = [
   {path:"" , component: LoginComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path:"organizer", component: OrganizerComponent},
   {path:"change-password", component: ChangePasswordComponent},
   {path:"unregistered-user", component: UnregisteredUserComponent},
-  {path:"edit-comment", component: EditCommentComponent}
+  {path:"edit-comment", component: EditCommentComponent},
+  {path:"workshop-info", component: WorkshopInfoComponent}
 ];
 
 @NgModule({

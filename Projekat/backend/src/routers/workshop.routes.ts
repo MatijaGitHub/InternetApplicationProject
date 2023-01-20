@@ -55,4 +55,9 @@ workshopRouter.route('/cancelParticipation').post(
         return new WorkshopController().cancelParticipation(req, res);
     }
 )
+workshopRouter.route('/getWorkshopById').post(
+    (req, res)=>{
+        return new WorkshopController().getWorkshopById(req, res);
+    }
+)
 export default workshopRouter;

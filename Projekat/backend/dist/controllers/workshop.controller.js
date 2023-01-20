@@ -59,6 +59,18 @@ class WorkshopController {
                 }
             }).sort({ 'numOfLikes': -1 }).limit(5);
         };
+        this.getWorkshopById = (req, res) => {
+            let id = req.body.id;
+            let idSearch = new bson_1.ObjectID(id);
+            let workshop = workshop_1.default.findOne({ '_id': idSearch }, (err, resp) => {
+                if (!err) {
+                    res.json(resp);
+                }
+                else {
+                    res.json({ 'message': 'Error!' });
+                }
+            });
+        };
         this.getWorkshopsByParticipation = (req, res) => {
             let username = req.body.username;
             let participation_flag = req.body.participated;

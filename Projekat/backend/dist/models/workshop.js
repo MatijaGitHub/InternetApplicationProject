@@ -29,6 +29,12 @@ let workshop = new mongoose_1.default.Schema({
     },
     status: {
         type: Number
+    },
+    lat: {
+        type: Number
+    },
+    long: {
+        type: Number
     }
 });
 exports.default = mongoose_1.default.model("WorkshopModel", workshop, 'workshops');

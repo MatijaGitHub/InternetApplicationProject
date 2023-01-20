@@ -6,4 +6,6 @@ export class Workshop{
     workshopPlace: string;
     workshopDesc: string;
     numOfLikes: number;
+    lat: number;
+    long: number;
 }

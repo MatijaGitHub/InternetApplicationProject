@@ -36,5 +36,8 @@ workshopRouter.route('/deleteComment').post((req, res) => {
 workshopRouter.route('/cancelParticipation').post((req, res) => {
     return new workshop_controller_1.WorkshopController().cancelParticipation(req, res);
 });
+workshopRouter.route('/getWorkshopById').post((req, res) => {
+    return new workshop_controller_1.WorkshopController().getWorkshopById(req, res);
+});
 exports.default = workshopRouter;
 //# sourceMappingURL=workshop.routes.js.map
