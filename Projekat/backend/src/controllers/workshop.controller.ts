@@ -5,6 +5,7 @@ import UserWorkshopModel from '../models/user_workshop'
 import UserLikedWorkshopModel from '../models/user_liked_workshop'
 import UserCommentWorkshopModel from '../models/user_comment_workshop'
 import UserChatModel from '../models/user_chat'
+import UserModel from '../models/user'
 import mongoose from 'mongoose';
 import { ObjectID } from 'bson';
 import { json } from 'stream/consumers';
@@ -276,10 +277,12 @@ export class WorkshopController{
                 const fs = require('fs');
         
                 fs.readdir(testFolder, (err, files) => {
-                 
-                    for(let i = 0; i < files.length; i++){
-                        files[i] = pathToFile + '/' + files[i];
+                    if(files!=null){
+                        for(let i = 0; i < files.length; i++){
+                            files[i] = pathToFile + '/' + files[i];
+                        }
                     }
+                  
                     if(!err){
                         res.json(files);
                     }
@@ -542,7 +545,7 @@ export class WorkshopController{
         let place = req.body.place;
         let username = req.body.username;
         let _id = new ObjectID(workshopId);
-  
+        const fsExtra = require("fs-extra");
         WorkshopModel.findOne({'_id' : _id}, (err, resp)=>{
             if(!err){
                 let oldDate = resp.workshopDate;
@@ -554,9 +557,9 @@ export class WorkshopController{
                     let oldPath = 'images/' +  resp.workshopName.replace(' ', '_') + resp.workshopDate.toISOString().split('T')[0] + resp.organizatorUsername.replace(' ', '_');
                     resp.workshopName = name;
                     let newPath = 'images/' +  name.replace(' ', '_') + resp.workshopDate.toISOString().split('T')[0] + resp.organizatorUsername.replace(' ', '_');
-                    
+                    console.log(req.body.imageName)
                     resp.workshopImage = newPath + '/' +  req.body.imageName;
-                    const fsExtra = require("fs-extra");
+                    
                     if(oldPathToDelete!=newPath){
                         fsExtra.copySync(oldPathToDelete, newPath);
                         fsExtra.rmdirSync(oldPathToDelete, { recursive: true });
@@ -565,7 +568,9 @@ export class WorkshopController{
                    
                     
                 }
-                
+                let newImagePath = ""
+                let folder = resp.workshopImage.split('/')[0] + '/' + resp.workshopImage.split('/')[1];
+           
                 if(shortDesc != ''){
                     resp.workshopDesc = shortDesc;
                 }
@@ -576,8 +581,18 @@ export class WorkshopController{
                 if(place != ''){
                     resp.workshopPlace = place;
                 }
-                resp.save();
-                res.json({'message':'Success!'})
+                fsExtra.readdir( folder, (err, files)=>{
+                    //console.log(files);
+                    for(let file of files){
+                        if(file != 'gallery'){
+                            newImagePath =folder +'/' + file;
+                        }
+                    }
+                    resp.workshopImage = newImagePath;
+                    resp.save();
+                    res.json({'message':'Success!'})
+                })
+               
             }
             else{
                 res.json({'message':'Error!'})
@@ -589,6 +604,8 @@ export class WorkshopController{
     }
     suggestWorkshop = (req: express.Request, res:express.Response)=>{
         let name = req.body.workshopName;
+        let jsonMainPic = req.body.main_picture_path;
+        let galleryImgPaths = req.body.gallery_pics_paths;
         let date = req.body.date;
         let dateToDb = new Date(date);
         let shortDesc = req.body.shortDesc;
@@ -599,25 +616,191 @@ export class WorkshopController{
         let statusToDb = 2;
         let numOfSpaces = +req.body.numOfSpaces;
         let username = req.body.username;
-        let suggestedWorkshop = new WorkshopModel({
-            workshopName: name,
-            workshopDate: dateToDb,
-            workshopImage: "",
-            workshopPlace: place,
-            workshopDesc: shortDesc,
-            workshopDescLong: longDesc,
-            numOfLikes: 0,
-            freeSpaces: numOfSpaces,
-            status: statusToDb,
-            lat: lat,
-            long: long,
-            organizatorUsername:username,
-            waitList:[]
-        })
-        suggestedWorkshop.save();
-   
-        res.json(suggestedWorkshop);
+        let dir ='images/' +  name.replace(' ', '_') + date.split('T')[0] + username.replace(' ', '_'); 
+        const fs = require('fs-extra');
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir)
+            fs.mkdirSync(dir + '/gallery')
+        }
+        let mainImagePath = "";
+
+       
+        if(jsonMainPic != ""){
+            let from = 'images/' + jsonMainPic;
+            let to = dir +'/' + from.split('/')[2];
+            mainImagePath = to;
+            fs.copy(from, to, (err)=>{
+                if(!err){
+                    console.log(from,to,'success!')
+                }
+            });
+        }
+        
+        if(galleryImgPaths!= null){
+            for(let galleryPic of galleryImgPaths){
+                let from = 'images/' + galleryPic;
+                let to = dir + '/gallery/' + from.split('/')[3];
+                
+                fs.copy(from, to, (err)=>{
+                    if(!err){
+                        console.log(from,to,'success!')
+                    }
+                });
+            }
+        }
+        
+        fs.readdir( dir, (err, files)=>{
+            //console.log(files);
+            for(let file of files){
+                if(file != 'gallery'){
+                    mainImagePath =dir +'/' + file;
+                }
+            }
+            let suggestedWorkshop = new WorkshopModel({
+                workshopName: name,
+                workshopDate: dateToDb,
+                workshopImage: mainImagePath,
+                workshopPlace: place,
+                workshopDesc: shortDesc,
+                workshopDescLong: longDesc,
+                numOfLikes: 0,
+                freeSpaces: numOfSpaces,
+                status: statusToDb,
+                lat: lat,
+                long: long,
+                organizatorUsername:username,
+                waitList:[]
+            })
+            suggestedWorkshop.save();
+       
+            res.json(suggestedWorkshop);
+        } )
+        
 
     }
+    getUnaprovedWorkshops = (req: express.Request, res:express.Response)=>{
+        let returnWorkshops = [];
+        WorkshopModel.find({'status' : 2},async (err, resp)=>{
+            if(!err){
+                for(let workshop of resp){
+                    let addWorkshop = true;
+                    let organizator = workshop.organizatorUsername;
+                    let user = await UserModel.findOne({'username': organizator});
+                    if(user.type_of_user == 0){
+                        let resp2 = await UserWorkshopModel.find({'username': organizator});
+                        for(let applied of resp2){
+                            let _id = new ObjectID(applied.workshopId);
+                            let workshop = await WorkshopModel.findOne({'_id': _id});
+                            if(workshop.status == 0){
+                                addWorkshop = false;
+                            }
+                        }
+                    }
+                    
+                    if(addWorkshop){
+                        returnWorkshops.push(workshop);
+                    }
+                }
+                res.json(returnWorkshops);
+            }
+            else{
+                res.json({'message':'Error!'})
+            }
+        })
+    }
+    getApplications = (req: express.Request, res:express.Response)=>{
+        let wid = req.body.workshopId;
+
+        UserWorkshopModel.find({'workshopId' : wid, 'accepted':0},(err,resp)=>{
+            if(!err){
+                res.json(resp);
+            }
+            else{
+                res.json({'message': 'Error!'})
+            }
+        })
+
+
+
+    }
+    acceptWorkshop = (req: express.Request, res:express.Response)=>{
+        let wid = new ObjectID(req.body.workshopId);
+
+    }
+    rejectWorkshop = (req: express.Request, res:express.Response)=>{
+        let wid = new ObjectID(req.body.workshopId);
+        
+    }
+    acceptApplication = (req: express.Request, res:express.Response)=>{
+        let wid = req.body.workshopId;
+        let username = req.body.username;
+        UserWorkshopModel.findOneAndUpdate({'username':username,'workshopId':wid},{'accepted' : 1}, (err, resp)=>{
+            if(!err){
+                res.json({'message': 'Success!'})
+            }
+            else{
+                res.json({'message': 'Error!'})
+            }
+        })
+    }
+    denyApplication = (req: express.Request, res:express.Response)=>{
+        let wid = req.body.workshopId;
+        let username = req.body.username;
+        UserWorkshopModel.findOneAndDelete({'username':username,'workshopId':wid}, (err, resp)=>{
+            if(!err){
+                res.json({'message': 'Success!'})
+            }
+            else{
+                res.json({'message': 'Error!'})
+            }
+        })
+    }
+    cancelWorkshop = (req: express.Request, res:express.Response)=>{
+        let wid = req.body.workshopId;
+        let _id = new ObjectID(wid);
+        let workshopName = req.body.workshopName;
+        UserWorkshopModel.find({'workshopId':wid}, async (err,resp)=>{
+            if(!err){
+                for(let user of resp){
+                    console.log(user)
+                    let userFromDB = await UserModel.findOne({'username':user.username})
+                    let emailTo = userFromDB.email;
+                    var mailOptions = {
+                        from: 'nullpointerexceptionpsi@outlook.com',
+                        to: emailTo,
+                        subject: 'Event cancelled!',
+                        text: "Event " + workshopName + " cancelled!"
+                    };
+                    transporter.sendMail(mailOptions,async function(error, info){
+                        if (error){
+                            console.log(error);
+                            
+                        } else {
+                            console.log("Email sent");
+                            await UserWorkshopModel.deleteOne({'workshopId':wid, 'username':user.username}) 
+                            
+                            
+                        }
+                    }); 
+                    
+                     
+                }
+                WorkshopModel.findOneAndUpdate({'_id':_id},{'status':1},(err,resp)=>{
+                    if(!err){
+                        res.json({'message':resp})
+                    }
+                    else{
+                        res.json({'message':'Error!'})
+                    }
+                })
+                
+            }
+            else{
+                res.json({'message':'Error!'});
+            }
+        })
+
+    }
+    
 
 }

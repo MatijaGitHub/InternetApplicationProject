@@ -86,6 +86,25 @@ userRouter.route('/changePicture').post(
         return new UserController().changeProfilePic(req, res);
     }
 )
-
+userRouter.route('/getAllUsers').get(
+    (req,res)=>{
+        return new UserController().getAllUsers(req, res);
+    }
+)
+userRouter.route('/getAllUsersRequest').get(
+    (req,res)=>{
+        return new UserController().getAllUsersRequest(req, res);
+    }
+)
+userRouter.route('/deleteUser').post(
+    (req, res)=>{
+        return new UserController().deleteUser(req, res);
+    }
+)
+userRouter.route('/acceptRegistrationRequest').post(
+    (req,res)=>{
+        return new UserController().acceptRegistrationRequest(req, res);
+    }
+)
 
 export default userRouter;

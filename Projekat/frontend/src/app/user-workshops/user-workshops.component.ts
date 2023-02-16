@@ -12,6 +12,7 @@ export class UserWorkshopsComponent implements OnInit {
 
   constructor(private router : Router, private workshopService: WorkshopService) {
     this.username = sessionStorage.getItem('username');
+    this.user_type = +sessionStorage.getItem('user_type');
     workshopService.getWorkshopsByParticipation(this.username,0).subscribe((resp)=>{
       this.appliedWorkshops = resp as Workshop[];
       workshopService.get_all_workshops().subscribe((resp)=>{
@@ -54,10 +55,19 @@ export class UserWorkshopsComponent implements OnInit {
       })
     })
   }
+  cancelWorkshop(workshop){
+    this.workshopService.cancelWorkshop(workshop._id, workshop.workshopName).subscribe((resp)=>{
+      console.log(resp);
+      this.workshopService.get_all_workshops().subscribe((resp2)=>{
+        this.workshops = resp2 as Workshop[];
+      }) 
+    })
+  }
   workshops: Workshop[];
   workshops_top_5: Workshop[];
   name: string| null = "";
   place: string| null = "";
+  user_type : number | null = 0
   search(){
     if(this.name == "" && this.place == ""){
       this.workshopService.get_all_workshops().subscribe((resp)=>{
@@ -91,6 +101,9 @@ export class UserWorkshopsComponent implements OnInit {
   }
   sortByName(){
     this.workshops.sort((w1, w2)=> w1.workshopName.toLowerCase() > w2.workshopName.toLowerCase()? 1: -1);
+  }
+  viewApplications(workshop){
+    this.router.navigate(['view-applications', {workshopId : workshop._id}])
   }
   saveWorkshopAsJSON(workshop){
     this.workshopService.getGalleryPics(workshop._id).subscribe((resp)=>{

@@ -1,14 +1,40 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav mode="side" opened>
-        <p>
-            <button routerLink="/user-info">Profile</button>
-        </p>
-        <p>
-            <button routerLink="/user-workshops">Workshops</button>
-        </p>
-        <p>
-            <button routerLink="/become-organizer">Become organizer</button>
-        </p>
+        <table>
+            <tr>
+                <button routerLink="/user-info">Profile</button>
+            </tr>
+            <tr>
+                <button routerLink="/user-workshops">Workshops</button>
+            </tr>
+            <tr>
+                <button routerLink="/become-organizer">Become organizer</button>
+            </tr>
+            <tr *ngIf="user_type == 2">
+                <button routerLink="/edit-users">All users</button>
+           </tr>
+           <tr *ngIf="user_type == 2">
+                <button routerLink="/registration-requests">Registration requests</button>
+            </tr>
+            <tr *ngIf="user_type==2">
+                <button routerLink="/insert-new-user">Add new user</button>
+            </tr>
+            <tr *ngIf="user_type==2">
+                <button routerLink="/workshop-aprove">Aprove workshops</button>
+            </tr>
+           
+
+        </table>
+        
+            <form>
+                <button (click)="changePass()">Change password</button>
+            </form>
+        
+            <form>
+                <button (click)="logout()">Logout</button>
+            </form>
+        
+
 
     </mat-sidenav>
     <mat-sidenav-content>
@@ -16,6 +42,9 @@
             <tr>
                 <td>
                     Picture:
+                </td>
+                <td *ngIf="user_type != 0">
+                    <img src="http://localhost:4000/{{imageToUploadJSON}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
                 </td>
                 <td>
                     <input name="main_picture" type="file" (change)="uploadImage($any($event).target.files)">
@@ -102,20 +131,37 @@
                     <input name="gallery_pics" type="file" (change)="uploadImages($any($event).target.files)" multiple>
                 </td>
             </tr>
+            <div *ngIf="user_type != 0">
+                <tr *ngFor="let galleryPic of galleryImagesToUploadJSON; let galleryIndex = index;">
+                    <td>
+                        <img src="http://localhost:4000/{{galleryPic}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+                    </td>
+                    <td>
+                        <button (click)="removeGalleryPic(galleryIndex)">Remove</button>
+                    </td>
+                </tr>
+            </div>
+            <tr *ngIf="user_type != 0">
+                <td>
+                    Use JSON template:
+                </td>
+                <td>
+                    <input name="json_file" type="file" (change)="loadJSON($event)">
+                </td>
+            </tr>
+            <tr *ngIf="user_type != 0">
+                <td colspan="2">
+                    <button (click)="parseJSON()">Load template</button>
+                </td>
+            </tr>
             <tr>
                 <td colspan="2">
                     <button (click)="sendWorkshopRequest()">Submit</button>
                 </td>
             </tr>
+            
         </table>
-        <footer>
-            <form>
-                <button (click)="changePass()">Change password</button>
-            </form>
-            <form>
-                <button (click)="logout()">Logout</button>
-            </form>
-        </footer>
+
     </mat-sidenav-content>
   </mat-sidenav-container>
 

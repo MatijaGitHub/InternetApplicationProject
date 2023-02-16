@@ -1,5 +1,10 @@
 import express from 'express'
 import UserModel from '../models/user'
+import UserCommentWorkshopModel from '../models/user_comment_workshop'
+import UserLikedWorkshopModel from '../models/user_liked_workshop'
+import UserWorkshopModel from '../models/user_workshop'
+import WorkshopModel from '../models/workshop'
+import UserChatModel from '../models/user_chat'
 import { upload } from '../routers/user.routes';
 import fileExtension from 'file-extension'
 import e from 'express';
@@ -18,6 +23,80 @@ var transporter = nodemailer.createTransport({
 
 export class UserController{
     
+    deleteUser = (req: express.Request , res: express.Response) =>{
+        let username  = req.body.username;
+        UserModel.findOne({'username': username},(err, resp)=>{
+            if(!err){
+                resp.type_of_user = 3;
+                resp.save();
+                res.json({'message':'User deleted!'})
+            }
+            else{
+                res.json({'message':'Error!'})
+            }
+            
+        })
+    }
+    changeUsername = (req: express.Request , res: express.Response) =>{
+        let usernameNew = req.body.usernameNew;
+        let username = req.body.username;
+        let userFromDB = UserModel.findOne({'username': usernameNew}, (err, resp)=>{
+            if(err || resp == null){
+                let userFromDB2 = UserModel.findOne({'username' : username}, (err, resp2)=>{
+                    if(err || resp2 == null){
+                        res.json({'message': 'User doesnt exist!'});
+                    }
+                    else{
+                        resp2.username = usernameNew;
+                        resp2.save();
+                        UserCommentWorkshopModel.updateMany({'username':username}, {$set:{'username':usernameNew}}, (err, resp)=>{});
+                        UserLikedWorkshopModel.updateMany({'username':username}, {$set:{'username':usernameNew}}, (err, resp)=>{});
+                        UserWorkshopModel.updateMany({'username':username}, {$set:{'username':usernameNew}}, (err, resp)=>{});
+                        WorkshopModel.updateMany({'organizatorUsername':username}, {$set:{'organizatorUsername':usernameNew}}, (err, resp)=>{
+                            UserChatModel.find((err,resp)=>{
+                                if(!err){
+                                    for(let chat of resp){
+                                        for(let message of chat.messages){
+                                            if(message.user == username){
+                                                message.user = usernameNew;
+                                            }
+                                        }
+                                        chat.save();
+                                    }
+                                    UserChatModel.updateMany({'username1' : username}, {$set : {'username1' : usernameNew}}, (err, resp)=>{});
+                                    UserChatModel.updateMany({'username2' : username}, {$set : {'username2' : usernameNew}}, (err, resp)=>{});
+                                    //change folders
+                                    WorkshopModel.find((err, resp)=>{
+                                        for(let workshop of resp){
+                                            if(workshop.organizatorUsername == usernameNew){
+                                                let oldfolderPath = workshop.workshopImage.split('/')[0] + '/' + workshop.workshopImage.split('/')[1];
+                                                let newFolderPath = 'images/' + workshop.workshopName + workshop.workshopDate.toISOString().split('T')[0] + usernameNew;
+                                                const fs = require('fs-extra');
+                                                console.log(oldfolderPath, newFolderPath);
+                                                
+                                                fs.renameSync(oldfolderPath, newFolderPath);
+                                               workshop.workshopImage = newFolderPath + '/' + workshop.workshopImage.split('/')[2];
+                                               workshop.save();
+                                            }
+                                        }
+                                    })
+    
+                                }
+                                else{
+                                    res.json({'message':'Error!'})
+                                }
+                            })
+                            res.json({'message': 'Username changed!'});
+                        })
+                        
+                    }
+                })
+            }
+            else{
+                res.json({'message': 'Username already exists!'});
+            }
+        })
+    }
 
     login = (req: express.Request, res: express.Response)=>{
         let username = req.body.username;
@@ -29,7 +108,13 @@ export class UserController{
                     res.json({'message': 'Wrong password!'});
                 }
                 else{
-                    res.json(user);
+                    if(user.approved == 0){
+                        res.json({'message': 'User not aproved for registration!'});
+                    }
+                    else{
+                        res.json(user);
+                    }
+                    
                 }
             }
         })
@@ -40,6 +125,7 @@ export class UserController{
             let fields = req.body;
             let is_user = fields.is_user;
             let username = fields.username;
+            let approved = +req.body.approved;
             let userFromDB = UserModel.findOne({'username' : username}, (err, userDB)=>{
                 if(err || userDB) res.json({'message': 'Username already exists'});
                 else{
@@ -50,7 +136,8 @@ export class UserController{
                         password : fields.password,
                         phonenumber : fields.number,
                         email : fields.email,
-                        type_of_user : is_user == '1'?0:1
+                        type_of_user : is_user == '1'?0:1,
+                        approved : approved
                     })
                     if(fields.hasImage == '2'){
                         user.image_path = 'images/' + req.file.originalname.slice(0, -4)+'_'+req.body.username + '.' + fileExtension(req.file.originalname)
@@ -176,27 +263,7 @@ export class UserController{
             }
         })
     }
-    changeUsername = (req: express.Request , res: express.Response) =>{
-        let usernameNew = req.body.usernameNew;
-        let username = req.body.username;
-        let userFromDB = UserModel.findOne({'username': usernameNew}, (err, resp)=>{
-            if(err || resp == null){
-                let userFromDB2 = UserModel.findOne({'username' : username}, (err, resp2)=>{
-                    if(err || resp2 == null){
-                        res.json({'message': 'User doesnt exist!'});
-                    }
-                    else{
-                        resp2.username = usernameNew;
-                        resp2.save();
-                        res.json({'message': 'Username changed!'});
-                    }
-                })
-            }
-            else{
-                res.json({'message': 'Username already exists!'});
-            }
-        })
-    }
+   
     changeEmail = (req: express.Request , res: express.Response) =>{
         let email = req.body.email;
         let username = req.body.username;
@@ -240,5 +307,45 @@ export class UserController{
         })
 
     }
-    
+    getAllUsers = (req: express.Request, res: express.Response) =>{
+
+        UserModel.find({$and: [{$or : [{'type_of_user' : 0},{'type_of_user' : 1},{'type_of_user' : 2}]}, {'approved' : 1}]},(err,resp)=>{
+            if(!err){
+                res.json(resp);
+            }
+            else{
+                res.json({'message':'Error!'})
+            }
+        })
+
+
+    }
+    getAllUsersRequest =(req: express.Request, res: express.Response) =>{
+
+        UserModel.find({$and: [{$or : [{'type_of_user' : 0},{'type_of_user' : 1},{'type_of_user' : 2}]}, {'approved' : 0}]},(err,resp)=>{
+            if(!err){
+                res.json(resp);
+            }
+            else{
+                res.json({'message':'Error!'})
+            }
+        })
+
+
+    }
+    acceptRegistrationRequest = (req: express.Request, res: express.Response) =>{
+        let username = req.body.username;
+        console.log(username)
+        UserModel.findOne({'username':username},(err, resp)=>{
+            if(!err){
+                resp.approved = 1;
+                resp.save();
+                res.json({'message': 'Success!'});
+            }
+            else{
+                res.json({'message': 'Error!'});
+            }
+        })
+
+    }
 }

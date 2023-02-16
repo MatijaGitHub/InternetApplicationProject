@@ -10,8 +10,12 @@ var storageGallery = multer.diskStorage({
     destination: function (req, file, cb) {
         const fs = require('fs')
         const path = require('path')
-
         const dir = 'images/' + req.body.oldWorkshopName.replace(' ', '_') + req.body.olddate + req.body.username.replace(' ', '_');
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir)
+            fs.mkdirSync(dir + '/gallery')
+        }
+        
         if(req.body.edit_main_picture == 'true' && file.fieldname == 'main_picture' ){
             fs.readdir(dir, (err,files)=>{
                 if(!err){
@@ -35,10 +39,7 @@ var storageGallery = multer.diskStorage({
             })
         }
     
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir)
-            fs.mkdirSync(dir + '/gallery')
-        }
+      
         let gallery_dir = dir + '/gallery';
         if(req.body.edit_gallery_pictures == 'true' && file.fieldname == 'gallery_pics'){
             let numOfPics;
@@ -220,6 +221,41 @@ workshopRouter.route('/getChatsByWorkshop').post(
 workshopRouter.route('/deleteGalleryImg').post(
     (req, res)=>{
         return new WorkshopController().deleteGalleryImg(req, res);
+    }
+)
+workshopRouter.route('/getApplications').post(
+    (req, res)=>{
+        return new WorkshopController().getApplications(req, res);
+    }
+)
+workshopRouter.route('/acceptApplication').post(
+    (req, res)=>{
+        return new WorkshopController().acceptApplication(req, res);
+    }
+)
+workshopRouter.route('/denyApplication').post(
+    (req, res)=>{
+        return new WorkshopController().denyApplication(req, res);
+    }
+)
+workshopRouter.route('/cancelWorkshop').post(
+    (req, res)=>{
+        return new WorkshopController().cancelWorkshop(req, res);
+    }
+)
+workshopRouter.route('/getUnaprovedWorkshops').get(
+    (req,res)=>{
+        return new WorkshopController().getUnaprovedWorkshops(req, res);
+    }
+)
+workshopRouter.route('/acceptWorkshop').post(
+    (req,res)=>{
+        return new WorkshopController().acceptWorkshop(req, res);
+    }
+)
+workshopRouter.route('/rejectWorkshop').post(
+    (req,res)=>{
+        return new WorkshopController().rejectWorkshop(req, res);
     }
 )
 export default workshopRouter;

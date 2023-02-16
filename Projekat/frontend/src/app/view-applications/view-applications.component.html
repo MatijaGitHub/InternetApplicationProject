@@ -1,0 +1,16 @@
+<table>
+    <tr *ngFor="let application of applications">
+        <td>
+            {{application.username}}
+        </td>
+        <td>
+            {{application.accepted}}
+        </td>
+        <td>
+            <button (click)="accept(application)">Accept</button>
+        </td>
+        <td>
+            <button (click)="deny(application)">Deny</button>
+        </td>
+    </tr>
+</table>

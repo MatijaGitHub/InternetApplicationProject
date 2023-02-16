@@ -25,6 +25,11 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WorkshopMessagesComponent } from './workshop-messages/workshop-messages.component';
 import { EditWorkshopComponent } from './edit-workshop/edit-workshop.component';
+import { ViewApplicationsComponent } from './view-applications/view-applications.component';
+import { EditUsersComponent } from './edit-users/edit-users.component';
+import { RegistrationRequestsComponent } from './registration-requests/registration-requests.component';
+import { InsertNewUserComponent } from './insert-new-user/insert-new-user.component';
+import { WorkshopAproveComponent } from './workshop-aprove/workshop-aprove.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +50,12 @@ import { EditWorkshopComponent } from './edit-workshop/edit-workshop.component';
     BecomeOrganizatorComponent,
     SidebarComponent,
     WorkshopMessagesComponent,
-    EditWorkshopComponent
+    EditWorkshopComponent,
+    ViewApplicationsComponent,
+    EditUsersComponent,
+    RegistrationRequestsComponent,
+    InsertNewUserComponent,
+    WorkshopAproveComponent
   ],
   imports: [
     BrowserModule,

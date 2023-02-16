@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Address } from '../models/user';
 import { UserService } from '../user.service';
@@ -26,7 +26,8 @@ export class RegisterComponent implements OnInit {
   city: string| null = "";
   street: string| null = "";
   zipcode: string| null = "";
-  is_user: number;
+  @Input() is_user: number | null = 0;
+  @Input() approved: number | null = 0;
   name_of_org: string| null = "";
   id_num: string| null = "";
   imageErr: string| null = '1';
@@ -77,12 +78,13 @@ export class RegisterComponent implements OnInit {
       formData.append('email', this.email);
       formData.append('image', this.imageToUpload);
       formData.append('hasImage', this.imageErr);
-      
+      formData.append('approved', this.approved + "");
       data = {
         is_user : 1,
         firstname : this.firstname,
         lastname : this.lastname,
         username : this.username,
+        approved : this.approved + "",
         password : this.password,
         number : this.number,
         email : this.email
@@ -110,12 +112,14 @@ export class RegisterComponent implements OnInit {
       formData.append('id_num', this.id_num);
       formData.append('zipcode', this.zipcode);
       formData.append('hasImage', this.imageErr);
+      formData.append('approved', this.approved + "");
       data = {
         is_user : 0,
         firstname : this.firstname,
         lastname : this.lastname,
         username : this.username,
         password : this.password,
+        approved : this.approved + "",
         number : this.number,
         email : this.email,
         city : this.city,

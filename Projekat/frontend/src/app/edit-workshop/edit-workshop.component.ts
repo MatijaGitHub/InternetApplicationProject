@@ -19,6 +19,7 @@ export class EditWorkshopComponent implements OnInit {
   workshopDate : Date;
   workshopPlace : string;
   workshopDesc : string;
+  workshopLongDesc : string;
   workshopImage: string;
   lat : number;
   long : number;
@@ -29,6 +30,7 @@ export class EditWorkshopComponent implements OnInit {
   workshopDateEdit : Date | null = null;
   workshopPlaceEdit : string | null = "";
   workshopDescEdit : string| null = "";
+  workshopLongDescEdit : string| null = "";
   workshopImageEdit: string| null = "";
   latEdit : string| null = "";
   longEdit : string| null = "";
@@ -48,6 +50,7 @@ export class EditWorkshopComponent implements OnInit {
     }
    
     formData.append('shortDesc', this.workshopDescEdit);
+    formData.append('longDesc', this.workshopLongDescEdit);
     //formData.append('longDesc', this.longDesc);
     formData.append('lat', this.latEdit);
     formData.append('long', this.longEdit);
@@ -78,6 +81,8 @@ export class EditWorkshopComponent implements OnInit {
         this.workshopOrganizer = this.workshop.organizatorUsername;
         this.workshopImage = this.workshop.workshopImage.slice(7)
         this.workshopDate = this.workshop.workshopDate;
+        this.workshopName = this.workshop.workshopName;
+        this.workshopLongDesc = this.workshop.workshopDescLong;
         this.workshopService.getGalleryPics(this.workshop._id).subscribe((resp)=>{
           this.galleryPics = resp as string[];
           console.log(this.galleryPics)
@@ -95,6 +100,7 @@ export class EditWorkshopComponent implements OnInit {
         this.workshopOrganizer = this.workshop.organizatorUsername;
         this.workshopImage = this.workshop.workshopImage.slice(7)
         this.workshopDate = this.workshop.workshopDate;
+        this.workshopLongDesc = this.workshop.workshopDescLong;
         this.workshopService.getGalleryPics(this.workshop._id).subscribe((resp)=>{
           this.galleryPics = resp as string[];
           console.log(this.galleryPics)
@@ -129,6 +135,7 @@ export class EditWorkshopComponent implements OnInit {
           this.workshopOrganizer = this.workshop.organizatorUsername;
           this.workshopImage = this.workshop.workshopImage.slice(7)
           this.workshopDate = this.workshop.workshopDate;
+          this.workshopLongDesc = this.workshop.workshopDescLong;
           this.workshopService.getGalleryPics(this.workshop._id).subscribe((resp3)=>{
             console.log(this.galleryPics)
             this.galleryPics = resp3 as string[];

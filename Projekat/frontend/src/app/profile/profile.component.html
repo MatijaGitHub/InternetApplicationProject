@@ -1,15 +1,38 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav mode="side" opened>
-        <p>
-            <button routerLink="/user-info">Profile</button>
-        </p>
-        <p>
-            <button routerLink="/user-workshops">Workshops</button>
-        </p>
-        <p>
-            <button routerLink="/become-organizer">Become organizer</button>
-        </p>
+        <table>
+            <tr>
+                <button routerLink="/user-info">Profile</button>
+            </tr>
+            <tr>
+                <button routerLink="/user-workshops">Workshops</button>
+            </tr>
+            <tr>
+                <button routerLink="/become-organizer">Become organizer</button>
+            </tr>
+           <tr *ngIf="user_type == 2">
+                <button routerLink="/edit-users">All users</button>
+           </tr>
+           <tr *ngIf="user_type == 2">
+                <button routerLink="/registration-requests">Registration requests</button>
+            </tr>
+            <tr *ngIf="user_type==2">
+                <button routerLink="/insert-new-user">Add new user</button>
+            </tr>
+            <tr *ngIf="user_type==2">
+                <button routerLink="/workshop-aprove">Aprove workshops</button>
+            </tr>
 
+        </table>
+       
+            <form>
+                <button (click)="changePass()">Change password</button>
+            </form>
+       
+            <form>
+                <button (click)="logout()">Logout</button>
+            </form>
+        
     </mat-sidenav>
     <mat-sidenav-content>
         <table>
@@ -223,7 +246,7 @@
                 </td>
             </tr>
         </table>
-        <div *ngIf="user_type == 1">
+        <div *ngIf="user_type != 0">
             <h1>Organized workshops:</h1>
             <table>
                 <tr>
@@ -275,14 +298,7 @@
                 </tr>
             </table>
         </div>
-        <footer>
-            <form>
-                <button (click)="changePass()">Change password</button>
-            </form>
-            <form>
-                <button (click)="logout()">Logout</button>
-            </form>
-        </footer>
+
     </mat-sidenav-content>
   </mat-sidenav-container>
 

@@ -1,14 +1,39 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav mode="side" opened>
-        <p>
-            <button routerLink="/user-info">Profile</button>
-        </p>
-        <p>
-            <button routerLink="/user-workshops">Workshops</button>
-        </p>
-        <p>
-            <button routerLink="/become-organizer">Become organizer</button>
-        </p>
+        <table>
+            <tr>
+                <button routerLink="/user-info">Profile</button>
+            </tr>
+            <tr>
+                <button routerLink="/user-workshops">Workshops</button>
+            </tr>
+            <tr>
+                <button routerLink="/become-organizer">Become organizer</button>
+            </tr>
+            <tr *ngIf="user_type == 2">
+                <button routerLink="/edit-users">All users</button>
+           </tr>
+           <tr *ngIf="user_type == 2">
+                <button routerLink="/registration-requests">Registration requests</button>
+            </tr>
+            <tr *ngIf="user_type==2">
+                <button routerLink="/insert-new-user">Add new user</button>
+            </tr>
+            <tr *ngIf="user_type==2">
+                <button routerLink="/workshop-aprove">Aprove workshops</button>
+            </tr>
+            
+
+        </table>
+        
+            <form>
+                <button (click)="changePass()">Change password</button>
+            </form>
+        
+            <form>
+                <button (click)="logout()">Logout</button>
+            </form>
+        
 
     </mat-sidenav>
     <mat-sidenav-content>
@@ -71,7 +96,7 @@
     </tr>
     <tr *ngFor="let workshop of workshops">
         <td>
-            <img src="http://localhost:4000/{{workshop.workshopImage}}" onerror='this.src="http://localhost:4000/workshop.webp"'  width="50" height="50">
+            <img src="http://localhost:4000/{{workshop.workshopImage.slice(7)}}" onerror='this.src="http://localhost:4000/workshop.webp"'  width="50" height="50">
         </td>
         <td>
             {{workshop.workshopName}}  
@@ -88,23 +113,22 @@
         <td>
             <button (click)="moreInfo(workshop)">More info</button>
         </td>
-        <td *ngIf="workshop.organizatorUsername == username">
+        <td *ngIf="workshop.organizatorUsername == username || user_type == 2">
             <button (click)="editWorkshop(workshop)">Edit workshop</button>
         </td>
-        <td *ngIf="workshop.organizatorUsername == username">
+        <td *ngIf="workshop.organizatorUsername == username || user_type == 2">
             <button (click)="saveWorkshopAsJSON(workshop)">Save as JSON</button>
+        </td>
+        <td *ngIf="workshop.organizatorUsername == username || user_type == 2">
+            <button (click)="viewApplications(workshop)">Applications</button>
+        </td>
+        <td *ngIf="workshop.organizatorUsername == username || user_type == 2">
+            <button (click)="cancelWorkshop(workshop)">Cancel</button>
         </td>
         
     </tr>
 </table>
-<footer>
-    <form>
-        <button (click)="changePass()">Change password</button>
-    </form>
-    <form>
-        <button (click)="logout()">Logout</button>
-    </form>
-</footer>
+
     </mat-sidenav-content>
   </mat-sidenav-container>
 

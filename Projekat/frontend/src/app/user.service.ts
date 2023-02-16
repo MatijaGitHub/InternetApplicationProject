@@ -78,7 +78,22 @@ export class UserService {
   changeProfilePic(formData){
     return this.http.post('http://localhost:4000/users/changePicture', formData);
   }
-
-  
-
+  getAllUsers(){
+    return this.http.get('http://localhost:4000/users/getAllUsers');
+  }
+  getAllUsersRequest(){
+    return this.http.get('http://localhost:4000/users/getAllUsersRequest');
+  }
+  deleteUser(usernameForm){
+    const data = {
+      username : usernameForm
+    }
+    return this.http.post('http://localhost:4000/users/deleteUser', data);
+  }
+  acceptRegistration(usernameForm){
+    const data = {
+      username : usernameForm
+    }
+    return this.http.post('http://localhost:4000/users/acceptRegistrationRequest', data);
+  }
 }

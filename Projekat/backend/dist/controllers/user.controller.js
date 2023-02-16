@@ -5,6 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const user_1 = __importDefault(require("../models/user"));
+const user_comment_workshop_1 = __importDefault(require("../models/user_comment_workshop"));
+const user_liked_workshop_1 = __importDefault(require("../models/user_liked_workshop"));
+const user_workshop_1 = __importDefault(require("../models/user_workshop"));
+const workshop_1 = __importDefault(require("../models/workshop"));
+const user_chat_1 = __importDefault(require("../models/user_chat"));
 const file_extension_1 = __importDefault(require("file-extension"));
 var RandExp = require('randexp');
 var nodemailer = require('nodemailer');
@@ -17,6 +22,76 @@ var transporter = nodemailer.createTransport({
 });
 class UserController {
     constructor() {
+        this.deleteUser = (req, res) => {
+            let username = req.body.username;
+            user_1.default.findOne({ 'username': username }, (err, resp) => {
+                if (!err) {
+                    resp.type_of_user = 3;
+                    resp.save();
+                    res.json({ 'message': 'User deleted!' });
+                }
+                else {
+                    res.json({ 'message': 'Error!' });
+                }
+            });
+        };
+        this.changeUsername = (req, res) => {
+            let usernameNew = req.body.usernameNew;
+            let username = req.body.username;
+            let userFromDB = user_1.default.findOne({ 'username': usernameNew }, (err, resp) => {
+                if (err || resp == null) {
+                    let userFromDB2 = user_1.default.findOne({ 'username': username }, (err, resp2) => {
+                        if (err || resp2 == null) {
+                            res.json({ 'message': 'User doesnt exist!' });
+                        }
+                        else {
+                            resp2.username = usernameNew;
+                            resp2.save();
+                            user_comment_workshop_1.default.updateMany({ 'username': username }, { $set: { 'username': usernameNew } }, (err, resp) => { });
+                            user_liked_workshop_1.default.updateMany({ 'username': username }, { $set: { 'username': usernameNew } }, (err, resp) => { });
+                            user_workshop_1.default.updateMany({ 'username': username }, { $set: { 'username': usernameNew } }, (err, resp) => { });
+                            workshop_1.default.updateMany({ 'organizatorUsername': username }, { $set: { 'organizatorUsername': usernameNew } }, (err, resp) => {
+                                user_chat_1.default.find((err, resp) => {
+                                    if (!err) {
+                                        for (let chat of resp) {
+                                            for (let message of chat.messages) {
+                                                if (message.user == username) {
+                                                    message.user = usernameNew;
+                                                }
+                                            }
+                                            chat.save();
+                                        }
+                                        user_chat_1.default.updateMany({ 'username1': username }, { $set: { 'username1': usernameNew } }, (err, resp) => { });
+                                        user_chat_1.default.updateMany({ 'username2': username }, { $set: { 'username2': usernameNew } }, (err, resp) => { });
+                                        //change folders
+                                        workshop_1.default.find((err, resp) => {
+                                            for (let workshop of resp) {
+                                                if (workshop.organizatorUsername == usernameNew) {
+                                                    let oldfolderPath = workshop.workshopImage.split('/')[0] + '/' + workshop.workshopImage.split('/')[1];
+                                                    let newFolderPath = 'images/' + workshop.workshopName + workshop.workshopDate.toISOString().split('T')[0] + usernameNew;
+                                                    const fs = require('fs-extra');
+                                                    console.log(oldfolderPath, newFolderPath);
+                                                    fs.renameSync(oldfolderPath, newFolderPath);
+                                                    workshop.workshopImage = newFolderPath + '/' + workshop.workshopImage.split('/')[2];
+                                                    workshop.save();
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        res.json({ 'message': 'Error!' });
+                                    }
+                                });
+                                res.json({ 'message': 'Username changed!' });
+                            });
+                        }
+                    });
+                }
+                else {
+                    res.json({ 'message': 'Username already exists!' });
+                }
+            });
+        };
         this.login = (req, res) => {
             let username = req.body.username;
             let password = req.body.password;
@@ -28,7 +103,12 @@ class UserController {
                         res.json({ 'message': 'Wrong password!' });
                     }
                     else {
-                        res.json(user);
+                        if (user.approved == 0) {
+                            res.json({ 'message': 'User not aproved for registration!' });
+                        }
+                        else {
+                            res.json(user);
+                        }
                     }
                 }
             });
@@ -37,6 +117,7 @@ class UserController {
             let fields = req.body;
             let is_user = fields.is_user;
             let username = fields.username;
+            let approved = +req.body.approved;
             let userFromDB = user_1.default.findOne({ 'username': username }, (err, userDB) => {
                 if (err || userDB)
                     res.json({ 'message': 'Username already exists' });
@@ -48,7 +129,8 @@ class UserController {
                         password: fields.password,
                         phonenumber: fields.number,
                         email: fields.email,
-                        type_of_user: is_user == '1' ? 0 : 1
+                        type_of_user: is_user == '1' ? 0 : 1,
+                        approved: approved
                     });
                     if (fields.hasImage == '2') {
                         user.image_path = 'images/' + req.file.originalname.slice(0, -4) + '_' + req.body.username + '.' + (0, file_extension_1.default)(req.file.originalname);
@@ -152,27 +234,6 @@ class UserController {
                 }
             });
         };
-        this.changeUsername = (req, res) => {
-            let usernameNew = req.body.usernameNew;
-            let username = req.body.username;
-            let userFromDB = user_1.default.findOne({ 'username': usernameNew }, (err, resp) => {
-                if (err || resp == null) {
-                    let userFromDB2 = user_1.default.findOne({ 'username': username }, (err, resp2) => {
-                        if (err || resp2 == null) {
-                            res.json({ 'message': 'User doesnt exist!' });
-                        }
-                        else {
-                            resp2.username = usernameNew;
-                            resp2.save();
-                            res.json({ 'message': 'Username changed!' });
-                        }
-                    });
-                }
-                else {
-                    res.json({ 'message': 'Username already exists!' });
-                }
-            });
-        };
         this.changeEmail = (req, res) => {
             let email = req.body.email;
             let username = req.body.username;
@@ -211,6 +272,40 @@ class UserController {
                     user.image_path = 'images/' + req.file.originalname.slice(0, -4) + '_' + req.body.username + '.' + (0, file_extension_1.default)(req.file.originalname);
                     user.save();
                     res.json({ 'image_path': req.file.originalname.slice(0, -4) + '_' + req.body.username + '.' + (0, file_extension_1.default)(req.file.originalname) });
+                }
+            });
+        };
+        this.getAllUsers = (req, res) => {
+            user_1.default.find({ $and: [{ $or: [{ 'type_of_user': 0 }, { 'type_of_user': 1 }, { 'type_of_user': 2 }] }, { 'approved': 1 }] }, (err, resp) => {
+                if (!err) {
+                    res.json(resp);
+                }
+                else {
+                    res.json({ 'message': 'Error!' });
+                }
+            });
+        };
+        this.getAllUsersRequest = (req, res) => {
+            user_1.default.find({ $and: [{ $or: [{ 'type_of_user': 0 }, { 'type_of_user': 1 }, { 'type_of_user': 2 }] }, { 'approved': 0 }] }, (err, resp) => {
+                if (!err) {
+                    res.json(resp);
+                }
+                else {
+                    res.json({ 'message': 'Error!' });
+                }
+            });
+        };
+        this.acceptRegistrationRequest = (req, res) => {
+            let username = req.body.username;
+            console.log(username);
+            user_1.default.findOne({ 'username': username }, (err, resp) => {
+                if (!err) {
+                    resp.approved = 1;
+                    resp.save();
+                    res.json({ 'message': 'Success!' });
+                }
+                else {
+                    res.json({ 'message': 'Error!' });
                 }
             });
         };

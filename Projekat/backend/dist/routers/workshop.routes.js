@@ -14,6 +14,10 @@ var storageGallery = multer_1.default.diskStorage({
         const fs = require('fs');
         const path = require('path');
         const dir = 'images/' + req.body.oldWorkshopName.replace(' ', '_') + req.body.olddate + req.body.username.replace(' ', '_');
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir);
+            fs.mkdirSync(dir + '/gallery');
+        }
         if (req.body.edit_main_picture == 'true' && file.fieldname == 'main_picture') {
             fs.readdir(dir, (err, files) => {
                 if (!err) {
@@ -34,10 +38,6 @@ var storageGallery = multer_1.default.diskStorage({
                     }
                 }
             });
-        }
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir);
-            fs.mkdirSync(dir + '/gallery');
         }
         let gallery_dir = dir + '/gallery';
         if (req.body.edit_gallery_pictures == 'true' && file.fieldname == 'gallery_pics') {
@@ -162,6 +162,21 @@ workshopRouter.route('/getChatsByWorkshop').post((req, res) => {
 });
 workshopRouter.route('/deleteGalleryImg').post((req, res) => {
     return new workshop_controller_1.WorkshopController().deleteGalleryImg(req, res);
+});
+workshopRouter.route('/getApplications').post((req, res) => {
+    return new workshop_controller_1.WorkshopController().getApplications(req, res);
+});
+workshopRouter.route('/acceptApplication').post((req, res) => {
+    return new workshop_controller_1.WorkshopController().acceptApplication(req, res);
+});
+workshopRouter.route('/denyApplication').post((req, res) => {
+    return new workshop_controller_1.WorkshopController().denyApplication(req, res);
+});
+workshopRouter.route('/cancelWorkshop').post((req, res) => {
+    return new workshop_controller_1.WorkshopController().cancelWorkshop(req, res);
+});
+workshopRouter.route('/getUnaprovedWorkshops').get((req, res) => {
+    return new workshop_controller_1.WorkshopController().getUnaprovedWorkshops(req, res);
 });
 exports.default = workshopRouter;
 //# sourceMappingURL=workshop.routes.js.map

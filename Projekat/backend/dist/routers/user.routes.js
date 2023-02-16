@@ -61,5 +61,17 @@ userRouter.route('/changePhonenumber').post((req, res) => {
 userRouter.route('/changePicture').post(exports.upload.single('image'), (req, res) => {
     return new user_controller_1.UserController().changeProfilePic(req, res);
 });
+userRouter.route('/getAllUsers').get((req, res) => {
+    return new user_controller_1.UserController().getAllUsers(req, res);
+});
+userRouter.route('/getAllUsersRequest').get((req, res) => {
+    return new user_controller_1.UserController().getAllUsersRequest(req, res);
+});
+userRouter.route('/deleteUser').post((req, res) => {
+    return new user_controller_1.UserController().deleteUser(req, res);
+});
+userRouter.route('/acceptRegistrationRequest').post((req, res) => {
+    return new user_controller_1.UserController().acceptRegistrationRequest(req, res);
+});
 exports.default = userRouter;
 //# sourceMappingURL=user.routes.js.map

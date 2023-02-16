@@ -40,6 +40,9 @@ let user = new mongoose_1.default.Schema({
     },
     image_path: {
         type: String
+    },
+    approved: {
+        type: Number
     }
 });
 exports.default = mongoose_1.default.model("UserModel", user, 'users');

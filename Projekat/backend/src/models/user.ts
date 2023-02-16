@@ -37,6 +37,9 @@ let user = new mongoose.Schema({
     },
     image_path: {
         type: String
+    },
+    approved:{
+        type: Number
     }
 
 });

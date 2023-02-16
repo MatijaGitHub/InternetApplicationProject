@@ -177,4 +177,46 @@ export class WorkshopService {
     }
     return this.http.post('http://localhost:4000/workshops/deleteGalleryImg', data)
   }
+  getApplications(widForm){
+    const data = {
+      workshopId : widForm,
+    }
+    return this.http.post('http://localhost:4000/workshops/getApplications', data)
+  }
+  acceptApplication(widForm, usernameForm){
+    const data = {
+      workshopId : widForm,
+      username : usernameForm
+    }
+    return this.http.post("http://localhost:4000/workshops/acceptApplication", data);
+  }
+  denyApplication(widForm, usernameForm){
+    const data = {
+      workshopId : widForm,
+      username : usernameForm
+    }
+    return this.http.post("http://localhost:4000/workshops/denyApplication", data);
+  }
+  cancelWorkshop(widForm, widNameForm){
+    const data = {
+      workshopId : widForm,
+      workshopName : widNameForm
+    }
+    return this.http.post("http://localhost:4000/workshops/cancelWorkshop", data);
+  }
+  getUnaprovedWorkshops(){
+    return this.http.get("http://localhost:4000/workshops/getUnaprovedWorkshops");
+  }
+  acceptWorkshop(widForm){
+    const data = {
+      workshopId : widForm
+    }
+    return this.http.post("http://localhost:4000/workshops/acceptWorkshop", data);
+  }
+  rejectWorkshop(widForm){
+    const data = {
+      workshopId : widForm
+    }
+    return this.http.post("http://localhost:4000/workshops/rejectWorkshop", data);
+  }
 }

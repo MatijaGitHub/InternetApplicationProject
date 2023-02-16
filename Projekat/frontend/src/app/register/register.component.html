@@ -126,8 +126,11 @@
     </table>
 
     </form>
-    Loginuj se <a href="">ovde</a> <br>
-    {{errorMsg}}
+    <div *ngIf="approved == 0">
+        Loginuj se <a href="">ovde</a> <br>
+        {{errorMsg}}
+    </div>
+    
 
     
     
