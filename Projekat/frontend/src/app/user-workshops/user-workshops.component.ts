@@ -28,9 +28,7 @@ export class UserWorkshopsComponent implements OnInit {
     let nowDate =new Date()
     let workshopDate = new Date(workshop.workshopDate)
     var hours = Math.abs(workshopDate.getTime() - nowDate.getTime()) / (60*60*1000);
-    console.log(workshopDate)
-    console.log(nowDate)
-    console.log(hours)
+  
     if(hours >= 12){
       return 1;
     }
@@ -47,7 +45,13 @@ export class UserWorkshopsComponent implements OnInit {
     this.workshopService.cancelParticipation(username, workshopId).subscribe((resp)=>{
       this.workshopService.getWorkshopsByParticipation(this.username,0).subscribe((resp)=>{
         this.appliedWorkshops = resp as Workshop[];
-      })  
+      })
+      this.workshopService.getWorkshopsByParticipation(this.username,0).subscribe((resp)=>{
+        this.appliedWorkshops = resp as Workshop[];
+        this.workshopService.get_all_workshops().subscribe((resp)=>{
+          this.workshops = resp as Workshop[];
+        }) 
+      })
     })
   }
   workshops: Workshop[];
@@ -67,8 +71,20 @@ export class UserWorkshopsComponent implements OnInit {
     }
     
   }
+  changePass(){
+    this.router.navigate(['change-password']);
+  }
+  logout(){
+    sessionStorage.clear();
+    this.router.navigate(['']);
+  }
   moreInfo(workshop){
-    this.router.navigate(['workshop-info', {workshopId : workshop._id}])
+    this.router.navigate(['workshop-info', {workshopId : workshop._id, workshopDesc : workshop.workshopDesc, workshopName : workshop.workshopName, workshopStatus : workshop.status,
+    workshopFreeSpaces : workshop.freeSpaces}])
+  }
+  editWorkshop(workshop){
+    this.router.navigate(['edit-workshop', {workshopId : workshop._id, workshopDesc : workshop.workshopDesc, workshopName : workshop.workshopName, workshopStatus : workshop.status,
+      workshopFreeSpaces : workshop.freeSpaces}])
   }
   sortByDate(){
     this.workshops.sort((w1, w2)=> w1.workshopDate > w2.workshopDate? -1: 1);

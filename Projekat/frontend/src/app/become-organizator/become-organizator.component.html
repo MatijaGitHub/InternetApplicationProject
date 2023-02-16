@@ -1,0 +1,122 @@
+<mat-sidenav-container class="example-container">
+    <mat-sidenav mode="side" opened>
+        <p>
+            <button routerLink="/user-info">Profile</button>
+        </p>
+        <p>
+            <button routerLink="/user-workshops">Workshops</button>
+        </p>
+        <p>
+            <button routerLink="/become-organizer">Become organizer</button>
+        </p>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <table>
+            <tr>
+                <td>
+                    Picture:
+                </td>
+                <td>
+                    <input name="main_picture" type="file" (change)="uploadImage($any($event).target.files)">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Name:
+                </td>
+                <td>
+                    <input type="text" name="name_of_work" [(ngModel)]="name_of_work">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Place:
+                </td>
+                <td>
+                    <input type="text" name="place" [(ngModel)]="place">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Coordinates(optional):
+                </td>
+                <td>
+                  <table>
+                    <tr>
+                        <td>
+                            Lat:
+                        </td>
+                        <td>
+                            <input type="text" name="latitude" [(ngModel)]="latitude">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Long:
+                        </td>
+                        <td>
+                            <input type="text" name="longtitude" [(ngModel)]="longtitude">
+                        </td>
+                    </tr>
+                  </table>  
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Date:
+                </td>
+                <td>
+                    <input type="date" name="date" [(ngModel)]="date">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Number of spaces:
+                </td>
+                <td>
+                    <input type="text" name="numOfSpaces" [(ngModel)]="numOfSpaces">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Short description:
+                </td>
+                <td>
+                    <input type="text" name="shortDesc" [(ngModel)]="shortDesc">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Long description:
+                </td>
+                <td>
+                    <input type="text" name="longDesc" [(ngModel)]="longDesc">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Gallery pics:
+                </td>
+                <td>
+                    <input name="gallery_pics" type="file" (change)="uploadImages($any($event).target.files)" multiple>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button (click)="sendWorkshopRequest()">Submit</button>
+                </td>
+            </tr>
+        </table>
+        <footer>
+            <form>
+                <button (click)="changePass()">Change password</button>
+            </form>
+            <form>
+                <button (click)="logout()">Logout</button>
+            </form>
+        </footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+

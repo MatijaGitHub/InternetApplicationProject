@@ -1,0 +1,109 @@
+<table>
+    <tr>
+        <td>
+            Workshop name:
+        </td>
+        <td>
+            {{workshop.workshopName}}
+        </td>
+        <td>
+            <input type="text" name="workshopNameEdit" [(ngModel)]="workshopNameEdit">
+        </td>
+    </tr>  
+    <tr>
+        <td>
+            Workshop date:
+        </td>
+        <td>
+            {{workshop.workshopDate}}
+        </td>
+        <td>
+            <input type="date" name="workshopDateEdit" [(ngModel)]="workshopDateEdit">
+        </td>
+    </tr> 
+    <tr>
+        <td>
+            Workshop image:
+        </td>
+        <td>
+            <img src="http://localhost:4000/{{workshopImage}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+        </td>
+        <td>
+            <input name="main_picture" type="file" (change)="uploadImage($any($event).target.files)">
+        </td>
+    
+    </tr> 
+    
+    <tr>
+        <td>
+            Workshop place:
+        </td>
+        <td>
+            {{workshop.workshopPlace}}
+        </td>
+        <td>
+            <input type="text" name="workshopPlaceEdit" [(ngModel)]="workshopPlaceEdit">
+        </td>
+    </tr> 
+    <tr>
+        <td>
+            Workshop desc:
+        </td>
+        <td>
+            {{workshop.workshopDesc}}
+        </td>
+        <td>
+            <input type="text" name="workshopDescEdit" [(ngModel)]="workshopDescEdit">
+        </td>
+    </tr> 
+    <tr>
+        <td>
+            Workshop lat:
+        </td>
+        <td>
+            {{workshop.lat}}
+        </td>
+        <td>
+            <input type="text" name="latEdit" [(ngModel)]="latEdit">
+        </td>
+    </tr> 
+    <tr>
+        <td>
+            Workshop long:
+        </td>
+        <td>
+            {{workshop.long}}
+        </td>
+        <td>
+            <input type="text" name="longEdit" [(ngModel)]="longEdit">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Gallery pics:
+        </td>
+        <td>
+            <input name="gallery_pics" type="file" (change)="uploadImages($any($event).target.files)" multiple>
+        </td>
+    </tr> 
+        <tr *ngFor="let picture of galleryPics">
+            
+            <td>
+                <img src="http://localhost:4000/{{picture}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+            </td>
+                  
+           <td>
+                <button (click)="deleteImg(picture)">Delete</button>
+           </td>  
+                
+              
+        </tr>
+        
+   
+    <tr>
+        <td colspan="3">
+            <button (click)="edit()">Edit</button>
+        </td>
+    </tr>
+        
+</table>

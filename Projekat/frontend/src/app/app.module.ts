@@ -18,7 +18,13 @@ import { EditCommentComponent } from './edit-comment/edit-comment.component';
 import { UserWorkshopsComponent } from './user-workshops/user-workshops.component';
 import { WorkshopInfoComponent } from './workshop-info/workshop-info.component'
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-
+import { ChatComponent } from './chat/chat.component';
+import { BecomeOrganizatorComponent } from './become-organizator/become-organizator.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WorkshopMessagesComponent } from './workshop-messages/workshop-messages.component';
+import { EditWorkshopComponent } from './edit-workshop/edit-workshop.component';
 
 @NgModule({
   declarations: [
@@ -34,14 +40,21 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     ProfileComponent,
     EditCommentComponent,
     UserWorkshopsComponent,
-    WorkshopInfoComponent
+    WorkshopInfoComponent,
+    ChatComponent,
+    BecomeOrganizatorComponent,
+    SidebarComponent,
+    WorkshopMessagesComponent,
+    EditWorkshopComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    LeafletModule
+    LeafletModule,
+    MatSidenavModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

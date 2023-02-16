@@ -10,6 +10,9 @@ let user_workshop = new mongoose_1.default.Schema({
     },
     workshopId: {
         type: String
+    },
+    accepted: {
+        type: Number
     }
 });
 exports.default = mongoose_1.default.model("UserWorkshopModel", user_workshop, 'user_workshop');

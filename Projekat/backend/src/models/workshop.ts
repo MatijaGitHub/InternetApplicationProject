@@ -18,6 +18,9 @@ let workshop = new mongoose.Schema({
     workshopDesc:{
         type: String
     },
+    workshopDescLong:{
+        type: String
+    },
     numOfLikes:{
         type: Number
     },
@@ -32,7 +35,13 @@ let workshop = new mongoose.Schema({
     },
     long:{
         type:Number
-    }
+    },
+    organizatorUsername:{
+        type: String
+    },
+    waitList:[{
+        type: String
+    }]
 
 });
 

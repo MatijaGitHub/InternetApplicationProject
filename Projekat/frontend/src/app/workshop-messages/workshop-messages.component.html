@@ -1,0 +1,16 @@
+<table>  
+    <tr *ngFor="let chat of chats; let chatIndex = index;">
+        <td *ngIf="chatDisplayed[chatIndex] == 0">
+            {{chat.username1}}
+        </td>
+        <td *ngIf="chatDisplayed[chatIndex] == 0">
+            <button (click)="displayChat(chatIndex)">View chat</button>
+        </td>
+        <td *ngIf="chatDisplayed[chatIndex] == 1">
+            <app-chat  [fromUser]="false" [usernameTo]="chat.username2" [usernameFrom]="chat.username1" workshopId="{{workshopId}}"></app-chat>
+        </td>
+        <td *ngIf="chatDisplayed[chatIndex] == 1">
+            <button (click)="hideChat(chatIndex)">Hide chat</button>
+        </td>
+    </tr>
+</table>

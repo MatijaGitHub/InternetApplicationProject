@@ -18,10 +18,18 @@ export class ProfileComponent implements OnInit {
       this.username = sessionStorage.getItem('username'); 
       this.phonenumber = sessionStorage.getItem('phonenumber');  
       this.email = sessionStorage.getItem('email'); 
-      this.image_path = sessionStorage.getItem('imagePath').slice(7);
+      this.user_type = +sessionStorage.getItem('user_type');
+      if(sessionStorage.getItem('imagePath') != null){
+        this.image_path = sessionStorage.getItem('imagePath').slice(7);
+      }
+      else{
+        this.image_path = "backend/images/blank-profile-picture-973460__340.webp"
+      }
+     
       this.getWorkshops();
       this.getLikedWorkshops();
       this.getWorkshopComments();
+      this.gerOrganizatorWorkshops();
    }
 
   ngOnInit(): void {
@@ -42,8 +50,9 @@ export class ProfileComponent implements OnInit {
   phonenumber : string;
   username : string;
   image_path : string;
-
+  user_type : number;
   workshopsPart : Workshop[];
+  workshopsOrg : Workshop[];
   likedWorkshops : Workshop[];
   workshopComments : WorkshopComments[];
 
@@ -69,6 +78,9 @@ export class ProfileComponent implements OnInit {
       this.lastname = this.lastnameUpd;
     })
   }
+  messages(workshop){
+    this.router.navigate(['workshop-messages', {workshopIdMess : workshop._id}])
+  }
   changePhonenumber(){
     this.userService.changePhonenumber(this.username, this.phonenumberUpd).subscribe((resp)=>{
       this.phonenumber = this.phonenumberUpd;
@@ -89,6 +101,11 @@ export class ProfileComponent implements OnInit {
   getWorkshops(){
     this.workshopService.getWorkshopsByParticipation(this.username, 1).subscribe((resp)=>{
         this.workshopsPart = resp as Workshop[];
+    })
+  }
+  gerOrganizatorWorkshops(){
+    this.workshopService.getWorkshopsByOrganizator(this.username).subscribe((resp)=>{
+      this.workshopsOrg = resp as Workshop[];
     })
   }
   getLikedWorkshops(){
@@ -143,7 +160,13 @@ export class ProfileComponent implements OnInit {
   sortByWorkShopLikes(){
     this.workshopsPart.sort((w1, w2)=> w1.numOfLikes > w2.numOfLikes? -1: 1);
   }
-  
+  changePass(){
+    this.router.navigate(['change-password']);
+  }
+  logout(){
+    sessionStorage.clear();
+    this.router.navigate(['']);
+  }
   uploadImage(files: FileList):void{
     this.imageToUpload = files.item(0);
     let image = new Image()

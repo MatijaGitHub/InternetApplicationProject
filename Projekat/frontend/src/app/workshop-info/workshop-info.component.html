@@ -5,18 +5,99 @@ crossorigin=""/>
  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
      crossorigin=""></script>
-
-<h1>Description:</h1>
-<p>{{workshop.workshopDesc}}</p>
-<h1>Gallery:</h1>
-<table name="pictures">
-
+<h1>{{workshopName}}</h1>
+<h2>Info:</h2>
+<table>
+  <tr>
+    <td>
+      Description:
+    </td>
+    <td>
+      <p>{{workshop.workshopDescLong}}</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Organizator:
+    </td>
+    <td>
+      {{workshop.organizatorUsername}}
+    </td>
+    <td>
+      <button (click)="beginChat()">Chat</button>
+    </td>
+  </tr>
 </table>
-<h1>Map:</h1>
+
+<h2>Gallery:</h2>
+<table name="pictures">
+  <tr *ngFor="let picture of galleryPics">
+    <td>
+      <img src="http://localhost:4000/{{picture}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+    </td>
+    
+  </tr>
+</table>
+<h2>Map:</h2>
 <div class="map-container">
     <div class="map-frame">
       <div id="map"></div>
     </div>
   </div>
+  <br>
+  <div *ngIf="workshopFreeSpaces > 0 && workshopStatus == 0 && applied == 0">
+    <button (click)="apply()">Apply</button>
+  </div>
+  <br>
+  <div *ngIf="(workshopFreeSpaces == 0 || workshopStatus == 1) && applied == 0">
+    <button (click)="alertMe()">Alert me when its free</button>
+  </div>
+  <br>
+  <div *ngIf="applied == 1">
+    <p style="color: green;">Applied!</p>
+    <button (click)="cancel()">Cancel</button>
+  </div>
+  <br>
+
+{{applyMsg}}
+<br>
+<table>
+  <tr>
+    <td *ngIf="liked == 0">
+      <button  (click)="likeWorkshop()">Like</button>
+    </td>
+    <td *ngIf="liked == 1">
+      <button (click)="unlikeWorkshop()">Unlike</button>
+    </td>
+    <td>
+      {{workshop.numOfLikes}}
+    </td>
+    <td>
+      <button (click)="displayComments()">Comments</button>
+    </td>
+  </tr>
+</table>
+<div name="commentSection" *ngIf="displayComment == 1">
+  <table>
+    <tr *ngFor="let comment of comments">
+      <td>
+        {{comment.username}}:
+      </td>
+      <td>
+        {{comment.comment}}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="text" name="commentToUpload" [(ngModel)]="commentToUpload">
+      </td>
+      <td>
+        <button (click)="uploadComment()">Upload</button>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<br>
 <a href="/user">Back</a>
 

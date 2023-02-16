@@ -21,6 +21,9 @@ let workshop = new mongoose_1.default.Schema({
     workshopDesc: {
         type: String
     },
+    workshopDescLong: {
+        type: String
+    },
     numOfLikes: {
         type: Number
     },
@@ -35,7 +38,13 @@ let workshop = new mongoose_1.default.Schema({
     },
     long: {
         type: Number
-    }
+    },
+    organizatorUsername: {
+        type: String
+    },
+    waitList: [{
+            type: String
+        }]
 });
 exports.default = mongoose_1.default.model("WorkshopModel", workshop, 'workshops');
 //# sourceMappingURL=workshop.js.map

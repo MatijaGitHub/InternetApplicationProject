@@ -7,6 +7,9 @@ let user_workshop = new mongoose.Schema({
     },
     workshopId: {
         type: String
+    },
+    accepted: {
+        type: Number
     }
 });
 

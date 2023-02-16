@@ -1,213 +1,291 @@
-<table>
-    <tr>
-        <td>
-            Firstname:
-        </td>
-        <td>
-            {{firstname}}
-        </td>
-        <td *ngIf="edit == 1">
-            <input type="text" name="firstnameUpdate" [(ngModel)]="firstnameUpd">
-        </td>
-        <td *ngIf="edit == 1">
-            <button (click)="changeFirstname()">Change</button>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Lastname:
-        </td>
-        <td>
-            {{lastname}}
-        </td>
-        <td *ngIf="edit == 1">
-            <input type="text" name="lastnameUpdate" [(ngModel)]="lastnameUpd">
-        </td>
-        <td *ngIf="edit == 1">
-            <button (click)="changeLastname()">Change</button>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Username:
-        </td>
-        <td>
-            {{username}}
-        </td>
-        <td *ngIf="edit == 1">
-            <input type="text" name="usernameUpdate" [(ngModel)]="usernameUpd">
-        </td>
-        <td *ngIf="edit == 1">
-            <button (click)="changeUsername()">Change</button>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Phone number:
-        </td>
-        <td>
-            {{phonenumber}}
-        </td>
-        <td *ngIf="edit == 1">
-            <input type="text" name="phonenumberUpdate" [(ngModel)]="phonenumberUpd">
-        </td>
-        <td *ngIf="edit == 1">
-            <button (click)="changePhonenumber()">Change</button>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Email:
-        </td>
-        <td>
-            {{email}}
-        </td>
-        <td *ngIf="edit == 1">
-            <input type="text" name="emailUpdate" [(ngModel)]="emailUpd">
-        </td>
-        <td *ngIf="edit == 1">
-            <button (click)="changeEmail()">Change</button>
-        </td>
-    </tr>
-    <tr>
-        <tr>
-            <td>
-                Profile picture:
-            </td>
-            <td>
-                <img src="http://localhost:4000/{{image_path}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
-            </td>
-            <td *ngIf="edit == 1">
-                <div class="form-group">
-                        
-                    <input type="file" (change)="uploadImage($any($event).target.files)">
-                    </div>
-            </td>
-            <td *ngIf="edit == 1">
-                <button (click)="changePicture()">Change</button>
-            </td>
-        </tr>
-        <tr>
-        <td>
-            <button (click)="editEnable()">Edit mode</button>
-        </td>
-        <td>
-            <p *ngIf="edit == 1">On</p>
-            <p *ngIf="edit == 0">Off</p>
-        </td>
-    </tr>
-</table>
-<h1>Participated workshops:</h1>
-<table>
-    <tr>
-        
-        <td>
-            
-        </td>
-        <td>
-            <button (click)="sortByWorkShopName()">Sort</button>
-            
-        </td>
-        <td>
-            <button (click)="sortByWorkShopDate()">Sort</button>
-           
-        </td>
-        <td>
-            <button (click)="sortByWorkShopPlace()">Sort</button>
-          
-        </td>
-        <td>
-            <button (click)="sortByWorkShopDesc()">Sort</button>
-           
-        </td>
-        <td>
-            <button (click)="sortByWorkShopLikes()">Sort</button>
-           
-        </td>
-    </tr>
-    <tr>
-        
-        <td>
-            Workshop Image
-        </td>
-        <td>
-            Workshop Name 
-        </td>
-        <td>
-            Workshop Date
-        </td>
-        <td>
-            Workshop Place
-        </td>
-        <td>
-            Workshop Desc
-        </td>
-        <td>
-            Likes
-        </td>
-    </tr>
-    <tr *ngFor="let workshop of workshopsPart">
-        <td>
-            <img src="http://localhost:4000/{{workshop.workshopImage}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
-        </td>
-        <td>
-            {{workshop.workshopName}}  
-        </td>
-        <td>
-           {{workshop.workshopDate}} 
-        </td>
-        <td>
-            {{workshop.workshopPlace}} 
-        </td>
-        <td>
-            {{workshop.workshopDesc}} 
-        </td>
-        <td>
-            {{workshop.numOfLikes}} 
-        </td>
-    </tr>
-</table>
-<table>
-    <tr *ngFor="let workshop of likedWorkshops">
-        <td>
-            {{workshop.workshopName}}
-        </td>
-        <td>
-            <button (click)="unlikeWorkshop(workshop)">Unlike</button>
-        </td>
-    </tr>
-</table>          
-<table>
-    <tr>
-        <td>
-            <h4>Workshop:</h4>
-        </td>
-        <td>
-            <h3>Comment:</h3>
-        </td>
-        <td>
-            <h3>Delete:</h3>
-        </td>
-        <td>
-            <h3>Edit:</h3>
+<mat-sidenav-container class="example-container">
+    <mat-sidenav mode="side" opened>
+        <p>
+            <button routerLink="/user-info">Profile</button>
+        </p>
+        <p>
+            <button routerLink="/user-workshops">Workshops</button>
+        </p>
+        <p>
+            <button routerLink="/become-organizer">Become organizer</button>
+        </p>
 
-        </td>
-    </tr>
-    <tr *ngFor="let comment of workshopComments">
-        <td>
-            {{comment.workshopName}}
-        </td>
-        <td>
-            {{comment.comment}}
-        </td>
-        <td>
-            <button (click)="deleteComment(comment)">Delete</button>
-        </td>
-        <td>
-            <button (click)="editComment(comment)">Edit</button>
-        </td>
-    </tr>
-</table>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <table>
+            <tr>
+                <td>
+                    Firstname:
+                </td>
+                <td>
+                    {{firstname}}
+                </td>
+                <td *ngIf="edit == 1">
+                    <input type="text" name="firstnameUpdate" [(ngModel)]="firstnameUpd">
+                </td>
+                <td *ngIf="edit == 1">
+                    <button (click)="changeFirstname()">Change</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Lastname:
+                </td>
+                <td>
+                    {{lastname}}
+                </td>
+                <td *ngIf="edit == 1">
+                    <input type="text" name="lastnameUpdate" [(ngModel)]="lastnameUpd">
+                </td>
+                <td *ngIf="edit == 1">
+                    <button (click)="changeLastname()">Change</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Username:
+                </td>
+                <td>
+                    {{username}}
+                </td>
+                <td *ngIf="edit == 1">
+                    <input type="text" name="usernameUpdate" [(ngModel)]="usernameUpd">
+                </td>
+                <td *ngIf="edit == 1">
+                    <button (click)="changeUsername()">Change</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Phone number:
+                </td>
+                <td>
+                    {{phonenumber}}
+                </td>
+                <td *ngIf="edit == 1">
+                    <input type="text" name="phonenumberUpdate" [(ngModel)]="phonenumberUpd">
+                </td>
+                <td *ngIf="edit == 1">
+                    <button (click)="changePhonenumber()">Change</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Email:
+                </td>
+                <td>
+                    {{email}}
+                </td>
+                <td *ngIf="edit == 1">
+                    <input type="text" name="emailUpdate" [(ngModel)]="emailUpd">
+                </td>
+                <td *ngIf="edit == 1">
+                    <button (click)="changeEmail()">Change</button>
+                </td>
+            </tr>
+            <tr>
+                <tr>
+                    <td>
+                        Profile picture:
+                    </td>
+                    <td>
+                        <img src="http://localhost:4000/{{image_path}}" onerror='this.src="http://localhost:4000/blank-profile-picture-973460__340.webp"' width="50" height="50">
+                    </td>
+                    <td *ngIf="edit == 1">
+                        <div class="form-group">
+                                
+                            <input type="file" (change)="uploadImage($any($event).target.files)">
+                            </div>
+                    </td>
+                    <td *ngIf="edit == 1">
+                        <button (click)="changePicture()">Change</button>
+                    </td>
+                </tr>
+                <tr>
+                <td>
+                    <button (click)="editEnable()">Edit mode</button>
+                </td>
+                <td>
+                    <p *ngIf="edit == 1">On</p>
+                    <p *ngIf="edit == 0">Off</p>
+                </td>
+            </tr>
+        </table>
+        <h1>Participated workshops:</h1>
+        <table>
+            <tr>
+                
+                <td>
+                    
+                </td>
+                <td>
+                    <button (click)="sortByWorkShopName()">Sort</button>
+                    
+                </td>
+                <td>
+                    <button (click)="sortByWorkShopDate()">Sort</button>
+                   
+                </td>
+                <td>
+                    <button (click)="sortByWorkShopPlace()">Sort</button>
+                  
+                </td>
+                <td>
+                    <button (click)="sortByWorkShopDesc()">Sort</button>
+                   
+                </td>
+                <td>
+                    <button (click)="sortByWorkShopLikes()">Sort</button>
+                   
+                </td>
+            </tr>
+            <tr>
+                
+                <td>
+                    Workshop Image
+                </td>
+                <td>
+                    Workshop Name 
+                </td>
+                <td>
+                    Workshop Date
+                </td>
+                <td>
+                    Workshop Place
+                </td>
+                <td>
+                    Workshop Desc
+                </td>
+                <td>
+                    Likes
+                </td>
+            </tr>
+            <tr *ngFor="let workshop of workshopsPart">
+                <td>
+                    <img src="http://localhost:4000/{{workshop.workshopImage}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+                </td>
+                <td>
+                    {{workshop.workshopName}}  
+                </td>
+                <td>
+                   {{workshop.workshopDate}} 
+                </td>
+                <td>
+                    {{workshop.workshopPlace}} 
+                </td>
+                <td>
+                    {{workshop.workshopDesc}} 
+                </td>
+                <td>
+                    {{workshop.numOfLikes}} 
+                </td>
+
+            </tr>
+        </table>
+        <table>
+            <tr *ngFor="let workshop of likedWorkshops">
+                <td>
+                    {{workshop.workshopName}}
+                </td>
+                <td>
+                    <button (click)="unlikeWorkshop(workshop)">Unlike</button>
+                </td>
+            </tr>
+        </table>          
+        <table>
+            <tr>
+                <td>
+                    <h4>Workshop:</h4>
+                </td>
+                <td>
+                    <h3>Comment:</h3>
+                </td>
+                <td>
+                    <h3>Delete:</h3>
+                </td>
+                <td>
+                    <h3>Edit:</h3>
+        
+                </td>
+            </tr>
+            <tr *ngFor="let comment of workshopComments">
+                <td>
+                    {{comment.workshopName}}
+                </td>
+                <td>
+                    {{comment.comment}}
+                </td>
+                <td>
+                    <button (click)="deleteComment(comment)">Delete</button>
+                </td>
+                <td>
+                    <button (click)="editComment(comment)">Edit</button>
+                </td>
+            </tr>
+        </table>
+        <div *ngIf="user_type == 1">
+            <h1>Organized workshops:</h1>
+            <table>
+                <tr>
+                
+                    <td>
+                        Workshop Image
+                    </td>
+                    <td>
+                        Workshop Name 
+                    </td>
+                    <td>
+                        Workshop Date
+                    </td>
+                    <td>
+                        Workshop Place
+                    </td>
+                    <td>
+                        Workshop Desc
+                    </td>
+                    <td>
+                        Likes
+                    </td>
+                    <td>
+                        Messages
+                    </td>
+                </tr>
+                <tr *ngFor="let workshop of workshopsOrg">
+                    <td>
+                        <img src="http://localhost:4000/{{workshop.workshopImage}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+                    </td>
+                    <td>
+                        {{workshop.workshopName}}  
+                    </td>
+                    <td>
+                       {{workshop.workshopDate}} 
+                    </td>
+                    <td>
+                        {{workshop.workshopPlace}} 
+                    </td>
+                    <td>
+                        {{workshop.workshopDesc}} 
+                    </td>
+                    <td>
+                        {{workshop.numOfLikes}} 
+                    </td>
+                    <td>
+                        <button (click)="messages(workshop)">Messages</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <footer>
+            <form>
+                <button (click)="changePass()">Change password</button>
+            </form>
+            <form>
+                <button (click)="logout()">Logout</button>
+            </form>
+        </footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
 
    
 

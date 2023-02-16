@@ -1,0 +1,17 @@
+<mat-sidenav-container class="example-container">
+    <mat-sidenav mode="side" opened>
+        <p>
+            <button routerLink="/user-info">Profile</button>
+        </p>
+        <p>
+            <button routerLink="/user-workshops">Workshops</button>
+        </p>
+        <p>
+            <button routerLink="/become-organizer">Become organizer</button>
+        </p>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet name="child"></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

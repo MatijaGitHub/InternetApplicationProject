@@ -1,0 +1,26 @@
+<div *ngIf="chat != null">
+    <table>
+        <tr *ngFor="let message of chat.messages">
+            <td>
+               <p *ngIf="message.user != usernameRight" style="display: flex; justify-content: left;text-align: left;">{{message.message}}</p> 
+            </td>
+            <td >
+                <p *ngIf="message.user == usernameRight" style="display: flex; justify-content: right;text-align: right;"> {{message.message}}</p>
+                
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                <input type="text" name="messageToSend" [(ngModel)]="messageToSend">
+            </td>
+            <td>
+                <button (click)="sendMessage()">Send</button>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <a *ngIf="fromUser" href="/user">Back</a>
+</div>
+
