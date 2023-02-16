@@ -91,6 +91,9 @@
         <td *ngIf="workshop.organizatorUsername == username">
             <button (click)="editWorkshop(workshop)">Edit workshop</button>
         </td>
+        <td *ngIf="workshop.organizatorUsername == username">
+            <button (click)="saveWorkshopAsJSON(workshop)">Save as JSON</button>
+        </td>
         
     </tr>
 </table>

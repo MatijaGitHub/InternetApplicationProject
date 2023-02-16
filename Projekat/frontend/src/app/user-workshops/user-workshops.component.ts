@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Workshop } from '../models/workshop';
 import { WorkshopService } from '../workshop.service';
-
+import { saveAs } from 'file-saver';
 @Component({
   selector: 'app-user-workshops',
   templateUrl: './user-workshops.component.html',
@@ -92,5 +92,28 @@ export class UserWorkshopsComponent implements OnInit {
   sortByName(){
     this.workshops.sort((w1, w2)=> w1.workshopName.toLowerCase() > w2.workshopName.toLowerCase()? 1: -1);
   }
-
+  saveWorkshopAsJSON(workshop){
+    this.workshopService.getGalleryPics(workshop._id).subscribe((resp)=>{
+      //let galleryPicsFromDb = resp as string[]
+      var data = {
+        workshopName : workshop.workshopName,
+        workshopDate : workshop.workshopDate,
+        workshopMainImage : workshop.workshopImage,
+        workshopPlace : workshop.workshopPlace,
+        workshopDesc : workshop.workshopDesc,
+        lat : workshop.lat,
+        long : workshop.long,
+        galleryPics : resp
+      };
+      var fileName = 'workshopPattern.json';
+      
+      // Create a blob of the data
+      var fileToSave = new Blob([JSON.stringify(data)], {
+          type: 'application/json'
+      });
+  
+      saveAs(fileToSave, fileName);
+    })
+    
+  }
 }
