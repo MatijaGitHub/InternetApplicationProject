@@ -29,10 +29,18 @@ export class WorkshopAproveComponent implements OnInit {
     this.router.navigate(['']);
   }
   accept(workshop){
-    this.workshopService.acceptWorkshop(workshop._id);
+    this.workshopService.acceptWorkshop(workshop._id).subscribe((resp2)=>{
+      this.workshopService.getUnaprovedWorkshops().subscribe((resp)=>{
+        this.workshops = resp as Workshop[];
+      })
+    });
   }
   reject(workshop){
-    this.workshopService.rejectWorkshop(workshop._id);
+    this.workshopService.rejectWorkshop(workshop._id).subscribe((resp2)=>{
+      this.workshopService.getUnaprovedWorkshops().subscribe((resp)=>{
+        this.workshops = resp as Workshop[];
+      })
+    });
   }
 
 }

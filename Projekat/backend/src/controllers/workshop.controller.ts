@@ -725,10 +725,31 @@ export class WorkshopController{
     }
     acceptWorkshop = (req: express.Request, res:express.Response)=>{
         let wid = new ObjectID(req.body.workshopId);
+        WorkshopModel.findOne({'_id' : wid}, (err,resp)=>{
+            if(!err){
+                resp.status = 0;
+                resp.save();
+                res.json({'message': "Success!"})
+            }
+            else{
+                res.json({'message' : 'Error!'})
+            }
+        })
 
     }
     rejectWorkshop = (req: express.Request, res:express.Response)=>{
         let wid = new ObjectID(req.body.workshopId);
+        const fsExtra = require('fs-extra')
+        WorkshopModel.findOneAndDelete({'_id' : wid}, (err,resp)=>{
+            if(!err){
+                let folderPath = resp.workshopImage.split('/')[0] + '/' + resp.workshopImage.split('/')[1];
+                fsExtra.rmdirSync(folderPath, {recursive : true});
+                res.json({'message': "Success!"})
+            }
+            else{
+                res.json({'message' : 'Error!'})
+            }
+        })
         
     }
     acceptApplication = (req: express.Request, res:express.Response)=>{
@@ -746,8 +767,11 @@ export class WorkshopController{
     denyApplication = (req: express.Request, res:express.Response)=>{
         let wid = req.body.workshopId;
         let username = req.body.username;
+        const fsExtra = require('fs-extra')
         UserWorkshopModel.findOneAndDelete({'username':username,'workshopId':wid}, (err, resp)=>{
+            
             if(!err){
+    
                 res.json({'message': 'Success!'})
             }
             else{

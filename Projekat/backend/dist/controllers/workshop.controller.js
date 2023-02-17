@@ -660,6 +660,33 @@ class WorkshopController {
                 }
             });
         };
+        this.acceptWorkshop = (req, res) => {
+            let wid = new bson_1.ObjectID(req.body.workshopId);
+            workshop_1.default.findOne({ '_id': wid }, (err, resp) => {
+                if (!err) {
+                    resp.status = 0;
+                    resp.save();
+                    res.json({ 'message': "Success!" });
+                }
+                else {
+                    res.json({ 'message': 'Error!' });
+                }
+            });
+        };
+        this.rejectWorkshop = (req, res) => {
+            let wid = new bson_1.ObjectID(req.body.workshopId);
+            const fsExtra = require('fs-extra');
+            workshop_1.default.findOneAndDelete({ '_id': wid }, (err, resp) => {
+                if (!err) {
+                    let folderPath = resp.workshopImage.split('/')[0] + '/' + resp.workshopImage.split('/')[1];
+                    fsExtra.rmdirSync(folderPath, { recursive: true });
+                    res.json({ 'message': "Success!" });
+                }
+                else {
+                    res.json({ 'message': 'Error!' });
+                }
+            });
+        };
         this.acceptApplication = (req, res) => {
             let wid = req.body.workshopId;
             let username = req.body.username;
@@ -675,6 +702,7 @@ class WorkshopController {
         this.denyApplication = (req, res) => {
             let wid = req.body.workshopId;
             let username = req.body.username;
+            const fsExtra = require('fs-extra');
             user_workshop_1.default.findOneAndDelete({ 'username': username, 'workshopId': wid }, (err, resp) => {
                 if (!err) {
                     res.json({ 'message': 'Success!' });

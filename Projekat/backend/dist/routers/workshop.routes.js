@@ -178,5 +178,11 @@ workshopRouter.route('/cancelWorkshop').post((req, res) => {
 workshopRouter.route('/getUnaprovedWorkshops').get((req, res) => {
     return new workshop_controller_1.WorkshopController().getUnaprovedWorkshops(req, res);
 });
+workshopRouter.route('/acceptWorkshop').post((req, res) => {
+    return new workshop_controller_1.WorkshopController().acceptWorkshop(req, res);
+});
+workshopRouter.route('/rejectWorkshop').post((req, res) => {
+    return new workshop_controller_1.WorkshopController().rejectWorkshop(req, res);
+});
 exports.default = workshopRouter;
 //# sourceMappingURL=workshop.routes.js.map
