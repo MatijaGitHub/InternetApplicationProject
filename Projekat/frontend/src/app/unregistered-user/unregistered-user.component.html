@@ -1,24 +1,35 @@
-<h1>All workshops:</h1>
+<div class="flex">
+    <h1>All workshops:</h1>
 <table>
     <tr>
-        <td>Name: </td>
+        <td style="font-size: large; font-weight: bold; padding: 10px 0;">Name: </td>
         <td>
-            <input type="text" name="name" [(ngModel)]="name">
+            <mat-form-field class="inputMat">
+                <mat-label>Name</mat-label>
+                <input matInput="" type="text" name="name" [(ngModel)]="name">
+
+            </mat-form-field>
+            
         </td>
-        <td>Place: </td>
+        <td style="font-size: large; font-weight: bold; padding: 10px 0;">Place: </td>
         <td>
-            <input type="text" name="place" [(ngModel)]="place">
+            <mat-form-field class="inputMat">
+                <mat-label>Place</mat-label>
+                <input matInput="" type="text" name="place" [(ngModel)]="place">
+
+            </mat-form-field>
+           
         </td>
         <td>
-            <button (click)="search()">Search</button>
+            <button class="button-36" (click)="search()">Search</button>
         </td>
     </tr>
     <tr>
         <td>
-            <button (click)="sortByName()">Sort by name</button>
+            <button class="button-36" (click)="sortByName()">Sort by name</button>
         </td>
         <td>
-            <button (click)="sortByDate()">Sort by date</button>
+            <button class="button-36"  (click)="sortByDate()">Sort by date</button>
         </td>
     </tr>
 </table>
@@ -43,7 +54,7 @@
     </tr>
     <tr *ngFor="let workshop of workshops">
         <td>
-            <img src="http://localhost:4000/{{workshop.workshopImage}}" onerror='this.src="http://localhost:4000/workshop.webp"'  width="50" height="50">
+            <img src="http://localhost:4000/{{workshop.workshopImage.slice(7)}}" onerror='this.src="http://localhost:4000/workshop.webp"'  width="50" height="50">
         </td>
         <td>
             {{workshop.workshopName}}  
@@ -81,7 +92,7 @@
     </tr>
     <tr *ngFor="let workshop of workshops_top_5">
         <td>
-            <img src="http://localhost:4000/{{workshop.workshopImage}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+            <img src="http://localhost:4000/{{workshop.workshopImage.slice(7)}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
         </td>
         <td>
             {{workshop.workshopName}}  
@@ -98,3 +109,5 @@
     </tr>
 </table>
 Back to <a href="">login</a> <br>
+
+</div>

@@ -13,6 +13,7 @@ export class EditWorkshopComponent implements OnInit {
   constructor(private workshopService : WorkshopService, private router: Router, private route: ActivatedRoute) { }
 
   workshopOrganizer : string;
+  user_type: number;
   workshopId : string;
   workshop : Workshop;
   workshopName : string;
@@ -91,6 +92,7 @@ export class EditWorkshopComponent implements OnInit {
     })
   }
   ngOnInit(): void {
+    this.user_type = +sessionStorage.getItem('user_type')
     this.workshopId = this.route.snapshot.paramMap.get('workshopId');
     
     this.workshopDesc = this.route.snapshot.paramMap.get('workshopDesc');

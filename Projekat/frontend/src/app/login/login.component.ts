@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('phonenumber' , userFromDB.phonenumber);
           sessionStorage.setItem('imagePath', userFromDB.image_path);
           sessionStorage.setItem('user_type', "0");
+          this.message = ""
           this.router.navigate(['user'])
         }
         else if(userFromDB.type_of_user == 1){
@@ -45,17 +46,19 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('phonenumber' , userFromDB.phonenumber);
           sessionStorage.setItem('imagePath', userFromDB.image_path);
           sessionStorage.setItem('user_type', "1");
+          this.message = ""
           this.router.navigate(['organizer'])
         }
         else{
-          sessionStorage.setItem('username' , this.username);
-          sessionStorage.setItem('firstname' , userFromDB.firstname);
-          sessionStorage.setItem('lastname' , userFromDB.lastname);
-          sessionStorage.setItem('email', userFromDB.email);
-          sessionStorage.setItem('phonenumber' , userFromDB.phonenumber);
-          sessionStorage.setItem('imagePath', userFromDB.image_path);
-          sessionStorage.setItem('user_type', "2");
-          this.router.navigate(['admin'])
+          // sessionStorage.setItem('username' , this.username);
+          // sessionStorage.setItem('firstname' , userFromDB.firstname);
+          // sessionStorage.setItem('lastname' , userFromDB.lastname);
+          // sessionStorage.setItem('email', userFromDB.email);
+          // sessionStorage.setItem('phonenumber' , userFromDB.phonenumber);
+          // sessionStorage.setItem('imagePath', userFromDB.image_path);
+          // sessionStorage.setItem('user_type', "2");
+          // this.router.navigate(['admin'])
+          this.message = "Cannot login as admin!"
         }
       }
     });

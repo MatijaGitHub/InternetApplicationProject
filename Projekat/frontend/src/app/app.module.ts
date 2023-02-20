@@ -30,6 +30,10 @@ import { EditUsersComponent } from './edit-users/edit-users.component';
 import { RegistrationRequestsComponent } from './registration-requests/registration-requests.component';
 import { InsertNewUserComponent } from './insert-new-user/insert-new-user.component';
 import { WorkshopAproveComponent } from './workshop-aprove/workshop-aprove.component';
+import {MatTabsModule} from '@angular/material/tabs'
+import {MatInputModule} from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +59,8 @@ import { WorkshopAproveComponent } from './workshop-aprove/workshop-aprove.compo
     EditUsersComponent,
     RegistrationRequestsComponent,
     InsertNewUserComponent,
-    WorkshopAproveComponent
+    WorkshopAproveComponent,
+    AdminLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +69,10 @@ import { WorkshopAproveComponent } from './workshop-aprove/workshop-aprove.compo
     HttpClientModule,
     LeafletModule,
     MatSidenavModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatTabsModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

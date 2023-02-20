@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private router: Router) { }
+  user_type : number;
   ngOnInit(): void {
+    this.user_type = +sessionStorage.getItem('user_type');
+  }
+  changePass(){
+    this.router.navigate(['change-password']);
+  }
+  logout(){
+    sessionStorage.clear();
+    this.router.navigate(['']);
   }
 
 }

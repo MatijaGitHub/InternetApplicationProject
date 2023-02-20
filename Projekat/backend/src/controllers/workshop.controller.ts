@@ -409,7 +409,8 @@ export class WorkshopController{
         let message = req.body.message;
         let messageToChat = {
             user : usernameSender,
-            message : message
+            message : message,
+            time : new Date()
         }
 
         UserChatModel.findOne({'username1' : usernameUser , 'username2': usernameOrganizer, 'workshopId' : workshopId} ,(err, resp)=>{
@@ -729,7 +730,14 @@ export class WorkshopController{
             if(!err){
                 resp.status = 0;
                 resp.save();
-                res.json({'message': "Success!"})
+                UserModel.findOne({'username':resp.organizatorUsername}, (err,resp2)=>{
+                    if(!err){
+                        resp2.type_of_user = 1;
+                        resp2.save();
+                        res.json({'message': "Success!"})
+                    }
+                })
+                
             }
             else{
                 res.json({'message' : 'Error!'})

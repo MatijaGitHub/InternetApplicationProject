@@ -1,103 +1,124 @@
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
-crossorigin=""/>
- <!-- Make sure you put this AFTER Leaflet's CSS -->
- <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-     crossorigin=""></script>
-<h1>{{workshopName}}</h1>
-<h2>Info:</h2>
-<table>
-  <tr>
-    <td>
-      Description:
-    </td>
-    <td>
-      <p>{{workshop.workshopDescLong}}</p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Organizator:
-    </td>
-    <td>
-      {{workshop.organizatorUsername}}
-    </td>
-    <td>
-      <button (click)="beginChat()">Chat</button>
-    </td>
-  </tr>
-</table>
+<div class="flex">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 
-<h2>Gallery:</h2>
-<table name="pictures">
-  <tr *ngFor="let picture of galleryPics">
-    <td>
-      <img src="http://localhost:4000/{{picture}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
-    </td>
-    
-  </tr>
-</table>
-<h2>Map:</h2>
-<div class="map-container">
-    <div class="map-frame">
-      <div id="map"></div>
+  <div class="wholeDiv example-container">
+    <h1 style="font-size: xx-large;">{{workshopName}}</h1>
+    <h2>Info:</h2>
+    <table>
+      <tr>
+        <td>
+          Description:
+        </td>
+        <td>
+          <p>{{workshopDescLong}}</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Organizator:
+        </td>
+        <td>
+          {{organizatorUsername}}
+        </td>
+        <td>
+          <button class="button-36" (click)="beginChat()">Chat</button>
+        </td>
+      </tr>
+    </table>
+
+    <h2>Gallery:</h2>
+    <table name="pictures">
+      <tr *ngFor="let picture of galleryPics">
+        <td>
+          <img src="http://localhost:4000/{{picture}}" onerror='this.src="http://localhost:4000/workshop.webp"'
+            width="50" height="50">
+        </td>
+
+      </tr>
+    </table>
+    <h2>Map:</h2>
+    <div class="map-container">
+      <div class="map-frame">
+        <div id="map"></div>
+      </div>
     </div>
-  </div>
-  <br>
-  <div *ngIf="workshopFreeSpaces > 0 && workshopStatus == 0 && applied == 0">
-    <button (click)="apply()">Apply</button>
-  </div>
-  <br>
-  <div *ngIf="(workshopFreeSpaces == 0 || workshopStatus == 1) && applied == 0">
-    <button (click)="alertMe()">Alert me when its free</button>
-  </div>
-  <br>
-  <div *ngIf="applied == 1">
-    <p style="color: green;">Applied!</p>
-    <button (click)="cancel()">Cancel</button>
-  </div>
-  <br>
+    <br>
+    <div *ngIf="workshopFreeSpaces > 0 && workshopStatus == 0 && applied == 0">
+      <button class="button-36" (click)="apply()">Apply</button>
+    </div>
+    <br>
+    <div *ngIf="(workshopFreeSpaces == 0 || workshopStatus == 1) && applied == 0">
+      <button class="button-36" (click)="alertMe()">Alert me when its free</button>
+    </div>
+    <br>
+    <div *ngIf="applied == 1">
+      <p style="color: green;">Applied!</p>
+      <button class="button-36" (click)="cancel()">Cancel</button>
+    </div>
+    <br>
 
-{{applyMsg}}
-<br>
-<table>
-  <tr>
-    <td *ngIf="liked == 0">
-      <button  (click)="likeWorkshop()">Like</button>
-    </td>
-    <td *ngIf="liked == 1">
-      <button (click)="unlikeWorkshop()">Unlike</button>
-    </td>
-    <td>
-      {{workshop.numOfLikes}}
-    </td>
-    <td>
-      <button (click)="displayComments()">Comments</button>
-    </td>
-  </tr>
-</table>
-<div name="commentSection" *ngIf="displayComment == 1">
-  <table>
-    <tr *ngFor="let comment of comments">
-      <td>
-        {{comment.username}}:
-      </td>
-      <td>
-        {{comment.comment}}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <input type="text" name="commentToUpload" [(ngModel)]="commentToUpload">
-      </td>
-      <td>
-        <button (click)="uploadComment()">Upload</button>
-      </td>
-    </tr>
-  </table>
+
+    <br>
+    <table>
+      <tr>
+        <td *ngIf="liked == 0">
+          <button class="button-36" (click)="likeWorkshop()">Like</button>
+        </td>
+        <td *ngIf="liked == 1">
+          <button class="button-36" (click)="unlikeWorkshop()">Unlike</button>
+        </td>
+        <td>
+          {{numOfLikes}}
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          <button class="button-36" (click)="displayComments()">Comments</button>
+        </td>
+      </tr>
+    </table>
+    <div name="commentSection" *ngIf="displayComment == 1">
+      <ol class="chat">
+        <div *ngFor="let comment of comments;let indexComment = index">
+          <li class="self">
+            <div class="msg">
+
+              <div class="user">{{comment.username}}</div>
+              <p>{{comment.comment}}</p>
+
+            </div>
+
+          </li>
+        </div>
+
+        <li>
+          <mat-form-field class="inputMat">
+            <mat-label>Comment</mat-label>
+            <input matInput="" type="text" name="commentToUpload" [(ngModel)]="commentToUpload">
+
+          </mat-form-field>
+
+        </li>
+        <li>
+          <button class="button-36" (click)="uploadComment()">Upload</button>
+        </li>
+
+      </ol>
+
+
+    </div>
+
+    <br>
+    <a *ngIf="user_type == 0" href="/user">Back</a>
+    <a *ngIf="user_type == 1" href="/organizer">Back</a>
+    <a *ngIf="user_type == 2" href="/admin">Back</a>
+
+
+  </div>
+
 </div>
-
-<br>
-<a href="/user">Back</a>
-

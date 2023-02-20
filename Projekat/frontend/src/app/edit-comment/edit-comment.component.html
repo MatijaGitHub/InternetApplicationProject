@@ -1,17 +1,33 @@
-<table>
-    <tr>
-        <td>
-            New comment:
-        </td>
-        <td>
-            <input type="text" name="new_comment" [(ngModel)]="new_comment">
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <button (click)="editComment()">Edit</button>
-        </td>
-    </tr>
-</table>
-<a href="user">Back</a> <br>
+
+    <div class="wholeDiv">
+
+        <table>
+            <tr>
+                <td>
+                    <p class="inputMat">
+                        Comment:
+                    </p>
+                    
+                </td>
+                <td>
+                    <mat-form-field class="inputMat">
+                        <mat-label>Comment</mat-label>
+                        <input matInput="" type="text" name="new_comment" [(ngModel)]="new_comment">
+    
+                    </mat-form-field>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button class="button-36" (click)="editComment()">Edit</button>
+                </td>
+            </tr>
+        </table>
+        <a *ngIf="user_type == 0" href="/user">Back</a>
+        <a *ngIf="user_type == 1" href="/organizer">Back</a>
+        <a *ngIf="user_type == 2" href="/admin">Back</a>
+      
+    </div>
+    
 

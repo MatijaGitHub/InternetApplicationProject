@@ -1,109 +1,145 @@
-<table>
-    <tr>
-        <td>
-            Workshop name:
-        </td>
-        <td>
-            {{workshop.workshopName}}
-        </td>
-        <td>
-            <input type="text" name="workshopNameEdit" [(ngModel)]="workshopNameEdit">
-        </td>
-    </tr>  
-    <tr>
-        <td>
-            Workshop date:
-        </td>
-        <td>
-            {{workshop.workshopDate}}
-        </td>
-        <td>
-            <input type="date" name="workshopDateEdit" [(ngModel)]="workshopDateEdit">
-        </td>
-    </tr> 
-    <tr>
-        <td>
-            Workshop image:
-        </td>
-        <td>
-            <img src="http://localhost:4000/{{workshopImage}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
-        </td>
-        <td>
-            <input name="main_picture" type="file" (change)="uploadImage($any($event).target.files)">
-        </td>
-    
-    </tr> 
-    
-    <tr>
-        <td>
-            Workshop place:
-        </td>
-        <td>
-            {{workshop.workshopPlace}}
-        </td>
-        <td>
-            <input type="text" name="workshopPlaceEdit" [(ngModel)]="workshopPlaceEdit">
-        </td>
-    </tr> 
-    <tr>
-        <td>
-            Workshop desc:
-        </td>
-        <td>
-            {{workshop.workshopDesc}}
-        </td>
-        <td>
-            <input type="text" name="workshopDescEdit" [(ngModel)]="workshopDescEdit">
-        </td>
-    </tr> 
-    <tr>
-        <td>
-            Workshop lat:
-        </td>
-        <td>
-            {{workshop.lat}}
-        </td>
-        <td>
-            <input type="text" name="latEdit" [(ngModel)]="latEdit">
-        </td>
-    </tr> 
-    <tr>
-        <td>
-            Workshop long:
-        </td>
-        <td>
-            {{workshop.long}}
-        </td>
-        <td>
-            <input type="text" name="longEdit" [(ngModel)]="longEdit">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Gallery pics:
-        </td>
-        <td>
-            <input name="gallery_pics" type="file" (change)="uploadImages($any($event).target.files)" multiple>
-        </td>
-    </tr> 
-        <tr *ngFor="let picture of galleryPics">
-            
-            <td>
-                <img src="http://localhost:4000/{{picture}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+<div class="wholeDiv">
+    <table>
+        <tr>
+            <td style="font-size: x-large; font-weight: bold;">
+                Workshop name:
             </td>
-                  
-           <td>
-                <button (click)="deleteImg(picture)">Delete</button>
-           </td>  
+            <td style="font-size: x-large;">
+                {{workshop.workshopName}}
+            </td>
+            <td>
+                <mat-form-field class="inputMat">
+                    <mat-label>Workshop name</mat-label>
+                    <input matInput="" type="text" name="workshopNameEdit" [(ngModel)]="workshopNameEdit">
+
+                </mat-form-field>
                 
-              
+            </td>
+        </tr>  
+        <tr>
+            <td style="font-size: x-large; font-weight: bold;">
+                Workshop date:
+            </td>
+            <td style="font-size: x-large; ">
+                {{workshop.workshopDate}}
+            </td>
+            <td>
+                <mat-form-field class="inputMat">
+                    <mat-label>Workshop date</mat-label>
+                    <input matInput="" type="date" name="workshopDateEdit" [(ngModel)]="workshopDateEdit">
+
+                </mat-form-field>
+               
+            </td>
+        </tr> 
+        <tr>
+            <td style="font-size: x-large; font-weight: bold;">
+                Workshop image:
+            </td>
+            <td>
+                <img src="http://localhost:4000/{{workshopImage}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+            </td>
+            <td>
+                <input name="main_picture" type="file" (change)="uploadImage($any($event).target.files)">
+            </td>
+        
+        </tr> 
+        
+        <tr>
+            <td style="font-size: x-large; font-weight: bold;">
+                Workshop place:
+            </td>
+            <td style="font-size: x-large; ">
+                {{workshop.workshopPlace}}
+            </td>
+            <td>
+                <mat-form-field class="inputMat">
+                    <mat-label>Workshop place</mat-label>
+                    <input matInput="" type="text" name="workshopPlaceEdit" [(ngModel)]="workshopPlaceEdit">
+
+                </mat-form-field>
+               
+            </td>
+        </tr> 
+        <tr>
+            <td style="font-size: x-large; font-weight: bold;">
+                Workshop desc:
+            </td>
+            <td style="font-size: x-large;">
+                {{workshop.workshopDesc}}
+            </td>
+            <td>
+                <mat-form-field class="inputMat">
+                    <mat-label>Workshop desc</mat-label>
+                    <input matInput="" type="text" name="workshopDescEdit" [(ngModel)]="workshopDescEdit">
+
+                </mat-form-field>
+               
+            </td>
+        </tr> 
+        <tr>
+            <td style="font-size: x-large; font-weight: bold;">
+                Workshop lat:
+            </td>
+            <td style="font-size: x-large;">
+                {{workshop.lat}}
+            </td>
+            <td>
+                <mat-form-field class="inputMat">
+                    <mat-label>Workshop lat</mat-label>
+                    <input matInput="" type="text" name="latEdit" [(ngModel)]="latEdit">
+
+                </mat-form-field>
+           
+            </td>
+        </tr> 
+        <tr>
+            <td style="font-size: x-large; font-weight: bold;">
+                Workshop long:
+            </td>
+            <td style="font-size: x-large;">
+                {{workshop.long}}
+            </td>
+            <td>
+                <mat-form-field class="inputMat">
+                    <mat-label>Workshop long</mat-label>
+                    <input matInput="" type="text" name="longEdit" [(ngModel)]="longEdit">
+
+                </mat-form-field>
+                
+            </td>
         </tr>
-        
-   
-    <tr>
-        <td colspan="3">
-            <button (click)="edit()">Edit</button>
-        </td>
-    </tr>
-        
-</table>
+        <tr>
+            <td style="font-size: x-large; font-weight: bold;">
+                Gallery pics:
+            </td>
+            <td>
+                <input name="gallery_pics" type="file" (change)="uploadImages($any($event).target.files)" multiple>
+            </td>
+        </tr> 
+            <tr *ngFor="let picture of galleryPics">
+                
+                <td>
+                    <img src="http://localhost:4000/{{picture}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+                </td>
+                      
+               <td>
+                    <button class="button-36" (click)="deleteImg(picture)">Delete</button>
+               </td>  
+                    
+                  
+            </tr>
+            
+       
+        <tr>
+            <td colspan="3">
+                <button class="button-36"  (click)="edit()">Edit</button>
+            </td>
+        </tr>
+            
+    </table>
+    <a *ngIf="user_type == 0" href="/user">Back</a>
+    <a *ngIf="user_type == 1" href="/organizer">Back</a>
+    <a *ngIf="user_type == 2" href="/admin">Back</a>
+    
+</div>

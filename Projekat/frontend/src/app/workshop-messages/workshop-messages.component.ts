@@ -38,5 +38,7 @@ export class WorkshopMessagesComponent implements OnInit {
       }
     })
   }
-
+  back(){
+    this.router.navigate(['organizer']);
+  }
 }

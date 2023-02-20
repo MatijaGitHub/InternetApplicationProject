@@ -11,12 +11,21 @@ export class ForgotenPasswordComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.message = ""
   }
-  email: string;
+  email: string | null = "";
+  message : string;
   sendRecoveryMail(){
-    this.userService.sendRecoveryMail(this.email).subscribe((resp)=>{
-
-    })
+    if(this.email == ""){
+      this.message = "Please enter email!"
+    }
+    else{
+      this.userService.sendRecoveryMail(this.email).subscribe((resp)=>{
+        console.log(resp);
+        this.message = "Email sent!"
+      })
+    }
+   
 
 
   }

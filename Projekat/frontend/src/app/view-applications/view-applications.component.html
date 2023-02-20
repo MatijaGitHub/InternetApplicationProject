@@ -1,16 +1,40 @@
-<table>
-    <tr *ngFor="let application of applications">
-        <td>
-            {{application.username}}
-        </td>
-        <td>
-            {{application.accepted}}
-        </td>
-        <td>
-            <button (click)="accept(application)">Accept</button>
-        </td>
-        <td>
-            <button (click)="deny(application)">Deny</button>
-        </td>
-    </tr>
-</table>
+<div class="wholeDiv">
+    <h1 style="font-size: xx-large;">
+        Applications
+    </h1>
+    <table>
+        <tr>
+            <td>
+                <p style="font-weight: bold;">
+                    User
+                </p>
+            </td>
+            <td>
+                <p style="font-weight: bold;">
+                    Accept
+                </p>
+            </td>
+            <td>
+                <p style="font-weight: bold;">
+                    Deny
+                </p>
+            </td>
+
+        </tr>
+        <tr *ngFor="let application of applications">
+            <td>
+                {{application.username}}
+            </td>
+
+            <td>
+                <button class="button-36" (click)="accept(application)">Accept</button>
+            </td>
+            <td>
+                <button class="button-36" (click)="deny(application)">Deny</button>
+            </td>
+        </tr>
+    </table>
+    <a *ngIf="user_type == 0" href="/user">Back</a>
+    <a *ngIf="user_type == 1" href="/organizer">Back</a>
+    <a *ngIf="user_type == 2" href="/admin">Back</a>
+</div>

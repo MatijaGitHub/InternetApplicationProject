@@ -11,7 +11,9 @@ export class EditCommentComponent implements OnInit {
 
   constructor(private router: Router, private workshopService: WorkshopService) { }
   new_comment : string;
+  user_type : number;
   ngOnInit(): void {
+    this.user_type = +sessionStorage.getItem('user_type')
   }
   editComment(){
     this.workshopService.editComment(sessionStorage.getItem('username'),sessionStorage.getItem('workshopToEdit'), this.new_comment).subscribe((resp)=>{

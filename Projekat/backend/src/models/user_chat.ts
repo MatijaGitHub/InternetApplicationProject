@@ -18,6 +18,9 @@ let user_chat = new mongoose.Schema({
             },
             message:{
                 type: String
+            },
+            time:{
+                type: Date
             }
         }
     ]

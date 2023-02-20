@@ -106,5 +106,10 @@ userRouter.route('/acceptRegistrationRequest').post(
         return new UserController().acceptRegistrationRequest(req, res);
     }
 )
+userRouter.route('/getPicturePath').post(
+    (req, res)=>{
+        return new UserController().getPicturePath(req, res);
+    }
+)
 
 export default userRouter;

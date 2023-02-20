@@ -1,17 +1,88 @@
-<mat-sidenav-container class="example-container">
-    <mat-sidenav mode="side" opened>
-        <p>
-            <button routerLink="/user-info">Profile</button>
-        </p>
-        <p>
-            <button routerLink="/user-workshops">Workshops</button>
-        </p>
-        <p>
-            <button routerLink="/become-organizer">Become organizer</button>
-        </p>
-
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <router-outlet name="child"></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+<mat-tab-group class="main-container">
+    <mat-tab label="Profile">
+        <div class="flex">
+            <div class="side-container">
+                <app-profile></app-profile>
+            </div>
+            <footer class="footer">
+                <button class="button-36" (click)="logout()">Logout</button>
+                <button class="button-36" (click)="changePass()">Change password</button>
+            </footer>
+        </div>
+    </mat-tab>
+    <mat-tab label="Workshops"> 
+        <div class="flex">
+            <div class="side-container">
+                <app-user-workshops></app-user-workshops>
+            </div>
+            <footer class="footer">
+                <button class="button-36" (click)="logout()">Logout</button>
+                <button class="button-36" (click)="changePass()">Change password</button>
+            </footer>
+        </div>    
+    
+    </mat-tab>
+    <mat-tab label="Suggest workshop">
+         
+        <div class="flex">
+            <div class="side-container">
+                <app-become-organizator></app-become-organizator>
+            </div>
+            <footer class="footer">
+                <button class="button-36" (click)="logout()">Logout</button>
+                <button class="button-36" (click)="changePass()">Change password</button>
+            </footer>
+        </div>    
+    </mat-tab>
+    <mat-tab *ngIf="user_type == 2" label="All users"> 
+         
+        <div class="flex">
+            <div class="side-container">
+                <app-edit-users></app-edit-users>
+            </div>
+            <footer class="footer">
+                <button class="button-36" (click)="logout()">Logout</button>
+                <button class="button-36" (click)="changePass()">Change password</button>
+            </footer>
+        </div>     
+    </mat-tab>
+    <mat-tab *ngIf="user_type == 2" label="Registration requests"> 
+        
+        <div class="flex">
+            <div class="side-container">
+                <app-registration-requests></app-registration-requests>
+            </div>
+            <footer class="footer">
+                <button class="button-36" (click)="logout()">Logout</button>
+                <button class="button-36" (click)="changePass()">Change password</button>
+            </footer>
+        </div>    
+    </mat-tab>
+    <mat-tab *ngIf="user_type == 2" label="Add new user"> 
+        
+        <div class="flex">
+            <div class="side-container">
+                <app-insert-new-user></app-insert-new-user>
+            </div>
+            <footer class="footer">
+                <button class="button-36" (click)="logout()">Logout</button>
+                <button class="button-36" (click)="changePass()">Change password</button>
+            </footer>
+        </div>   
+    
+    </mat-tab>
+    <mat-tab *ngIf="user_type == 2" label="Aprove workshops"> 
+          
+        <div class="flex">
+            <div class="side-container">
+                <app-workshop-aprove></app-workshop-aprove>
+               
+            </div>
+            <footer class="footer">
+                <button class="button-36" (click)="logout()">Logout</button>
+                <button class="button-36" (click)="changePass()">Change password</button>
+            </footer>
+        </div>   
+    </mat-tab>
+   
+</mat-tab-group>

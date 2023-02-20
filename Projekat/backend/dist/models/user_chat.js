@@ -21,6 +21,9 @@ let user_chat = new mongoose_1.default.Schema({
             },
             message: {
                 type: String
+            },
+            time: {
+                type: Date
             }
         }
     ]

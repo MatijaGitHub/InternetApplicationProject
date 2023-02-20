@@ -34,5 +34,12 @@ export class RegistrationRequestsComponent implements OnInit {
       })
     });
   }
+  rejectRegister(user){
+    this.userService.deleteUser(user.username).subscribe((resp)=>{
+      this.userService.getAllUsersRequest().subscribe((resp2)=>{
+        this.users = resp2 as User[];
+      })
+    })
+  }
 
 }

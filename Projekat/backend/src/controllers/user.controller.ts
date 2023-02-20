@@ -126,8 +126,21 @@ export class UserController{
             let is_user = fields.is_user;
             let username = fields.username;
             let approved = +req.body.approved;
-            let userFromDB = UserModel.findOne({'username' : username}, (err, userDB)=>{
-                if(err || userDB) res.json({'message': 'Username already exists'});
+            let userFromDB = UserModel.findOne({$or:[{'username' : username},{'email' : fields.email}]}, (err, userDB)=>{
+                if(err || userDB){
+                    const fsExtra = require('fs-extra')
+                    if(fields.hasImage == '2'){
+                        let picPath =  'images/' + req.file.originalname.slice(0, -4)+'_'+req.body.username + '.' + fileExtension(req.file.originalname)
+                        fsExtra.rmSync(picPath);
+                    }
+                    
+                    if(userDB.username == username){
+                        res.json({'message': 'Username already exists'});
+                    }
+                    else{
+                        res.json({'message': 'Email already used'});
+                    }
+                } 
                 else{
                     let user = new UserModel({
                         firstname : fields.firstname,
@@ -295,14 +308,28 @@ export class UserController{
 
     changeProfilePic = (req: express.Request, res: express.Response) =>{
         let username = req.body.username;
+        const fsExtra = require('fs-extra')
         let userFromDB = UserModel.findOne({'username' : username}, (err, user)=>{
             if(err || user == null){
                 res.json({'image_path' : 'Error'});
             }
             else{
+                fsExtra.rmSync(user.image_path);
                 user.image_path = 'images/' + req.file.originalname.slice(0, -4)+'_'+req.body.username + '.' + fileExtension(req.file.originalname)
                 user.save();
-                res.json({'image_path' : req.file.originalname.slice(0, -4)+'_'+req.body.username + '.' + fileExtension(req.file.originalname)});
+                res.json({'image_path' : 'images/' + req.file.originalname.slice(0, -4)+'_'+req.body.username + '.' + fileExtension(req.file.originalname)});
+            }
+        })
+
+    }
+    getPicturePath = (req: express.Request, res: express.Response) =>{
+        let username = req.body.username;
+        UserModel.findOne({'username':username},(err,resp)=>{
+            if(!err){
+                res.json({'path': resp.image_path})
+            }
+            else{
+                res.json({'path': 'Error!'})
             }
         })
 
@@ -311,6 +338,7 @@ export class UserController{
 
         UserModel.find({$and: [{$or : [{'type_of_user' : 0},{'type_of_user' : 1},{'type_of_user' : 2}]}, {'approved' : 1}]},(err,resp)=>{
             if(!err){
+                console.log(resp)
                 res.json(resp);
             }
             else{

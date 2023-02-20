@@ -1,214 +1,157 @@
-<mat-sidenav-container class="example-container">
-    <mat-sidenav mode="side" opened>
-        <table>
-            <tr>
-                <button routerLink="/user-info">Profile</button>
-            </tr>
-            <tr>
-                <button routerLink="/user-workshops">Workshops</button>
-            </tr>
-            <tr>
-                <button routerLink="/become-organizer">Become organizer</button>
-            </tr>
-            <tr *ngIf="user_type == 2">
-                <button routerLink="/edit-users">All users</button>
-           </tr>
-           <tr *ngIf="user_type == 2">
-                <button routerLink="/registration-requests">Registration requests</button>
-            </tr>
-            <tr *ngIf="user_type==2">
-                <button routerLink="/insert-new-user">Add new user</button>
-            </tr>
-            <tr *ngIf="user_type==2">
-                <button routerLink="/workshop-aprove">Aprove workshops</button>
-            </tr>
+<!-- <mat-sidenav-container class="example-container">
+        <mat-sidenav mode="side" opened>
+            <table>
+                <tr>
+                    <button class="button-36" routerLink="/user-info">Profile</button>
+                </tr>
+                <tr>
+                    <button class="button-36" routerLink="/user-workshops">Workshops</button>
+                </tr>
+                <tr>
+                    <button class="button-36" routerLink="/become-organizer">Become organizer</button>
+                </tr>
+                <tr *ngIf="user_type == 2">
+                    <button class="button-36" routerLink="/edit-users">All users</button>
+               </tr>
+               <tr *ngIf="user_type == 2">
+                    <button class="button-36" routerLink="/registration-requests">Registration requests</button>
+                </tr>
+                <tr *ngIf="user_type==2">
+                    <button class="button-36" routerLink="/insert-new-user">Add new user</button>
+                </tr>
+                <tr *ngIf="user_type==2">
+                    <button class="button-36" routerLink="/workshop-aprove">Aprove workshops</button>
+                </tr>
+                
+    
+            </table>
             
-
-        </table>
-        
-            <form>
-                <button (click)="changePass()">Change password</button>
-            </form>
-        
-            <form>
-                <button (click)="logout()">Logout</button>
-            </form>
-        
-
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <h1>Applied workshops:</h1>
-<table>
-    <tr *ngFor="let workshop of appliedWorkshops">
-        <td>
-            {{workshop.workshopName}}
-        </td>
-        <td *ngIf="twelveHoursLeft(workshop) == 1">
-            <button (click)="cancel(workshop)">Cancel</button>
-        </td>
-    </tr>
-</table>
-<h1>All workshops:</h1>
-<table>
-    <tr>
-        <td>Name: </td>
-        <td>
-            <input type="text" name="name" [(ngModel)]="name">
-        </td>
-        <td>Place: </td>
-        <td>
-            <input type="text" name="place" [(ngModel)]="place">
-        </td>
-        <td>
-            <button (click)="search()">Search</button>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <button (click)="sortByName()">Sort by name</button>
-        </td>
-        <td>
-            <button (click)="sortByDate()">Sort by date</button>
-        </td>
-    </tr>
-</table>
-<table>
+                <form>
+                    <button class="button-36" (click)="changePass()">Change password</button>
+                </form>
+            
+                <form>
+                    <button class="button-36" (click)="logout()">Logout</button>
+                </form>
+            
     
-    <tr>
-        <td>
-            Workshop Image
-        </td>
-        <td>
-            Workshop Name 
-        </td>
-        <td>
-            Workshop Date
-        </td>
-        <td>
-            Workshop Place
-        </td>
-        <td>
-            Workshop Desc
-        </td>
-        <td>
-            More info
-        </td>
-    </tr>
-    <tr *ngFor="let workshop of workshops">
-        <td>
-            <img src="http://localhost:4000/{{workshop.workshopImage.slice(7)}}" onerror='this.src="http://localhost:4000/workshop.webp"'  width="50" height="50">
-        </td>
-        <td>
-            {{workshop.workshopName}}  
-        </td>
-        <td>
-           {{workshop.workshopDate}} 
-        </td>
-        <td>
-            {{workshop.workshopPlace}} 
-        </td>
-        <td>
-            {{workshop.workshopDesc}} 
-        </td>
-        <td>
-            <button (click)="moreInfo(workshop)">More info</button>
-        </td>
-        <td *ngIf="workshop.organizatorUsername == username || user_type == 2">
-            <button (click)="editWorkshop(workshop)">Edit workshop</button>
-        </td>
-        <td *ngIf="workshop.organizatorUsername == username || user_type == 2">
-            <button (click)="saveWorkshopAsJSON(workshop)">Save as JSON</button>
-        </td>
-        <td *ngIf="workshop.organizatorUsername == username || user_type == 2">
-            <button (click)="viewApplications(workshop)">Applications</button>
-        </td>
-        <td *ngIf="workshop.organizatorUsername == username || user_type == 2">
-            <button (click)="cancelWorkshop(workshop)">Cancel</button>
-        </td>
-        
-    </tr>
-</table>
+        </mat-sidenav> -->
+<!-- <mat-sidenav-content class="flex"> -->
+<div class="flex">
+    <h1>Applied workshops:</h1>
+    <table>
+        <tr *ngFor="let workshop of appliedWorkshops">
+            <td>
+                {{workshop.workshopName}}
+            </td>
+            <td *ngIf="twelveHoursLeft(workshop) == 1">
+                <button class="button-36" (click)="cancel(workshop)">Cancel</button>
+            </td>
+        </tr>
+    </table>
+    <h1>All workshops:</h1>
+    <table>
+        <tr>
+            <td>
+                <p class="inputMat">
+                    Name: 
+                </p>
+                
+            </td>
+            <td>
+                <mat-form-field class="inputMat">
+                    <mat-label>Name</mat-label>
+                    <input matInput="" type="text" name="name" [(ngModel)]="name">
 
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+                </mat-form-field>
+                
+            </td>
+            <td>
+                <p class="inputMat">
+                    Place:  
+                </p>
+                
+            </td>
+            <td>
+                <mat-form-field class="inputMat">
+                    <mat-label>Place</mat-label>
+                    <input matInput="" type="text" name="place" [(ngModel)]="place">
+
+                </mat-form-field>
+                
+            </td>
+            <td>
+                <button class="button-36" (click)="search()">Search</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="button-36" (click)="sortByName()">Sort by name</button>
+            </td>
+            <td>
+                <button class="button-36" (click)="sortByDate()">Sort by date</button>
+            </td>
+        </tr>
+    </table>
+    <table>
+
+        <tr>
+            <td>
+                Workshop Image
+            </td>
+            <td>
+                Workshop Name
+            </td>
+            <td>
+                Workshop Date
+            </td>
+            <td>
+                Workshop Place
+            </td>
+            <td>
+                Workshop Desc
+            </td>
+            <td>
+                More info
+            </td>
+        </tr>
+        <tr *ngFor="let workshop of workshops">
+            <td>
+                <img src="http://localhost:4000/{{workshop.workshopImage.slice(7)}}"
+                    onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+            </td>
+            <td>
+                {{workshop.workshopName}}
+            </td>
+            <td>
+                {{workshop.workshopDate}}
+            </td>
+            <td>
+                {{workshop.workshopPlace}}
+            </td>
+            <td>
+                {{workshop.workshopDesc}}
+            </td>
+            <td>
+                <button class="button-36" (click)="moreInfo(workshop)">More info</button>
+            </td>
+            <td *ngIf="workshop.organizatorUsername == username || user_type == 2">
+                <button class="button-36" (click)="editWorkshop(workshop)">Edit workshop</button>
+            </td>
+            <td *ngIf="workshop.organizatorUsername == username || user_type == 2">
+                <button class="button-36" (click)="saveWorkshopAsJSON(workshop)">Save as JSON</button>
+            </td>
+            <td *ngIf="workshop.organizatorUsername == username || user_type == 2">
+                <button class="button-36" (click)="viewApplications(workshop)">Applications</button>
+            </td>
+            <td *ngIf="workshop.organizatorUsername == username || user_type == 2">
+                <button class="button-36" (click)="cancelWorkshop(workshop)">Cancel</button>
+            </td>
+
+        </tr>
+    </table>
+</div>
 
 
-<!-- <h1>Applied workshops:</h1>
-<table>
-    <tr *ngFor="let workshop of appliedWorkshops">
-        <td>
-            {{workshop.workshopName}}
-        </td>
-        <td *ngIf="twelveHoursLeft(workshop) == 1">
-            <button (click)="cancel(workshop)">Cancel</button>
-        </td>
-    </tr>
-</table>
-<h1>All workshops:</h1>
-<table>
-    <tr>
-        <td>Name: </td>
-        <td>
-            <input type="text" name="name" [(ngModel)]="name">
-        </td>
-        <td>Place: </td>
-        <td>
-            <input type="text" name="place" [(ngModel)]="place">
-        </td>
-        <td>
-            <button (click)="search()">Search</button>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <button (click)="sortByName()">Sort by name</button>
-        </td>
-        <td>
-            <button (click)="sortByDate()">Sort by date</button>
-        </td>
-    </tr>
-</table>
-<table>
-    
-    <tr>
-        <td>
-            Workshop Image
-        </td>
-        <td>
-            Workshop Name 
-        </td>
-        <td>
-            Workshop Date
-        </td>
-        <td>
-            Workshop Place
-        </td>
-        <td>
-            Workshop Desc
-        </td>
-        <td>
-            More info
-        </td>
-    </tr>
-    <tr *ngFor="let workshop of workshops">
-        <td>
-            <img src="http://localhost:4000/{{workshop.workshopImage}}" onerror='this.src="http://localhost:4000/workshop.webp"'  width="50" height="50">
-        </td>
-        <td>
-            {{workshop.workshopName}}  
-        </td>
-        <td>
-           {{workshop.workshopDate}} 
-        </td>
-        <td>
-            {{workshop.workshopPlace}} 
-        </td>
-        <td>
-            {{workshop.workshopDesc}} 
-        </td>
-        <td>
-            <button (click)="moreInfo(workshop)">More info</button>
-        </td>
-        
-    </tr>
-</table> -->
+<!-- </mat-sidenav-content> -->
+<!-- </mat-sidenav-container> -->

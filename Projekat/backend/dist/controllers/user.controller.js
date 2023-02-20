@@ -118,9 +118,20 @@ class UserController {
             let is_user = fields.is_user;
             let username = fields.username;
             let approved = +req.body.approved;
-            let userFromDB = user_1.default.findOne({ 'username': username }, (err, userDB) => {
-                if (err || userDB)
-                    res.json({ 'message': 'Username already exists' });
+            let userFromDB = user_1.default.findOne({ $or: [{ 'username': username }, { 'email': fields.email }] }, (err, userDB) => {
+                if (err || userDB) {
+                    const fsExtra = require('fs-extra');
+                    if (fields.hasImage == '2') {
+                        let picPath = 'images/' + req.file.originalname.slice(0, -4) + '_' + req.body.username + '.' + (0, file_extension_1.default)(req.file.originalname);
+                        fsExtra.rmSync(picPath);
+                    }
+                    if (userDB.username == username) {
+                        res.json({ 'message': 'Username already exists' });
+                    }
+                    else {
+                        res.json({ 'message': 'Email already used' });
+                    }
+                }
                 else {
                     let user = new user_1.default({
                         firstname: fields.firstname,
@@ -264,20 +275,34 @@ class UserController {
         };
         this.changeProfilePic = (req, res) => {
             let username = req.body.username;
+            const fsExtra = require('fs-extra');
             let userFromDB = user_1.default.findOne({ 'username': username }, (err, user) => {
                 if (err || user == null) {
                     res.json({ 'image_path': 'Error' });
                 }
                 else {
+                    fsExtra.rmSync(user.image_path);
                     user.image_path = 'images/' + req.file.originalname.slice(0, -4) + '_' + req.body.username + '.' + (0, file_extension_1.default)(req.file.originalname);
                     user.save();
-                    res.json({ 'image_path': req.file.originalname.slice(0, -4) + '_' + req.body.username + '.' + (0, file_extension_1.default)(req.file.originalname) });
+                    res.json({ 'image_path': 'images/' + req.file.originalname.slice(0, -4) + '_' + req.body.username + '.' + (0, file_extension_1.default)(req.file.originalname) });
+                }
+            });
+        };
+        this.getPicturePath = (req, res) => {
+            let username = req.body.username;
+            user_1.default.findOne({ 'username': username }, (err, resp) => {
+                if (!err) {
+                    res.json({ 'path': resp.image_path });
+                }
+                else {
+                    res.json({ 'path': 'Error!' });
                 }
             });
         };
         this.getAllUsers = (req, res) => {
             user_1.default.find({ $and: [{ $or: [{ 'type_of_user': 0 }, { 'type_of_user': 1 }, { 'type_of_user': 2 }] }, { 'approved': 1 }] }, (err, resp) => {
                 if (!err) {
+                    console.log(resp);
                     res.json(resp);
                 }
                 else {

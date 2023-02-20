@@ -1,136 +1,205 @@
-<form enctype="multipart/form-data">
-    <table>
-        <tr>
-            <td>
-                Firstname:
-            </td>
-            <td>
-                <input type="text" name="firstname" [(ngModel)]="firstname">
-            </td>
-        </tr> 
-        <tr>
-            <td>
-                Lastname:
-            </td>
-            <td>
-                <input type="text" name="lastname" [(ngModel)]="lastname">
-            </td>
-        </tr>
+
+<div class="flex">
+    <form enctype="multipart/form-data">
+        
+        <table >
             <tr>
+                <td style="font-size: large; font-weight: bold;">
+                    Firstname:
+                </td>
                 <td>
+                    <mat-form-field class="inputMat">
+                        <mat-label>Firstname</mat-label>
+                        <input matInput="" type="text" name="firstname" [(ngModel)]="firstname">
+
+                    </mat-form-field>
+
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size: large; font-weight: bold;">
+                    Lastname:
+                </td>
+                <td>
+                    <mat-form-field class="inputMat">
+                        <mat-label>Lastname</mat-label>
+                        <input matInput="" type="text" name="lastname" [(ngModel)]="lastname">
+
+                    </mat-form-field>
+
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size: large; font-weight: bold;">
                     Username:
                 </td>
                 <td>
-                    <input type="text" name="username" [(ngModel)]="username">
+                    <mat-form-field class="inputMat">
+                        <mat-label>Username</mat-label>
+                        <input matInput="" type="text" name="username" [(ngModel)]="username">
+
+                    </mat-form-field>
+
                 </td>
             </tr>
             <tr>
-                <td>
+                <td style="font-size: large; font-weight: bold;">
                     Password:
                 </td>
                 <td>
-                    <input type="text" name="password" [(ngModel)]="password">
+                    <mat-form-field class="inputMat">
+                        <mat-label>Password</mat-label>
+                        <input matInput="" type="text" name="password" [(ngModel)]="password">
+
+                    </mat-form-field>
+
                 </td>
             </tr>
             <tr>
-                <td>
+                <td style="font-size: large; font-weight: bold;">
                     Confirm password:
                 </td>
                 <td>
-                    <input type="text" name="confirm_password" [(ngModel)]="confirm_password">
+                    <mat-form-field class="inputMat">
+                        <mat-label>Confirm password</mat-label>
+                        <input matInput="" type="text" name="confirm_password" [(ngModel)]="confirm_password">
+
+                    </mat-form-field>
+
                 </td>
             </tr>
             <tr>
-                <td>
+                <td style="font-size: large; font-weight: bold;">
                     Contact number:
                 </td>
                 <td>
-                    <input type="text" name="number" [(ngModel)]="number">
+                    <mat-form-field class="inputMat">
+                        <mat-label>Contact number:</mat-label>
+                        <input matInput="" type="text" name="number" [(ngModel)]="number">
+
+                    </mat-form-field>
+
                 </td>
             </tr>
             <tr>
-                <tr>
-                    <td>
-                        Email:
-                    </td>
-                    <td>
-                        <input type="text" name="email" [(ngModel)]="email">
-                    </td>
-                </tr>
-                <tr *ngIf="is_user == 0">
-                    <td>
-                        Name of organization (optional):
-                    </td>
-                    <td>
-                        <input type="text" name="name_of_org" [(ngModel)]="name_of_org">
-                    </td>
-                </tr>
-                <tr *ngIf="is_user == 0">
-                    <td colspan="2">
-                        <p>Address of organization (optional):</p>
-                    </td>
-                </tr>
-                <tr *ngIf="is_user == 0">
-                    <td>
-                        Country:
-                    </td>
-                    <td>
-                        <input type="text" name="country" [(ngModel)]="country">
-                    </td>
-                </tr>
-                <tr *ngIf="is_user == 0">
-                    <td>
-                        City:
-                    </td>
-                    <td>
-                        <input type="text" name="city" [(ngModel)]="city">
-                    </td>
-                </tr>
-                <tr *ngIf="is_user == 0">
-                    <td>
-                        Zipcode:
-                    </td>
-                    <td>
-                        <input type="text" name="zipcode" [(ngModel)]="zipcode">
-                    </td>
-                </tr>
-                <tr *ngIf="is_user == 0">
-                    <td>
-                        Street and number:
-                    </td>
-                    <td>
-                        <input type="text" name="street" [(ngModel)]="street">
-                    </td>
-                </tr>
-                <tr *ngIf="is_user == 0">
-                    <td>
-                        Identification number of organization (optional):
-                    </td>
-                    <td>
-                        <input type="text" name="id_num" [(ngModel)]="id_num">
-                    </td>
-                </tr>
-                <tr>
-                    <div class="form-group">
-                        
+            <tr>
+                <td style="font-size: large; font-weight: bold;">
+                    Email:
+                </td>
+                <td>
+                    <mat-form-field class="inputMat">
+                        <mat-label>Email:</mat-label>
+                        <input matInput="" type="text" name="email" [(ngModel)]="email">
+
+                    </mat-form-field>
+
+                </td>
+            </tr>
+            <tr *ngIf="is_user == 0">
+                <td style="font-size: large; font-weight: bold;">
+                    Name of organization (optional):
+                </td>
+                <td>
+                    <mat-form-field class="inputMat">
+                        <mat-label>Name of organization:</mat-label>
+                        <input matInput="" type="text" name="name_of_org" [(ngModel)]="name_of_org">
+
+                    </mat-form-field>
+
+                </td>
+            </tr>
+            <tr *ngIf="is_user == 0">
+                <td colspan="2" style="font-size: large; font-weight: bold;">
+                    <p>Address of organization (optional):</p>
+                </td>
+            </tr>
+            <tr *ngIf="is_user == 0">
+                <td style="font-size: large; font-weight: bold;">
+                    Country:
+                </td>
+                <td>
+                    <mat-form-field class="inputMat">
+                        <mat-label>Country:</mat-label>
+                        <input matInput="" type="text" name="country" [(ngModel)]="country">
+
+                    </mat-form-field>
+
+                </td>
+            </tr>
+            <tr *ngIf="is_user == 0">
+                <td style="font-size: large; font-weight: bold;">
+                    City:
+                </td>
+                <td>
+                    <mat-form-field class="inputMat">
+                        <mat-label>City:</mat-label>
+                        <input matInput="" type="text" name="city" [(ngModel)]="city">
+
+                    </mat-form-field>
+
+                </td>
+            </tr>
+            <tr *ngIf="is_user == 0">
+                <td style="font-size: large; font-weight: bold;">
+                    Zipcode:
+                </td>
+                <td>
+                    <mat-form-field class="inputMat">
+                        <mat-label>Zipcode:</mat-label>
+                        <input matInput="" type="text" name="zipcode" [(ngModel)]="zipcode">
+
+                    </mat-form-field>
+
+                </td>
+            </tr>
+            <tr *ngIf="is_user == 0">
+                <td style="font-size: large; font-weight: bold;">
+                    Street and number:
+                </td>
+                <td>
+                    <mat-form-field class="inputMat">
+                        <mat-label>Street and number:</mat-label>
+                        <input matInput="" type="text" name="street" [(ngModel)]="street">
+
+                    </mat-form-field>
+
+                </td>
+            </tr>
+            <tr *ngIf="is_user == 0">
+                <td style="font-size: large; font-weight: bold;">
+                    Identification number of organization (optional):
+                </td>
+                <td>
+                    <mat-form-field class="inputMat">
+                        <mat-label>Identification number:</mat-label>
+                        <input matInput="" type="text" name="id_num" [(ngModel)]="id_num">
+
+                    </mat-form-field>
+
+                </td>
+            </tr>
+            <tr>
+                <div class="form-group">
+
                     <input type="file" (change)="uploadImage($any($event).target.files)">
-                    </div>
-                </tr>
+                </div>
+            </tr>
             <tr>
                 <td colspan="2">
-                    <button (click)="register()" name="Register">Register</button>
+                    <button class="button-36" (click)="register()" name="Register">Register</button>
                 </td>
-            
-            </tr>     
-         
-    </table>
+
+            </tr>
+
+        </table>
 
     </form>
     <div *ngIf="approved == 0">
         Loginuj se <a href="">ovde</a> <br>
         {{errorMsg}}
     </div>
-    
 
-    
-    
+
+
+
+</div>

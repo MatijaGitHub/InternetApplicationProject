@@ -96,4 +96,10 @@ export class UserService {
     }
     return this.http.post('http://localhost:4000/users/acceptRegistrationRequest', data);
   }
+  getUserPicturePath(usernameForm){
+    const data = {
+      username : usernameForm
+    }
+    return this.http.post('http://localhost:4000/users/getPicturePath', data);
+  }
 }

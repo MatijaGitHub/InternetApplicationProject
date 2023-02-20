@@ -6,6 +6,7 @@ export class Chat{
         {
             user: string,
             message: string;
+            time: Date;
         }
     ];
 }

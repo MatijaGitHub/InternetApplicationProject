@@ -13,7 +13,10 @@ export class RegisterComponent implements OnInit {
   constructor(private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.is_user = +this.route.snapshot.paramMap.get('is_user');
+    if(this.approved == 0){
+      this.is_user = +this.route.snapshot.paramMap.get('is_user');
+    }
+    
   }
   firstname: string | null = "";
   lastname: string| null = "";

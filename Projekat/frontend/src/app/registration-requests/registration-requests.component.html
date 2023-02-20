@@ -1,61 +1,66 @@
-<mat-sidenav-container class="example-container">
-    <mat-sidenav mode="side" opened>
-        <table>
-            <tr>
-                <button routerLink="/user-info">Profile</button>
-            </tr>
-            <tr>
-                <button routerLink="/user-workshops">Workshops</button>
-            </tr>
-            <tr>
-                <button routerLink="/become-organizer">Become organizer</button>
-            </tr>
-            <tr *ngIf="user_type == 2">
-                <button routerLink="/edit-users">All users</button>
-           </tr>
-           <tr *ngIf="user_type == 2">
-                <button routerLink="/registration-requests">Registration requests</button>
-            </tr>
-            <tr *ngIf="user_type==2">
-                <button routerLink="/insert-new-user">Add new user</button>
-            </tr>
-            <tr *ngIf="user_type==2">
-                <button routerLink="/workshop-aprove">Aprove workshops</button>
-            </tr>
-           
+<div class="flex">
+    <!-- <mat-sidenav-container class="example-container"> -->
+    <!-- <mat-sidenav mode="side" opened>
+            <table>
+                <tr>
+                    <button class="button-36" routerLink="/user-info">Profile</button>
+                </tr>
+                <tr>
+                    <button class="button-36" routerLink="/user-workshops">Workshops</button>
+                </tr>
+                <tr>
+                    <button class="button-36" routerLink="/become-organizer">Become organizer</button>
+                </tr>
+                <tr *ngIf="user_type == 2">
+                    <button class="button-36" routerLink="/edit-users">All users</button>
+               </tr>
+               <tr *ngIf="user_type == 2">
+                    <button class="button-36" routerLink="/registration-requests">Registration requests</button>
+                </tr>
+                <tr *ngIf="user_type==2">
+                    <button class="button-36" routerLink="/insert-new-user">Add new user</button>
+                </tr>
+                <tr *ngIf="user_type==2">
+                    <button class="button-36" routerLink="/workshop-aprove">Aprove workshops</button>
+                </tr>
+               
+    
+            </table>
+            
+                <form>
+                    <button class="button-36" (click)="changePass()">Change password</button>
+                </form>
+            
+                <form>
+                    <button class="button-36" (click)="logout()">Logout</button>
+                </form>
+            
+    
+    
+        </mat-sidenav> -->
+    <!-- <mat-sidenav-content> -->
+    <table style="border-collapse: separate; border-spacing: 50px 0;">
+        <tr *ngFor="let user of users;let userIndex = index;">
+            <table>
+                <tr>
+                    <td style="font-size: x-large; font-weight: bold; padding: 10px 0;">
+                        Username:
+                    </td>
+                    <td style="font-size: x-large;padding: 10px 0;">
+                        {{user.username}}
+                    </td>
+                    <td>
+                        <button class="button-36" (click)="acceptRegister(user)">Accept registration</button>
+                    </td>
+                    <td>
+                        <button class="button-36" (click)="rejectRegister(user)">Reject registration</button>
+                    </td>
+                </tr>
 
-        </table>
-        
-            <form>
-                <button (click)="changePass()">Change password</button>
-            </form>
-        
-            <form>
-                <button (click)="logout()">Logout</button>
-            </form>
-        
+            </table>
+        </tr>
+    </table>
+    <!-- </mat-sidenav-content> -->
+    <!-- </mat-sidenav-container> -->
 
-
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <table>
-            <tr *ngFor="let user of users;let userIndex = index;">
-                <table>
-                    <tr>
-                        <td>
-                            Username:
-                        </td>
-                        <td>
-                            {{user.username}}
-                        </td>
-                        <td>
-                            <button (click)="acceptRegister(user)">Accept registration</button>
-                        </td>
-                        
-                    </tr>
-
-                </table>
-            </tr>
-        </table>
-    </mat-sidenav-content>
-
+</div>

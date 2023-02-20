@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../models/user';
 import { Workshop } from '../models/workshop';
 import { WorkshopComments } from '../models/workshop_comments';
 import { UserService } from '../user.service';
@@ -13,26 +14,30 @@ import { WorkshopService } from '../workshop.service';
 export class ProfileComponent implements OnInit {
 
   constructor(private userService : UserService, private router : Router, private workshopService : WorkshopService) {
-      this.firstname = sessionStorage.getItem('firstname');   
-      this.lastname = sessionStorage.getItem('lastname'); 
-      this.username = sessionStorage.getItem('username'); 
-      this.phonenumber = sessionStorage.getItem('phonenumber');  
-      this.email = sessionStorage.getItem('email'); 
-      this.user_type = +sessionStorage.getItem('user_type');
+   
+   }
+
+  ngOnInit(): void {
+    this.firstname = sessionStorage.getItem('firstname');   
+    this.lastname = sessionStorage.getItem('lastname'); 
+    this.username = sessionStorage.getItem('username'); 
+    this.phonenumber = sessionStorage.getItem('phonenumber');  
+    this.email = sessionStorage.getItem('email'); 
+    this.user_type = +sessionStorage.getItem('user_type');
+
       if(sessionStorage.getItem('imagePath') != null){
-        this.image_path = sessionStorage.getItem('imagePath').slice(7);
+        this.image_path =  sessionStorage.getItem('imagePath').slice(7);
       }
       else{
         this.image_path = "backend/images/blank-profile-picture-973460__340.webp"
       }
-     
-      this.getWorkshops();
-      this.getLikedWorkshops();
-      this.getWorkshopComments();
-      this.gerOrganizatorWorkshops();
-   }
-
-  ngOnInit(): void {
+    
+  
+   
+    this.getWorkshops();
+    this.getLikedWorkshops();
+    this.getWorkshopComments();
+    this.gerOrganizatorWorkshops();
   }
 
   firstnameUpd : string;
@@ -43,13 +48,13 @@ export class ProfileComponent implements OnInit {
   imageToUpload : File;
   edit : number | null = 0;
   imageErr : string;
-
+  user: User;
   firstname : string;
   lastname : string;
   email : string;
   phonenumber : string;
   username : string;
-  image_path : string;
+  image_path : string | null = "";
   user_type : number;
   workshopsPart : Workshop[];
   workshopsOrg : Workshop[];
@@ -95,7 +100,8 @@ export class ProfileComponent implements OnInit {
     formData.append('image', this.imageToUpload);
     
     this.userService.changeProfilePic(formData).subscribe((resp)=>{
-      this.image_path = resp['image_path'];
+      this.image_path = resp['image_path'].slice(7);
+      sessionStorage.setItem('imagePath' , resp['image_path']);
     })
   }
   getWorkshops(){

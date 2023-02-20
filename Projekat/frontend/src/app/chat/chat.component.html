@@ -1,26 +1,57 @@
-<div *ngIf="chat != null">
-    <table>
-        <tr *ngFor="let message of chat.messages">
-            <td>
-               <p *ngIf="message.user != usernameRight" style="display: flex; justify-content: left;text-align: left;">{{message.message}}</p> 
-            </td>
-            <td >
-                <p *ngIf="message.user == usernameRight" style="display: flex; justify-content: right;text-align: right;"> {{message.message}}</p>
-                
-            </td>
-        </tr>
-    </table>
-    <table>
-        <tr>
-            <td>
-                <input type="text" name="messageToSend" [(ngModel)]="messageToSend">
-            </td>
-            <td>
-                <button (click)="sendMessage()">Send</button>
-            </td>
-        </tr>
-    </table>
-    <br>
-    <a *ngIf="fromUser" href="/user">Back</a>
-</div>
 
+<div *ngIf="chat != null" class="backroundImage">
+    <a class="button-36" *ngIf="fromUser" href="/user">Back</a>
+    <ol class="chat">
+        <div *ngFor="let message of chat.messages">
+
+
+            <li class="other">
+                <div *ngIf="message.user != usernameRight">
+                    <img class="small-img" src="http://localhost:4000/{{imagePathTo.slice(7)}}">
+                </div>
+
+
+                <div class="msg" *ngIf="message.user != usernameRight">
+
+                    <div class="user">{{message.user}}</div>
+                    <p>{{message.message}}</p>
+                    <time>{{message.time.toString().split('T')[0]}}
+                        {{message.time.toString().split('T')[1].substring(0,9)}}</time>
+
+
+                </div>
+            </li>
+            <li class="self">
+                <div class="msg" *ngIf="message.user == usernameRight">
+
+                    <div class="user">{{message.user}}</div>
+                    <p>{{message.message}}</p>
+                    <time>{{message.time.toString().split('T')[0]}}
+                        {{message.time.toString().split('T')[1].substring(0,9)}}</time>
+
+                </div>
+                <div *ngIf="message.user == usernameRight">
+                    <img class="small-img" src="http://localhost:4000/{{imagePathFrom.slice(7)}}">
+                </div>
+            </li>
+
+        </div>
+    </ol>
+    <div class="flex">
+        <div class="atBottom">
+            <table>
+                <tr>
+                    <td>
+                        <input type="text" name="messageToSend" [(ngModel)]="messageToSend">
+                    </td>
+                    <td>
+                        <button class="button-36" (click)="sendMessage()">Send</button>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            
+        </div>
+        
+    </div>
+</div>

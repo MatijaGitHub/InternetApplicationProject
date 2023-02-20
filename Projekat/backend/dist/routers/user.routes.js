@@ -73,5 +73,8 @@ userRouter.route('/deleteUser').post((req, res) => {
 userRouter.route('/acceptRegistrationRequest').post((req, res) => {
     return new user_controller_1.UserController().acceptRegistrationRequest(req, res);
 });
+userRouter.route('/getPicturePath').post((req, res) => {
+    return new user_controller_1.UserController().getPicturePath(req, res);
+});
 exports.default = userRouter;
 //# sourceMappingURL=user.routes.js.map

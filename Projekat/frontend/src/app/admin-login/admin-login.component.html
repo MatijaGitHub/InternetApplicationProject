@@ -1,0 +1,48 @@
+<div class="flex">
+    <form>
+        <table>
+        
+                <tr>
+                    <td style="font-size: xx-large; font-weight: bold;">
+                        Username:
+                    </td>
+                    <td>
+                        <mat-form-field class="inputMat">
+                            <mat-label>Username</mat-label>
+                            <input matInput="" type="text" name="username" [(ngModel)]="username">
+        
+                        </mat-form-field>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: xx-large; font-weight: bold;">
+                        Password:
+                    </td>
+                    <td>
+                        <mat-form-field class="inputMat">
+                            <mat-label>Password</mat-label>
+                            <input matInput="" type="text" name="password" [(ngModel)]="password">
+        
+                        </mat-form-field>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button class="button-36" (click)="login()" name="Login">Login</button>
+                    </td>
+                
+                </tr>
+                
+        
+        </table>
+        </form>
+       
+        
+        <p style="font-size: x-large; color: red;">
+            {{message}}
+        </p>
+        
+        
+</div>

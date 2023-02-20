@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminComponent } from './admin/admin.component';
 import { BecomeOrganizatorComponent } from './become-organizator/become-organizator.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -45,7 +46,8 @@ const routes: Routes = [
   {path:"edit-users",component:EditUsersComponent},
   {path:"registration-requests",component:RegistrationRequestsComponent},
   {path:"insert-new-user", component:InsertNewUserComponent},
-  {path:"workshop-aprove", component:WorkshopAproveComponent}
+  {path:"workshop-aprove", component:WorkshopAproveComponent},
+  {path:"adminLogin",component:AdminLoginComponent}
 ];
 
 @NgModule({

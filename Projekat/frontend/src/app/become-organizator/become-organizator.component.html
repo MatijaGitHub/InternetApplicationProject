@@ -1,83 +1,100 @@
-<mat-sidenav-container class="example-container">
+<!-- <mat-sidenav-container class="example-container">
     <mat-sidenav mode="side" opened>
         <table>
             <tr>
-                <button routerLink="/user-info">Profile</button>
+                <button class="button-36" routerLink="/user-info">Profile</button>
             </tr>
             <tr>
-                <button routerLink="/user-workshops">Workshops</button>
+                <button class="button-36" routerLink="/user-workshops">Workshops</button>
             </tr>
             <tr>
-                <button routerLink="/become-organizer">Become organizer</button>
+                <button class="button-36" routerLink="/become-organizer">Become organizer</button>
             </tr>
             <tr *ngIf="user_type == 2">
-                <button routerLink="/edit-users">All users</button>
-           </tr>
-           <tr *ngIf="user_type == 2">
-                <button routerLink="/registration-requests">Registration requests</button>
+                <button class="button-36" routerLink="/edit-users">All users</button>
+            </tr>
+            <tr *ngIf="user_type == 2">
+                <button class="button-36" routerLink="/registration-requests">Registration requests</button>
             </tr>
             <tr *ngIf="user_type==2">
-                <button routerLink="/insert-new-user">Add new user</button>
+                <button class="button-36" routerLink="/insert-new-user">Add new user</button>
             </tr>
             <tr *ngIf="user_type==2">
-                <button routerLink="/workshop-aprove">Aprove workshops</button>
+                <button class="button-36" routerLink="/workshop-aprove">Aprove workshops</button>
             </tr>
-           
+
 
         </table>
-        
-            <form>
-                <button (click)="changePass()">Change password</button>
-            </form>
-        
-            <form>
-                <button (click)="logout()">Logout</button>
-            </form>
-        
+
+        <form>
+            <button class="button-36" (click)="changePass()">Change password</button>
+        </form>
+
+        <form>
+            <button class="button-36" (click)="logout()">Logout</button>
+        </form>
 
 
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <table>
-            <tr>
-                <td>
-                    Picture:
-                </td>
-                <td *ngIf="user_type != 0">
-                    <img src="http://localhost:4000/{{imageToUploadJSON}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
-                </td>
-                <td>
-                    <input name="main_picture" type="file" (change)="uploadImage($any($event).target.files)">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Name:
-                </td>
-                <td>
-                    <input type="text" name="name_of_work" [(ngModel)]="name_of_work">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Place:
-                </td>
-                <td>
-                    <input type="text" name="place" [(ngModel)]="place">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Coordinates(optional):
-                </td>
-                <td>
-                  <table>
+
+    </mat-sidenav> -->
+<!-- <mat-sidenav-content class="flex"> -->
+<div class="flex">
+    <table>
+        <tr>
+            <td>
+                Picture:
+            </td>
+            <td *ngIf="user_type != 0">
+                <img src="http://localhost:4000/{{imageToUploadJSON}}"
+                    onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+            </td>
+            <td>
+                <input name="main_picture" type="file" (change)="uploadImage($any($event).target.files)">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Name:
+            </td>
+            <td>
+                <mat-form-field class="inputMat">
+                    <mat-label>Name</mat-label>
+                    <input matInput="" type="text" name="name_of_work" [(ngModel)]="name_of_work">
+
+                </mat-form-field>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Place:
+            </td>
+            <td>
+                <mat-form-field class="inputMat">
+                    <mat-label>Place</mat-label>
+                    <input matInput="" type="text" name="place" [(ngModel)]="place">
+
+                </mat-form-field>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Coordinates(optional):
+            </td>
+            <td>
+                <table>
                     <tr>
                         <td>
                             Lat:
                         </td>
                         <td>
-                            <input type="text" name="latitude" [(ngModel)]="latitude">
+                            <mat-form-field class="inputMat">
+                                <mat-label>Lat</mat-label>
+                                <input matInput="" type="text" name="latitude" [(ngModel)]="latitude">
+            
+                            </mat-form-field>
+                            
                         </td>
                     </tr>
                     <tr>
@@ -85,84 +102,112 @@
                             Long:
                         </td>
                         <td>
-                            <input type="text" name="longtitude" [(ngModel)]="longtitude">
+                            <mat-form-field class="inputMat">
+                                <mat-label>Long</mat-label>
+                                <input matInput="" type="text" name="longtitude" [(ngModel)]="longtitude">
+            
+                            </mat-form-field>
+                            
                         </td>
                     </tr>
-                  </table>  
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Date:
-                </td>
-                <td>
-                    <input type="date" name="date" [(ngModel)]="date">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Number of spaces:
-                </td>
-                <td>
-                    <input type="text" name="numOfSpaces" [(ngModel)]="numOfSpaces">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Short description:
-                </td>
-                <td>
-                    <input type="text" name="shortDesc" [(ngModel)]="shortDesc">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Long description:
-                </td>
-                <td>
-                    <input type="text" name="longDesc" [(ngModel)]="longDesc">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Gallery pics:
-                </td>
-                <td>
-                    <input name="gallery_pics" type="file" (change)="uploadImages($any($event).target.files)" multiple>
-                </td>
-            </tr>
-            <div *ngIf="user_type != 0">
-                <tr *ngFor="let galleryPic of galleryImagesToUploadJSON; let galleryIndex = index;">
-                    <td>
-                        <img src="http://localhost:4000/{{galleryPic}}" onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
-                    </td>
-                    <td>
-                        <button (click)="removeGalleryPic(galleryIndex)">Remove</button>
-                    </td>
-                </tr>
-            </div>
-            <tr *ngIf="user_type != 0">
-                <td>
-                    Use JSON template:
-                </td>
-                <td>
-                    <input name="json_file" type="file" (change)="loadJSON($event)">
-                </td>
-            </tr>
-            <tr *ngIf="user_type != 0">
-                <td colspan="2">
-                    <button (click)="parseJSON()">Load template</button>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <button (click)="sendWorkshopRequest()">Submit</button>
-                </td>
-            </tr>
-            
-        </table>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Date:
+            </td>
+            <td>
+                <mat-form-field class="inputMat">
+                    <mat-label>Date</mat-label>
+                    <input matInput="" type="date" name="date" [(ngModel)]="date">
 
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+                </mat-form-field>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Number of spaces:
+            </td>
+            <td>
+                <mat-form-field class="inputMat">
+                    <mat-label>Num of spaces</mat-label>
+                    <input matInput="" type="text" name="numOfSpaces" [(ngModel)]="numOfSpaces">
+
+                </mat-form-field>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Short description:
+            </td>
+            <td>
+                <mat-form-field class="inputMat">
+                    <mat-label>Short desc</mat-label>
+                    <input matInput="" type="text" name="shortDesc" [(ngModel)]="shortDesc">
+
+                </mat-form-field>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+                
+                Long description:
+            </td>
+            <td>
+                <mat-form-field class="inputMat">
+                    <mat-label>Long desc</mat-label>
+                    <input matInput="" type="text" name="longDesc" [(ngModel)]="longDesc">
+
+                </mat-form-field>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Gallery pics:
+            </td>
+            <td>
+                <input name="gallery_pics" type="file" (change)="uploadImages($any($event).target.files)" multiple>
+            </td>
+        </tr>
+        <div *ngIf="user_type != 0">
+            <tr *ngFor="let galleryPic of galleryImagesToUploadJSON; let galleryIndex = index;">
+                <td>
+                    <img src="http://localhost:4000/{{galleryPic}}"
+                        onerror='this.src="http://localhost:4000/workshop.webp"' width="50" height="50">
+                </td>
+                <td>
+                    <button class="button-36" (click)="removeGalleryPic(galleryIndex)">Remove</button>
+                </td>
+            </tr>
+        </div>
+        <tr *ngIf="user_type != 0">
+            <td>
+                Use JSON template:
+            </td>
+            <td>
+                <input name="json_file" type="file" (change)="loadJSON($event)">
+            </td>
+        </tr>
+        <tr *ngIf="user_type != 0">
+            <td colspan="3">
+                <button class="button-36" (click)="parseJSON()">Load template</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <button class="button-36" (click)="sendWorkshopRequest()">Submit</button>
+            </td>
+        </tr>
+
+    </table>
+   
+</div>
 
 
+<!-- </mat-sidenav-content>
+</mat-sidenav-container> -->

@@ -4,6 +4,7 @@ import { Workshop } from '../models/workshop';
 import { WorkshopService } from '../workshop.service';
 import * as L from 'leaflet';
 import { WorkshopComments } from '../models/workshop_comments';
+import { UserService } from '../user.service';
 
 
 @Component({
@@ -20,6 +21,9 @@ export class WorkshopInfoComponent implements OnInit  {
         this.applyMsg = resp['message'];
         this.workshopService.getWorkshopById(this.workshopId).subscribe((resp)=>{
           this.workshop = resp as Workshop;
+          this.workshopDescLong = this.workshop.workshopDescLong
+      this.organizatorUsername = this.workshop.organizatorUsername
+      this.numOfLikes = this.workshop.numOfLikes
           this.workshopFreeSpaces = this.workshop.freeSpaces;
           this.workshopStatus = this.workshop.status;
           if(this.applyMsg == 'Applied!'){
@@ -34,6 +38,9 @@ export class WorkshopInfoComponent implements OnInit  {
       this.applyMsg = resp['message'];
       this.workshopService.getWorkshopById(this.workshopId).subscribe((resp)=>{
         this.workshop = resp as Workshop;
+        this.workshopDescLong = this.workshop.workshopDescLong
+      this.organizatorUsername = this.workshop.organizatorUsername
+      this.numOfLikes = this.workshop.numOfLikes
         this.workshopFreeSpaces = this.workshop.freeSpaces;
         this.workshopStatus = this.workshop.status;
         this.applied = 0;
@@ -62,6 +69,9 @@ export class WorkshopInfoComponent implements OnInit  {
     this.workshopService.cancelParticipation(username, workshopId).subscribe((resp)=>{
       this.workshopService.getWorkshopById(this.workshopId).subscribe((resp)=>{
         this.workshop = resp as Workshop;
+        this.workshopDescLong = this.workshop.workshopDescLong
+      this.organizatorUsername = this.workshop.organizatorUsername
+      this.numOfLikes = this.workshop.numOfLikes
         this.workshopFreeSpaces = this.workshop.freeSpaces;
         this.workshopStatus = this.workshop.status;
         this.applied = 0;
@@ -77,22 +87,32 @@ export class WorkshopInfoComponent implements OnInit  {
       // })
     })
   }
-  constructor(private route : ActivatedRoute, private workshopService: WorkshopService, private router : Router) { }
+  constructor(private route : ActivatedRoute, private workshopService: WorkshopService, private router : Router,private userService : UserService) { }
   workshopId : string;
   workshopDesc: string;
+  workshopDescLong: string;
+  organizatorUsername : string;
   workshopName: string;
   workshop : Workshop;
   liked : number | null = 0;
   applied : number |null = 0;
+  numOfLikes : number
   workshopFreeSpaces : number;
   workshopStatus : number;
   galleryPics : string[]
   applyMsg : string
   comments : WorkshopComments[]
+  imagePaths : string[]
   commentToUpload: string;
+  user_type : number;
+  
+    
   getComments(){
     this.workshopService.getAllComments(this.workshop._id).subscribe((resp)=>{
       this.comments = resp as WorkshopComments[];
+      
+
+   
     })
   }
   uploadComment(){
@@ -101,6 +121,7 @@ export class WorkshopInfoComponent implements OnInit  {
     })
   }
   ngOnInit(): void {
+    this.user_type = +sessionStorage.getItem('user_type');
     this.applyMsg = ""
     this.workshopId = this.route.snapshot.paramMap.get('workshopId');
     this.workshopDesc = this.route.snapshot.paramMap.get('workshopDesc');
@@ -109,6 +130,9 @@ export class WorkshopInfoComponent implements OnInit  {
     this.workshopStatus = +this.route.snapshot.paramMap.get('workshopStatus');
     this.workshopService.getWorkshopById(this.workshopId).subscribe((resp)=>{
       this.workshop = resp as Workshop;
+      this.workshopDescLong = this.workshop.workshopDescLong
+      this.organizatorUsername = this.workshop.organizatorUsername
+      this.numOfLikes = this.workshop.numOfLikes
       this.initMap()
       this.workshopService.getGalleryPics(this.workshop._id).subscribe((resp2)=>{
         this.galleryPics = resp2 as string[]
@@ -132,6 +156,9 @@ export class WorkshopInfoComponent implements OnInit  {
     this.workshopService.likeWorkshop(sessionStorage.getItem('username'), this.workshop._id).subscribe((resp)=>{
       this.workshopService.getWorkshopById(this.workshopId).subscribe((resp2)=>{
         this.workshop = resp2 as Workshop;
+        this.workshopDescLong = this.workshop.workshopDescLong
+      this.organizatorUsername = this.workshop.organizatorUsername
+      this.numOfLikes = this.workshop.numOfLikes
         this.workshopFreeSpaces = this.workshop.freeSpaces;
         this.workshopStatus = this.workshop.status;
         if(resp['message'] == 'liked'){
@@ -144,6 +171,9 @@ export class WorkshopInfoComponent implements OnInit  {
     this.workshopService.unlikeWorkshop(sessionStorage.getItem('username'),this.workshop._id).subscribe((resp)=>{
       this.workshopService.getWorkshopById(this.workshopId).subscribe((resp2)=>{
         this.workshop = resp2 as Workshop;
+        this.workshopDescLong = this.workshop.workshopDescLong
+      this.organizatorUsername = this.workshop.organizatorUsername
+      this.numOfLikes = this.workshop.numOfLikes
         this.workshopFreeSpaces = this.workshop.freeSpaces;
         this.workshopStatus = this.workshop.status;
         if(resp['message'] == 'Uspeh!'){

@@ -1,53 +1,13 @@
-<mat-sidenav-container class="example-container">
-    <mat-sidenav mode="side" opened>
-        <table>
-            <tr>
-                <button routerLink="/user-info">Profile</button>
-            </tr>
-            <tr>
-                <button routerLink="/user-workshops">Workshops</button>
-            </tr>
-            <tr>
-                <button routerLink="/become-organizer">Become organizer</button>
-            </tr>
-            <tr *ngIf="user_type == 2">
-                <button routerLink="/edit-users">All users</button>
-           </tr>
-           <tr *ngIf="user_type == 2">
-                <button routerLink="/registration-requests">Registration requests</button>
-            </tr>
-            <tr *ngIf="user_type==2">
-                <button routerLink="/insert-new-user">Add new user</button>
-            </tr>
-            <tr *ngIf="user_type==2">
-                <button routerLink="/workshop-aprove">Aprove workshops</button>
-            </tr>
-           
+<div class="flex">
+    <table>
+        <tr>
+            <td>
+                <app-register [is_user]="1" [approved]="1"></app-register>
+            </td>
+            <td>
+                <app-register [is_user]="0" [approved]="1"></app-register>
+            </td>
+        </tr>
+    </table>
 
-        </table>
-        
-            <form>
-                <button (click)="changePass()">Change password</button>
-            </form>
-        
-            <form>
-                <button (click)="logout()">Logout</button>
-            </form>
-        
-
-
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <table>
-            <tr>
-                <td>
-                    <app-register [is_user] = "0" [approved] = "1"></app-register>
-                </td>
-                <td>
-                    <app-register [is_user] = "1" [approved] = "1"></app-register>
-                </td>
-            </tr>
-        </table>
-        
-        
-    </mat-sidenav-content>
+</div>
